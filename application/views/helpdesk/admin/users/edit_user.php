@@ -1,0 +1,202 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <?php echo form_open('helpdesk/user/update_user', ['class' => 'formEditUser']) ?>
+                <!-- <form action="<?= base_url('helpdesk/user/update_user') ?>" method="post"> -->
+                <div class="card-body">
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            <h5 class="font-weight-light"> User Details</h5>
+                            <p class="font-weight-light text-black-50  text-sm"> This information will be displayed publicly.</p>
+                        </div>
+                        <div class="col-8 text-sm">
+                            <div class="form-group">
+                                <label for="code_user" class="font-weight-light">Code User</label>
+                                <input type="hidden" name="id" id="id" value="<?= $user->id_user ?>" class="form-control">
+                                <input type="text" name="code_user" id="code_user" readonly class="form-control text-black-50 font-weight-light text-sm" value="<?= $user->code_user ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="fullname" class="font-weight-light">Full Name</label>
+                                <input type="text" name="fullname" id="fullname" class="form-control text-black-50 font-weight-light text-sm" value="<?= $user->fullname ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="font-weight-light">Email</label>
+                                <input type="text" name="email" id="email" readonly class="form-control text-black-50 font-weight-light text-sm" value="<?= $user->email ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="font-weight-light">Password</label>
+                                <input type="text" name="password" id="password" class="form-control text-black-50 font-weight-light text-sm" value="<?= $user->password ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="company" class="font-weight-light">Company</label>
+                                <select name="company" id="company" class="form-control text-black-50 font-weight-light text-sm">
+                                    <option value="" disabled>Select an option</option>
+                                    <?php
+                                    foreach ($company as $row) { ?>
+                                        <option value="<?= $row->id_company ?>" <?= $row->id_company == $user->company_id ? "selected" : null ?>>
+                                            <?= $row->company ?>
+                                        </option>
+                                    <?php }
+                                    ?>
+                                </select>
+                            </div>
+                            <?php
+                            if ($user->divisi_id != 0) {
+                            ?>
+                                <div class="form-group">
+                                    <label for="divisi" class="font-weight-light">Divisi</label>
+                                    <select name="divisi" id="divisi" class="form-control text-black-50 font-weight-light text-sm">
+                                        <option value="" disabled>Select an option</option>
+                                        <?php
+                                        foreach ($divisi as $row) { ?>
+                                            <option value="<?= $row->id_divisi ?>" <?= $row->id_divisi == $user->divisi_id ? "selected" : null ?>>
+                                                <?= $row->divisi ?>
+                                            </option>
+                                        <?php }
+                                        ?>
+                                    </select>
+                                </div>
+                            <?php } else { ?>
+                                <div class="form-group">
+                                    <label for="div" class="font-weight-light">Divisi</label>
+                                    <input type="text" name="div" id="div" class="form-control text-black-50 font-weight-light text-sm" placeholder="-" readonly>
+                                    <input type="hidden" name="divisi" id="divisi" class="form-control text-black-50 font-weight-light text-sm" value="0" readonly>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            <h5 class="font-weight-light"> User Settings</h5>
+                            <p class="font-weight-light text-black-50  text-sm"> User settings and permissions access.</p>
+                        </div>
+                        <div class="col-8 text-sm">
+                            <div class="form-group">
+                                <label for="role" class="font-weight-light">Role</label>
+                                <select name="role" id="role" class="form-control text-black-50 font-weight-light text-sm">
+                                    <option value="" disabled>Select an option</option>
+                                    <?php
+                                    foreach ($role as $row) { ?>
+                                        <option value="<?= $row->id_role ?>" <?= $row->id_role == $user->role_id ? "selected" : null ?>>
+                                            <?= $row->role ?>
+                                        </option>
+                                    <?php }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <?php $status = ($user->status == 1) ? "checked" : "unchecked"; ?>
+                                <?php if ($user->status == 1) {
+                                    $desc = "actived";
+                                } else {
+                                    $desc = "deactived";
+                                } ?>
+                                <label for="status" class="font-weight-light">Status</label><br>
+                                <div class="custom-control custom-switch">
+                                    <!-- <input type="checkbox" name="my-checkbox" id="status" data-bootstrap-switch data-off-color="danger" data-on-color="success"> -->
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" <?php echo $status ?>>
+                                    <label class="custom-control-label" for="customSwitch1">
+                                        <span class="text-xs font-weight-light text-black-50">The user is <?= $desc ?></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer float-right ">
+                    <div class="col-12">
+                        <button type="reset" onclick="back()" class="btn btn-danger btn-sm">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                    </div>
+                </div>
+                <!-- </form> -->
+                <?php echo form_close() ?>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("input[data-bootstrap-switch]").each(function() {
+            $(this).bootstrapSwitch('state');
+        });
+        // bsCustomFileInput.init();
+
+        $('.formEditUser').submit(function(e) {
+            $id_user = $('#id').val();
+            $code_user = $('#code').val();
+            $fullname = $('#fullname').val();
+            $email = $('#email').val();
+            $password = $('#password').val();
+            $company = $('#company').val();
+            $divisi = $('#divisi').val();
+            $role = $('#role').val();
+            $status = getStatusChanged('#customSwitch1');
+
+            $.ajax({
+                type: "post",
+                url: $(this).attr('action'),
+                // data: $(this).serialize(),
+                data: {
+                    id_user: $id_user,
+                    code_user: $code_user,
+                    fullname: $fullname,
+                    email: $email,
+                    password: $password,
+                    company: $company,
+                    divisi: $divisi,
+                    role: $role,
+                    status: $status
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.error) {
+                        // $('.pesan').html(response.error).show();
+                        toastr.error(response.error);
+                    }
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: response.success,
+                            showCancelButton: false,
+                            showConfirmButton: false
+                        })
+                        setTimeout(function() {
+                            window.location.href = "<?= base_url('helpdesk/user/user') ?>"
+                            // location.reload();
+                        }, 1000)
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            });
+            return false;
+        });
+
+    })
+
+    function getStatusChanged(obj) {
+        var status = 0;
+        if ($(obj).is(":checked")) {
+            status = 1;
+        }
+        return status;
+    }
+
+    function back() {
+        window.location.href = "<?= base_url('helpdesk/user/user') ?>"
+    }
+</script>
