@@ -80,7 +80,6 @@
                                 }
                                 ?>
                             </div>
-
                         </div>
                         <hr>
                         <div class="card-body">
@@ -88,6 +87,7 @@
                             <h5><b><?= $ticket->subject ?></b></h5>
                             <img class="img-fluid pad" src="<?= base_url('assets/images/tiket/' . $ticket->img_ticket) ?>" alt="Photo">
                             <p><?= $ticket->message ?></p>
+                            class="float-right text-muted">127 likes - 3 comments</span> -->
                         </div>
 
                         <b>Comments</b>
@@ -118,7 +118,9 @@
                                 </div>
                             </form>
                         </div>
+                        <!-- /.card-footer -->
                     </div>
+
                 </div>
             </div>
         </div>
@@ -171,9 +173,10 @@
             });
             return false;
         }
+
     });
 
     function back() {
-        window.location.href = "<?= base_url('helpdesk/ticket/user') ?>"
+        window.location.href = "<?= base_url('helpdesk/ticket/admin') ?>"
     }
 </script>

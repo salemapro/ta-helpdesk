@@ -27,7 +27,7 @@
                                     <th class="font-weight-light text-sm">Customer</th>
                                     <th class="font-weight-light text-sm">Ticket Summary</th>
                                     <th class="font-weight-light text-sm">Status</th>
-                                    <th class="font-weight-light text-sm">Confirm</th>
+                                    <!-- <th class="font-weight-light text-sm">Confirm</th> -->
                                     <th class="font-weight-light text-sm">Action</th>
                                 </tr>
                             </thead>
@@ -42,16 +42,16 @@
                                         <td>
                                             <?php if ($row->status_ticket == '0') {
                                                 echo '<span class="badge badge-warning">waiting...</span>';
+                                                // } else if ($row->status_ticket == '1') {
+                                                //     echo '<span class="badge badge-info">opened</span>';
                                             } else if ($row->status_ticket == '1') {
-                                                echo '<span class="badge badge-info">opened</span>';
-                                            } else if ($row->status_ticket == '2') {
                                                 echo '<span class="badge badge-success">process..</span>';
                                             } else {
                                                 echo '<span class="badge badge-danger">solved</span>';
                                             }
                                             ?>
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             <?php
                                             if ($row->status_ticket == '0') {
                                                 echo '<a href="javascript:void(0);" data-toggle="modal" data-target="#modal-tiket" id="select-tiket" data-id_ticket="' . $row->id_ticket . '"
@@ -82,7 +82,7 @@
                                                 </a>';
                                             }
                                             ?>
-                                        </td>
+                                        </td> -->
                                         <td>
                                             <a href="<?= base_url('helpdesk/ticket/detail_ticket_user/' . $row->id_ticket) ?>" class="btn btn-primary btn-sm">
                                                 <i class="fa fa-eye"></i>

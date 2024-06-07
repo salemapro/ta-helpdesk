@@ -40,7 +40,7 @@ class M_user extends CI_Model
         return "USR" . $kd;
     }
 
-    function save_user($code_user, $fullname, $email, $password, $company, $divisi, $role, $status, $update)
+    function save_user($code_user, $fullname, $email, $password, $company, $divisi, $role, $status, $avatar, $update)
     {
         $simpan = [
             'code_user' => $code_user,
@@ -51,6 +51,7 @@ class M_user extends CI_Model
             'divisi_id' => $divisi,
             'role_id' => $role,
             'status' => $status,
+            'avatar' => $avatar,
             'updated_at' => $update
         ];
 

@@ -54,7 +54,8 @@ class Auth extends CI_Controller
                     'email'      => $user->email,
                     'fullname'  => $user->fullname,
                     'role_id'    => $user->role_id,
-                    'divisi_id'    => $user->divisi_id
+                    'divisi_id'    => $user->divisi_id,
+                    'avatar'    => $user->avatar
                 );
                 $this->session->set_userdata($session);
                 if ($user->role_id === '1') {

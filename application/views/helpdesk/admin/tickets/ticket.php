@@ -42,9 +42,9 @@
                                         <td>
                                             <?php if ($row->status_ticket == '0') {
                                                 echo '<span class="badge badge-warning">Waiting...</span>';
+                                                // } else if ($row->status_ticket == '1') {
+                                                //     echo '<span class="badge badge-info">Opened</span>';
                                             } else if ($row->status_ticket == '1') {
-                                                echo '<span class="badge badge-info">Opened</span>';
-                                            } else if ($row->status_ticket == '2') {
                                                 echo '<span class="badge badge-success">Process..</span>';
                                             } else {
                                                 echo '<span class="badge badge-danger">Solved</span>';
@@ -52,6 +52,16 @@
                                             ?>
                                         </td>
                                         <td>
+                                            <?php
+                                            if ($row->status_ticket == '0') { ?>
+                                                <button class="btn btn-success btn-sm text-sm" onclick="confirm(<?= $row->id_ticket ?>)"> Confirm </button>
+                                            <?php } else if ($row->status_ticket == '1') { ?>
+                                                <button class="btn btn-warning btn-sm text-sm" onclick="closeTicket(<?= $row->id_ticket . ',\'' . $this->session->fullname . '\'' ?>)"> Close </button>
+                                            <?php } else { ?>
+                                                <button class="btn btn-danger btn-sm text-sm"> Closed </button>
+                                            <?php } ?>
+                                        </td>
+                                        <!-- <td>
                                             <?php
                                             if ($row->status_ticket == '0') {
                                                 echo '<a href="javascript:void(0);" data-toggle="modal" data-target="#modal-tiket" id="select-tiket" data-id_ticket="' . $row->id_ticket . '"
@@ -82,9 +92,9 @@
                                                 </a>';
                                             }
                                             ?>
-                                        </td>
+                                        </td> -->
                                         <td>
-                                            <a href="<?= base_url('tiket/detail_tiket/' . $row->no_ticket) ?>" class="btn btn-primary btn-sm">
+                                            <a href="<?= base_url('helpdesk/ticket/detail_ticket_admin/' . $row->id_ticket) ?>" class="btn btn-primary btn-sm">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                             <a onclick="return confirm('Yakin Akan Menghapus?')" href="<?= base_url('tiket/delete_tiket/' . $row->id_ticket) ?>" class="btn btn-danger btn-sm">
@@ -253,5 +263,91 @@
 
     function crtTicket() {
         window.location.href = "<?= base_url('helpdesk/ticket/new_ticket') ?>"
+    }
+
+    function confirm(id) {
+        Swal.fire({
+            title: 'Confirm ticket ini?',
+            text: `You won't be able to revert this`,
+            icon: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            cancelButtonText: 'Cancel',
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "post",
+                    url: "<?php echo base_url('') ?>",
+                    data: {
+                        id_ticket: id,
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'konfirmasi',
+                                text: response.success,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            });
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        }
+                    }
+                });
+            }
+        })
+    }
+
+    function closeTicket(id, user) {
+        Swal.fire({
+            title: 'Close this ticket?',
+            text: `You won't be able to revert this`,
+            icon: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            cancelButtonText: 'Cancel',
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "post",
+                    url: "<?php echo base_url('helpdesk/ticket/close_confirm') ?>",
+                    data: {
+                        id_ticket: id,
+                        status_ticket: 2,
+                        solved_by: user
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.error) {
+                            toastr.error(response.error);
+                        }
+
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: response.success,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            });
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        console.log("Error response", xhr.status, xhr.responseText, thrownError);
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            }
+        })
     }
 </script>

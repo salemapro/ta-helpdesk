@@ -56,103 +56,34 @@ class User extends CI_Controller
             $status = "1";
             $update = date('Y-m-d');
 
-            if ($divisi == 0) {
-                $divisi = "0";
-                $this->form_validation->set_rules(
-                    'fullname',
-                    'Full Name',
-                    'required[user.fullname]',
-                    [
-                        'required' => '%s tidak boleh kosong',
-                    ]
-                );
-                $this->form_validation->set_rules(
-                    'email',
-                    'Email',
-                    'trim|required|is_unique[user.email]',
-                    [
-                        'required' => '%s tidak boleh kosong',
-                        'is_unique' => 'email sudah ada'
-                    ]
-                );
-                $this->form_validation->set_rules(
-                    'password',
-                    'Password',
-                    'trim|required[user.password]',
-                    [
-                        'required' => '%s tidak boleh kosong',
-                    ]
-                );
-                $this->form_validation->set_rules(
-                    'company',
-                    'Company',
-                    'required[user.company_id]',
-                    [
-                        'required' => '%s tidak boleh kosong'
-                    ]
-                );
-                $this->form_validation->set_rules(
-                    'role',
-                    'Role',
-                    'required[user.role_id]',
-                    [
-                        'required' => '%s tidak boleh kosong'
-                    ]
-                );
+            if ($role == 1) {
+                $avatar = '/dist/img/avatar3.png';
+            } elseif ($role == 2) {
+                $avatar = '/dist/img/avatar4.png';
             } else {
-                $this->form_validation->set_rules(
-                    'fullname',
-                    'Full Name',
-                    'required[user.fullname]',
-                    [
-                        'required' => '%s tidak boleh kosong',
-                    ]
-                );
-                $this->form_validation->set_rules(
-                    'email',
-                    'Email',
-                    'trim|required|is_unique[user.email]',
-                    [
-                        'required' => '%s tidak boleh kosong',
-                        'is_unique' => 'email sudah ada'
-                    ]
-                );
-                $this->form_validation->set_rules(
-                    'password',
-                    'Password',
-                    'trim|required[user.password]',
-                    [
-                        'required' => '%s tidak boleh kosong',
-                    ]
-                );
-                $this->form_validation->set_rules(
-                    'company',
-                    'Company',
-                    'required[user.company_id]',
-                    [
-                        'required' => '%s tidak boleh kosong'
-                    ]
-                );
-                $this->form_validation->set_rules(
-                    'divisi',
-                    'Divisi',
-                    'required[user.divisi_id]',
-                    [
-                        'required' => '%s tidak boleh kosong'
-                    ]
-                );
-                $this->form_validation->set_rules(
-                    'role',
-                    'Role',
-                    'required[user.role_id]',
-                    [
-                        'required' => '%s tidak boleh kosong'
-                    ]
-                );
+                $avatar = '/dist/img/avatar5.png';
             }
 
+            if ($divisi == 0) {
+                $divisi = "0";
+                $this->form_validation->set_rules('fullname', 'Full Name', 'required', ['required' => '%s tidak boleh kosong']);
+                $this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[user.email]', ['required' => '%s tidak boleh kosong', 'is_unique' => 'Email sudah ada']);
+                $this->form_validation->set_rules('password', 'Password', 'trim|required', ['required' => '%s tidak boleh kosong']);
+                $this->form_validation->set_rules('company', 'Company', 'required', ['required' => '%s tidak boleh kosong']);
+                $this->form_validation->set_rules('role', 'Role', 'required', ['required' => '%s tidak boleh kosong']);
+            } else {
+                $this->form_validation->set_rules('fullname', 'Full Name', 'required', ['required' => '%s tidak boleh kosong']);
+                $this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[user.email]', ['required' => '%s tidak boleh kosong', 'is_unique' => 'Email sudah ada']);
+                $this->form_validation->set_rules('password', 'Password', 'trim|required', ['required' => '%s tidak boleh kosong']);
+                $this->form_validation->set_rules('company', 'Company', 'required', ['required' => '%s tidak boleh kosong']);
+                $this->form_validation->set_rules('divisi', 'Divisi', 'required', ['required' => '%s tidak boleh kosong']);
+                $this->form_validation->set_rules('role', 'Role', 'required', ['required' => '%s tidak boleh kosong']);
+            }
+
+
+
             if ($this->form_validation->run() == TRUE) {
-                $this->M_user->save_user($code_user, $fullname, $email, $password, $company, $divisi, $role, $status, $update);
+                $this->M_user->save_user($code_user, $fullname, $email, $password, $company, $divisi, $role, $status, $avatar, $update);
                 $msg = [
                     'success' => 'user berhasil disimpan'
                 ];

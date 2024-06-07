@@ -57,12 +57,39 @@ class Ticket extends CI_Controller
         }
     }
 
+    function detail_ticket_admin($id_ticket)
+    {
+        $data['comment'] = $this->M_ticket->get_comment($id_ticket);
+        $data['ticket'] = $this->M_ticket->get_id_tiket($id_ticket);
+        if ($data['ticket']) {
+            $data['title'] = 'Detail Tiket' . $data['ticket']->id_ticket;
+            $this->template->load('helpdesk/template_admin', 'helpdesk/admin/tickets/detail_ticket', $data);
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-info">Data Ticket Tidak Ada</div>');
+            redirect('ticket', 'refresh');
+        }
+    }
+
     function detail_ticket_user($id_ticket)
     {
+        $data['comment'] = $this->M_ticket->get_comment($id_ticket);
         $data['ticket'] = $this->M_ticket->get_id_tiket($id_ticket);
         if ($data['ticket']) {
             $data['title'] = 'Detail Tiket' . $data['ticket']->id_ticket;
             $this->template->load('helpdesk/template_user', 'helpdesk/user/tickets/detail_ticket', $data);
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-info">Data Ticket Tidak Ada</div>');
+            redirect('ticket', 'refresh');
+        }
+    }
+
+    function detail_ticket_agent($id_ticket)
+    {
+        $data['comment'] = $this->M_ticket->get_comment($id_ticket);
+        $data['ticket'] = $this->M_ticket->get_id_tiket($id_ticket);
+        if ($data['ticket']) {
+            $data['title'] = 'Detail Tiket' . $data['ticket']->id_ticket;
+            $this->template->load('helpdesk/template_agent', 'helpdesk/agent/tickets/detail_ticket', $data);
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-info">Data Ticket Tidak Ada</div>');
             redirect('ticket', 'refresh');
@@ -135,6 +162,67 @@ class Ticket extends CI_Controller
         echo json_encode($response);
     }
 
+    function post_comment()
+    {
+        $response = array('error' => '', 'success' => '');
+
+        $this->form_validation->set_rules('comment', 'Comment', 'required', ['required' => '%s tidak boleh kosong']);
+        if ($this->form_validation->run() == TRUE) {
+            $data = array(
+                'ticket_id' => $this->input->post('ticket_id'),
+                'user_id' => $this->input->post('user_id'),
+                'comment' => $this->input->post('comment')
+            );
+
+            if ($this->M_ticket->post($data)) {
+                $response['success'] = 'Comment send successfully.';
+            } else {
+                $response['error'] = 'Failed to post comment.';
+            }
+        } else {
+            $response['error'] = validation_errors();
+        }
+        echo json_encode($response);
+    }
+
+    function save_confirm()
+    {
+        $response = array('error' => '', 'success' => '');
+
+        if ($this->input->is_ajax_request() == true) {
+            $id = $this->input->post('id_ticket', true);
+            $status_ticket = $this->input->post('status_ticket', true);
+
+            if ($this->M_ticket->update($id, $status_ticket)) {
+                $response['success'] = 'Status change successfully.';
+            } else {
+                $response['error'] = 'Failed to change status.';
+            }
+
+            echo json_encode($response);
+        }
+    }
+
+    function close_confirm()
+    {
+        $response = array('error' => '', 'success' => '');
+
+        if ($this->input->is_ajax_request() == true) {
+            $id = $this->input->post('id_ticket', true);
+            $status_ticket = $this->input->post('status_ticket', true);
+            $solved_by = $this->input->post('solved_by', true);
+            $date = date('Y-m-d');
+            // var_dump($id, $status_ticket, $solved_by);
+
+            if ($this->M_ticket->close($id, $status_ticket, $solved_by, $date)) {
+                $response['success'] = 'Status change successfully.';
+            } else {
+                $response['error'] = 'Failed to change status.';
+            }
+
+            echo json_encode($response);
+        }
+    }
     // function save_ticket()
     // {
 

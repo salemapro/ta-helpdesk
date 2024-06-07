@@ -65,8 +65,41 @@ class M_ticket extends CI_Model
         return $this->db->get('ticket')->row();
     }
 
+    function get_comment($id_ticket)
+    {
+        $this->db->join('user', 'ticket_detail.user_id = user.id_user', 'left');
+        $this->db->where('ticket_id', $id_ticket);
+
+        return $this->db->get('ticket_detail')->result();
+    }
+
     function insert($data)
     {
         return $this->db->insert('ticket', $data);
+    }
+
+    function post($data)
+    {
+        return $this->db->insert('ticket_detail', $data);
+    }
+
+    function update($id, $status_ticket)
+    {
+        $update = [
+            'status_ticket' => $status_ticket
+        ];
+        $this->db->where('id_ticket', $id);
+        return $this->db->update('ticket', $update);
+    }
+
+    function close($id, $status_ticket, $solved_by, $date)
+    {
+        $update = [
+            'status_ticket' => $status_ticket,
+            'solved_by' => $solved_by,
+            'solved_at' => $date
+        ];
+        $this->db->where('id_ticket', $id);
+        return $this->db->update('ticket', $update);
     }
 }
