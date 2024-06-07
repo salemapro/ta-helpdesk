@@ -24,7 +24,7 @@
                 with font-awesome or any other icon font library -->
                 <li class="nav-header">GENERAL</li>
                 <li class="nav-item">
-                    <a href="<?php echo base_url('helpdesk/dashboard') ?>" class="nav-link">
+                    <a href="<?php echo base_url('helpdesk/dashboard/admin') ?>" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard

@@ -165,4 +165,22 @@ class User extends CI_Controller
             echo json_encode($msg);
         }
     }
+
+    public function account_admin()
+    {
+        // $data['cln'] = $this->M_client->get_client();
+        $this->template->load('helpdesk/template_admin', 'helpdesk/admin/account');
+    }
+
+    public function account_agent()
+    {
+        // $data['cln'] = $this->M_client->get_client();
+        $this->template->load('helpdesk/template_agent', 'helpdesk/agent/account');
+    }
+
+    public function account_user()
+    {
+        // $data['cln'] = $this->M_client->get_client();
+        $this->template->load('helpdesk/template_user', 'helpdesk/user/account');
+    }
 }

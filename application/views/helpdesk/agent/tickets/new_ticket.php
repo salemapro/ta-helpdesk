@@ -16,7 +16,6 @@
                             <p class="font-weight-light text-black-50  text-sm"> Ticket details and classification.</p>
                         </div>
                         <div class="col-8 text-black-50 text-sm">
-                            <!-- <?php echo form_open_multipart('helpdesk/ticket/save_ticket', ['class' => 'formSimpanTicket']) ?> -->
                             <form class="form-horizontal" class="formSimpanTicket" id="formSimpanTicket" role="form" method="post" action="#" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="no_ticket" class="font-weight-light">No. Ticket</label>
@@ -45,7 +44,6 @@
                                             <option value="<?= $row->id_subject ?>"> <?= $row->subject ?></option>
                                         <?php } ?>
                                     </select>
-                                    <!-- <input type="hidden" name="for_department" value="<?= $row->department_id ?>" class="form-control"> -->
                                 </div>
                                 <div class="form-group">
                                     <label for="subject" class="font-weight-light">Message</label>
@@ -60,13 +58,10 @@
                                             <label class="custom-file-label" for="img_ticket">Choose file</label>
                                         </div>
                                     </div>
-                                    <!-- <input type="file" name="img_ticket"> -->
                                 </div>
-
                                 <button type="submit" class="btn btn-primary btn-sm">Save</button>
                                 <button type="reset" class="btn btn-danger btn-sm">Reset</button>
                             </form>
-                            <!-- <?php echo form_close() ?> -->
                         </div>
                     </div>
                 </div>
