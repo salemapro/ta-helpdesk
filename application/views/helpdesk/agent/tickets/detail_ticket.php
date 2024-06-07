@@ -117,9 +117,7 @@
                                 </div>
                             </form>
                         </div>
-                        <!-- /.card-footer -->
                     </div>
-
                 </div>
             </div>
         </div>

@@ -21,6 +21,20 @@
 <script src="<?= base_url() ?>assets/back/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- SweetAlert2 -->
 <script src="<?php echo base_url('assets/back') ?>/plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="<?php echo base_url('assets/back') ?>/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url('assets/back') ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?php echo base_url('assets/back') ?>/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?php echo base_url('assets/back') ?>/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="<?php echo base_url('assets/back') ?>/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?php echo base_url('assets/back') ?>/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="<?php echo base_url('assets/back') ?>/plugins/jszip/jszip.min.js"></script>
+<script src="<?php echo base_url('assets/back') ?>/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="<?php echo base_url('assets/back') ?>/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="<?php echo base_url('assets/back') ?>/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="<?php echo base_url('assets/back') ?>/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="<?php echo base_url('assets/back') ?>/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
 <!-- Toastr -->
 <script src="<?php echo base_url('assets/back') ?>/plugins/toastr/toastr.min.js"></script>
 <!-- Bootstrap Switch -->

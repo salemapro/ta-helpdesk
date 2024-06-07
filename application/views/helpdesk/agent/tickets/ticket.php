@@ -14,13 +14,11 @@
                         <h3 class="card-title">Data Ticket</h3>
                         <!-- <button class="btn btn-primary text-sm float-right" onclick="crtTicket()">Create Ticket</button> -->
                     </div>
-
-                    <div class="card-body">
-                        <!-- <?= $this->session->flashdata('message'); ?> -->
-                        <table class="table table-bordered">
+                    <div class="card-body table-responsive text-sm">
+                        <table id="example1" class="table table-head-fixed text-nowrap">
                             <thead>
                                 <tr>
-                                    <th class="nowrap font-weight-light text-sm">No</th>
+                                    <!-- <th class="nowrap font-weight-light text-sm">No</th> -->
                                     <th class="font-weight-light text-sm">Customer</th>
                                     <th class="font-weight-light text-sm">Ticket Summary</th>
                                     <th class="font-weight-light text-sm">Status</th>
@@ -33,14 +31,15 @@
                                 $no = 1;
                                 foreach ($agent as $row) { ?>
                                     <tr>
-                                        <td><?= $no++ ?></td>
-                                        <td><?= $row->fullname ?></td>
-                                        <td><?= $row->subject ?></td>
-                                        <td>
+                                        <!-- <td><?= $no++ ?></td> -->
+                                        <td class="text-sm">
+                                            <img src="<?php echo base_url('assets/back') ?><?= $row->avatar ?>" class="img-circle img-size-32 mr-2">
+                                            <?= $row->fullname ?>
+                                        </td>
+                                        <td class="text-sm"><?= $row->subject ?></td>
+                                        <td class="text-sm">
                                             <?php if ($row->status_ticket == '0') {
                                                 echo '<span class="badge badge-warning">waiting...</span>';
-                                                // } else if ($row->status_ticket == '1') {
-                                                //     echo '<span class="badge badge-info">opened</span>';
                                             } else if ($row->status_ticket == '1') {
                                                 echo '<span class="badge badge-success">process..</span>';
                                             } else {
@@ -48,7 +47,7 @@
                                             }
                                             ?>
                                         </td>
-                                        <td>
+                                        <td class="text-sm">
                                             <?php
                                             if ($row->status_ticket == '0') { ?>
                                                 <button class="btn btn-success btn-sm text-sm" onclick="confirm(<?= $row->id_ticket ?>)"> Confirm </button>
@@ -58,7 +57,7 @@
                                                 <button class="btn btn-danger btn-sm text-sm"> Closed </button>
                                             <?php } ?>
                                         </td>
-                                        <td>
+                                        <td class="text-sm">
                                             <a href="<?= base_url('helpdesk/ticket/detail_ticket_agent/' . $row->id_ticket) ?>" class="btn btn-primary btn-sm">
                                                 <i class="fa fa-eye"></i>
                                             </a>
@@ -74,8 +73,13 @@
     </section>
 </div>
 <script>
-    $(document).ready(function() {
-
+    $(function() {
+        $("#example1").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 
     function crtTicket() {

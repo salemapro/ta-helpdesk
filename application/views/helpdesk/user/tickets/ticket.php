@@ -17,13 +17,11 @@
                         </a> -->
                         <button class="btn btn-primary text-sm float-right" onclick="crtTicket()">Create Ticket</button>
                     </div>
-
-                    <div class="card-body">
-                        <!-- <?= $this->session->flashdata('message'); ?> -->
-                        <table class="table table-bordered">
+                    <div class="card-body table-responsive text-sm">
+                        <table id="example1" class="table table-head-fixed text-nowrap">
                             <thead>
                                 <tr>
-                                    <th class="nowrap font-weight-light text-sm">No</th>
+                                    <!-- <th class="nowrap font-weight-light text-sm">No</th> -->
                                     <th class="font-weight-light text-sm">Customer</th>
                                     <th class="font-weight-light text-sm">Ticket Summary</th>
                                     <th class="font-weight-light text-sm">Status</th>
@@ -36,14 +34,15 @@
                                 $no = 1;
                                 foreach ($ticket as $row) { ?>
                                     <tr>
-                                        <td><?= $no++ ?></td>
-                                        <td><?= $row->fullname ?></td>
-                                        <td><?= $row->subject ?></td>
-                                        <td>
+                                        <!-- <td><?= $no++ ?></td> -->
+                                        <td class="text-sm">
+                                            <img src="<?php echo base_url('assets/back') ?><?= $row->avatar ?>" class="img-circle img-size-32 mr-2">
+                                            <?= $row->fullname ?>
+                                        </td>
+                                        <td class="text-sm"><?= $row->subject ?></td>
+                                        <td class="text-sm">
                                             <?php if ($row->status_ticket == '0') {
                                                 echo '<span class="badge badge-warning">waiting...</span>';
-                                                // } else if ($row->status_ticket == '1') {
-                                                //     echo '<span class="badge badge-info">opened</span>';
                                             } else if ($row->status_ticket == '1') {
                                                 echo '<span class="badge badge-success">process..</span>';
                                             } else {
@@ -51,39 +50,7 @@
                                             }
                                             ?>
                                         </td>
-                                        <!-- <td>
-                                            <?php
-                                            if ($row->status_ticket == '0') {
-                                                echo '<a href="javascript:void(0);" data-toggle="modal" data-target="#modal-tiket" id="select-tiket" data-id_ticket="' . $row->id_ticket . '"
-                                                data-status_ticket="' . $row->status_ticket . '"
-                                                class="btn btn-success btn-sm">
-                                                Confirm
-                                                </a>';
-                                            } else if ($row->status_ticket == '1') {
-                                                echo '<a href="javascript:void(0);" data-toggle="modal" data-target="#modal-reply" id="reply-message" 
-                                                data-ticket_id="' . $row->id_ticket . '"
-                                                data-id_ticket_id="' . $row->id_ticket . '"
-                                                data-subject="' . $row->subject . '"
-                                                data-message="' . $row->message . '"
-                                                class="btn btn-warning btn-sm">
-                                                Reply Massage
-                                                </a>';
-                                            } else if ($row->status_ticket == '2') {
-                                                echo '<a href="javascript:void(0);" data-toggle="modal" data-target="#modal-closeTiket" id="cTicket" 
-                                                data-close_ticket="' . $row->id_ticket . '"
-                                                data-close_status="' . $row->status_ticket . '"
-                                    
-                                                class="btn btn-primary btn-sm">
-                                                Close
-                                                </a>';
-                                            } else {
-                                                echo '<a href="javascript:void(0);" class="btn btn-danger btn-sm">
-                                                Closed
-                                                </a>';
-                                            }
-                                            ?>
-                                        </td> -->
-                                        <td>
+                                        <td class="text-sm">
                                             <a href="<?= base_url('helpdesk/ticket/detail_ticket_user/' . $row->id_ticket) ?>" class="btn btn-primary btn-sm">
                                                 <i class="fa fa-eye"></i>
                                             </a>
@@ -218,37 +185,13 @@
 </div> -->
 
 <script>
-    $(document).ready(function() {
-
-        $(document).on('click', '#select-tiket', function() {
-            var id_ticket = $(this).data('id_ticket')
-            var status_ticket = $(this).data('status_ticket')
-
-            $('#id_ticket').val(id_ticket)
-            $('#status_ticket').val(status_ticket)
-        })
-
-        $(document).on('click', '#reply-message', function() {
-            var ticket_id = $(this).data('ticket_id')
-            var id_ticket_id = $(this).data('id_ticket_id')
-            var subject = $(this).data('subject')
-            var message = $(this).data('message')
-
-            $('#ticket_id').val(ticket_id)
-            $('#id_ticket_id').val(id_ticket_id)
-            $('#subject').val(subject)
-            $('#message').val(message)
-        })
-
-        $(document).on('click', '#cTicket', function() {
-            var close_ticket = $(this).data('close_ticket')
-            var close_status = $(this).data('close_status')
-            // var status_ticket = $(this).data('status_ticket')
-
-            $('#close_ticket').val(close_ticket)
-            $('#close_status').val(close_status)
-            // $('#status_ticket').val(status_ticket)
-        })
+    $(function() {
+        $("#example1").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 
     function crtTicket() {
