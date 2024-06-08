@@ -1,71 +1,86 @@
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-
+            <div class="row mb-4 mt-4">
+                <div class="col-sm-6">
+                    <h1 class="m-0 font-weight-bolder">Tickets</h1>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <!-- <div class="col-11">
+                            <button class="btn btn-primary text-sm float-right" onclick="crtTicket()">Create Ticket</button>
+                        </div> -->
+                        <div class="col">
+                            <button class="btn btn-outline-primary text-sm float-right" onclick="reload()">
+                                <i class="fas fa-sync"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
     <section class="content">
-        <div class="row mt-2">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- <div class="card-header">
                         <h3 class="card-title">Data Ticket</h3>
-                        <!-- <button class="btn btn-primary text-sm float-right" onclick="crtTicket()">Create Ticket</button> -->
-                    </div>
-                    <div class="card-body table-responsive text-sm">
-                        <table id="example1" class="table table-head-fixed text-nowrap">
-                            <thead>
-                                <tr>
-                                    <!-- <th class="nowrap font-weight-light text-sm">No</th> -->
-                                    <th class="font-weight-normal text-sm">Customer</th>
-                                    <th class="font-weight-normal text-sm">Ticket Summary</th>
-                                    <th class="font-weight-normal text-sm">Status</th>
-                                    <th class="font-weight-normal text-sm">Confirm</th>
-                                    <th class="font-weight-normal text-sm">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $no = 1;
-                                foreach ($agent as $row) { ?>
+                    </div> -->
+                        <div class="card-body table-responsive text-sm">
+                            <table id="example1" class="table table-head-fixed text-nowrap">
+                                <thead>
                                     <tr>
-                                        <!-- <td><?= $no++ ?></td> -->
-                                        <td class="text-sm">
-                                            <img src="<?php echo base_url('assets/back') ?><?= $row->avatar ?>" class="img-circle img-size-32 mr-2">
-                                            <?= $row->fullname ?>
-                                        </td>
-                                        <td class="text-sm"><?= $row->subject ?></td>
-                                        <td class="text-sm">
-                                            <?php if ($row->status_ticket == '0') {
-                                                echo '<span class="badge badge-warning">waiting...</span>';
-                                            } else if ($row->status_ticket == '1') {
-                                                echo '<span class="badge badge-success">process..</span>';
-                                            } else {
-                                                echo '<span class="badge badge-danger">solved</span>';
-                                            }
-                                            ?>
-                                        </td>
-                                        <td class="text-sm">
-                                            <?php
-                                            if ($row->status_ticket == '0') { ?>
-                                                <button class="btn btn-success btn-sm text-sm" onclick="confirm(<?= $row->id_ticket ?>)"> Confirm </button>
-                                            <?php } else if ($row->status_ticket == '1') { ?>
-                                                <button class="btn btn-warning btn-sm text-sm" onclick="closeTicket(<?= $row->id_ticket . ',\'' . $this->session->fullname . '\'' ?>)"> Close </button>
-                                            <?php } else { ?>
-                                                <button class="btn btn-danger btn-sm text-sm"> Closed </button>
-                                            <?php } ?>
-                                        </td>
-                                        <td class="text-sm">
-                                            <a href="<?= base_url('helpdesk/ticket/detail_ticket_agent/' . $row->id_ticket) ?>" class="btn btn-primary btn-sm">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                        </td>
+                                        <!-- <th class="nowrap font-weight-light text-sm">No</th> -->
+                                        <th class="font-weight-normal text-sm">Customer</th>
+                                        <th class="font-weight-normal text-sm">Ticket Summary</th>
+                                        <th class="font-weight-normal text-sm">Status</th>
+                                        <th class="font-weight-normal text-sm">Confirm</th>
+                                        <th class="font-weight-normal text-sm">Action</th>
                                     </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($agent as $row) { ?>
+                                        <tr>
+                                            <!-- <td><?= $no++ ?></td> -->
+                                            <td class="text-sm">
+                                                <img src="<?php echo base_url('assets/back') ?><?= $row->avatar ?>" class="img-circle img-size-32 mr-2">
+                                                <?= $row->fullname ?>
+                                            </td>
+                                            <td class="text-sm"><?= $row->subject ?></td>
+                                            <td class="text-sm">
+                                                <?php if ($row->status_ticket == '0') {
+                                                    echo '<span class="badge badge-warning">waiting...</span>';
+                                                } else if ($row->status_ticket == '1') {
+                                                    echo '<span class="badge badge-success">process..</span>';
+                                                } else {
+                                                    echo '<span class="badge badge-danger">solved</span>';
+                                                }
+                                                ?>
+                                            </td>
+                                            <td class="text-sm">
+                                                <?php
+                                                if ($row->status_ticket == '0') { ?>
+                                                    <button class="btn btn-success btn-sm text-sm" onclick="confirm(<?= $row->id_ticket ?>)"> Confirm </button>
+                                                <?php } else if ($row->status_ticket == '1') { ?>
+                                                    <button class="btn btn-warning btn-sm text-sm" onclick="closeTicket(<?= $row->id_ticket . ',\'' . $this->session->fullname . '\'' ?>)"> Close </button>
+                                                <?php } else { ?>
+                                                    <button class="btn btn-danger btn-sm text-sm"> Closed </button>
+                                                <?php } ?>
+                                            </td>
+                                            <td class="text-sm">
+                                                <a href="<?= base_url('helpdesk/ticket/detail_ticket_agent/' . $row->id_ticket) ?>" class="btn btn-primary btn-sm">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,5 +194,9 @@
                 });
             }
         })
+    }
+
+    function reload() {
+        location.reload();
     }
 </script>
