@@ -91,7 +91,7 @@
                 contentType: false, // Important: Prevent jQuery from setting content type
                 dataType: "json",
                 success: function(response) {
-                    console.log("Success response", response);
+                    // console.log("Success response", response);
                     if (response.error) {
                         toastr.error(response.error);
                     }

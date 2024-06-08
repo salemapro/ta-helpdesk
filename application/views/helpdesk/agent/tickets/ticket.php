@@ -19,11 +19,11 @@
                             <thead>
                                 <tr>
                                     <!-- <th class="nowrap font-weight-light text-sm">No</th> -->
-                                    <th class="font-weight-light text-sm">Customer</th>
-                                    <th class="font-weight-light text-sm">Ticket Summary</th>
-                                    <th class="font-weight-light text-sm">Status</th>
-                                    <th class="font-weight-light text-sm">Confirm</th>
-                                    <th class="font-weight-light text-sm">Action</th>
+                                    <th class="font-weight-normal text-sm">Customer</th>
+                                    <th class="font-weight-normal text-sm">Ticket Summary</th>
+                                    <th class="font-weight-normal text-sm">Status</th>
+                                    <th class="font-weight-normal text-sm">Confirm</th>
+                                    <th class="font-weight-normal text-sm">Action</th>
                                 </tr>
                             </thead>
                             <tbody>

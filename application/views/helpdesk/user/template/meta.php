@@ -34,7 +34,45 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/back') ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo base_url('assets/back') ?>/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="<?php echo base_url('assets/back') ?>/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <style>
+        .user-menu {
+            display: flex;
+            align-items: center;
+        }
 
+        .avatar-wrapper {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-wrapper2 {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .avatar-wrapper2 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .media {
+            display: flex;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

@@ -90,4 +90,10 @@ class M_user extends CI_Model
     {
         return $this->db->delete('user', ['id_user' => $id]);
     }
+
+    function update_account($id_user, $data)
+    {
+        $this->db->where('id_user', $id_user);
+        return $this->db->update('user', $data);
+    }
 }

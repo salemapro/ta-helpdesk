@@ -7,10 +7,10 @@
      <ul class="navbar-nav ml-auto">
          <li class="nav-item dropdown user-menu">
              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                 <img src="<?php echo base_url('assets/back') ?><?= $this->session->avatar; ?>" class="user-image img-circle elevation-2" alt="User Image">
+                 <img src="<?php echo base_url('assets/back') ?><?= $this->session->avatar; ?>" class="user-image img-circle elevation-1" alt="User Image">
              </a>
              <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                 <a href="#" class="dropdown-item text-sm">
+                 <!-- <a href="#" class="dropdown-item text-sm">
                      <div class="media">
                          <img src="<?php echo base_url('assets/back') ?><?= $this->session->avatar; ?>" alt="User Avatar" class="img-size-32 mt-1 mr-3 img-circle">
                          <div class="media-body">
@@ -18,6 +18,19 @@
                                  <?= $this->session->fullname; ?>
                              </h4>
                              <p class="text-sm text-muted"><?= $this->session->email; ?></p>
+                         </div>
+                     </div>
+                 </a> -->
+                 <a href="#" class="dropdown-item text-sm">
+                     <div class="media align-items-center">
+                         <div class="avatar-wrapper2">
+                             <img src="<?php echo base_url('assets/back') ?><?= $this->session->avatar; ?>" alt="User Avatar" class="img-size-32 img-circle">
+                         </div>
+                         <div class="media-body ml-3">
+                             <h4 class="dropdown-item-title text-sm mb-0">
+                                 <?= $this->session->fullname; ?>
+                             </h4>
+                             <p class="text-sm text-muted mb-0"><?= $this->session->email; ?></p>
                          </div>
                      </div>
                  </a>
