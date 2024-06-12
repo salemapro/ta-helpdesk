@@ -1,8 +1,10 @@
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-
+            <div class="row mb-4 mt-4">
+                <div class="col-sm-6">
+                    <h1 class="m-0 font-weight-bolder">Edit Subject</h1>
+                </div>
             </div>
         </div>
     </section>
@@ -14,18 +16,18 @@
                 <div class="card-body">
                     <div class="row mt-2">
                         <div class="col-4">
-                            <h5 class="font-weight-light"> Subject Details</h5>
-                            <p class="font-weight-light text-black-50  text-sm"> This information will be displayed publicly.</p>
+                            <h5 class="font-weight-normal"> Subject Details</h5>
+                            <p class="font-weight-normal text-black-50  text-sm"> This information will be displayed publicly.</p>
                         </div>
                         <div class="col-8 text-sm">
                             <div class="form-group">
-                                <label for="subject" class="font-weight-light">Subject</label>
+                                <label for="subject" class="font-weight-normal">Subject</label>
                                 <input type="hidden" name="id_subject" id="id_subject" value="<?= $sub->id_subject ?>" class="form-control">
-                                <input type="text" name="subject" id="subject" class="form-control text-black-50 font-weight-light text-sm" value="<?= $sub->subject ?>">
+                                <input type="text" name="subject" id="subject" class="form-control text-dark font-weight-normal text-sm" value="<?= $sub->subject ?>">
                             </div>
                             <div class="form-group">
-                                <label for="divisi" class="font-weight-light">Divisi</label>
-                                <select name="divisi" id="divisi" class="form-control text-black-50 font-weight-light text-sm">
+                                <label for="divisi" class="font-weight-normal">Divisi</label>
+                                <select name="divisi" id="divisi" class="form-control text-dark font-weight-normal text-sm">
                                     <option value="" selected disabled>Select an option</option>
                                     <?php
                                     foreach ($divisi as $row) { ?>
@@ -39,10 +41,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer float-right ">
-                    <div class="col-12">
-                        <button type="reset" onclick="back()" class="btn btn-danger btn-sm">Cancel</button>
-                        <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                <div class="card-footer">
+                    <div class="float-right">
+                        <button type="reset" onclick="back()" class="btn btn-danger text-sm">Cancel</button>
+                        <button type="submit" class="btn btn-primary text-sm">Update</button>
                     </div>
                 </div>
                 <!-- </form> -->

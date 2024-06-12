@@ -8,24 +8,25 @@
     </section>
     <section class="content">
         <div class="container-fluid">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row mt-2">
-                        <div class="col-4">
-                            <h5 class="font-weight-light"> Ticket Details</h5>
-                            <p class="font-weight-light text-black-50  text-sm"> Ticket details and classification.</p>
-                        </div>
-                        <div class="col-8 text-black-50 text-sm">
-                            <!-- <?php echo form_open_multipart('helpdesk/ticket/save_ticket', ['class' => 'formSimpanTicket']) ?> -->
-                            <form class="form-horizontal" class="formSimpanTicket" id="formSimpanTicket" role="form" method="post" action="#" enctype="multipart/form-data">
+            <form class="form-horizontal" class="formSimpanTicket" id="formSimpanTicket" role="form" method="post" action="#" enctype="multipart/form-data">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mt-2">
+                            <div class="col-4">
+                                <h5 class="font-weight-normal"> Ticket Details</h5>
+                                <p class="font-weight-normal text-black-50  text-sm"> Ticket details and classification.</p>
+                            </div>
+                            <div class="col-8 text-dark text-sm">
+                                <!-- <?php echo form_open_multipart('helpdesk/ticket/save_ticket', ['class' => 'formSimpanTicket']) ?> -->
                                 <div class="form-group">
-                                    <label for="no_ticket" class="font-weight-light">No. Ticket</label>
+                                    <label for="no_ticket" class="font-weight-normal">No. Ticket</label>
                                     <input type="text" readonly name="no_ticket" id="no_ticket" value="<?= $no_ticket ?>" class="form-control">
-                                    <input type="text" readonly name="sender_id" value="<?= $this->session->id_user ?>" class="form-control">
+                                    <input type="hidden" readonly name="sender_id" value="<?= $this->session->id_user ?>" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="company" class="font-weight-light">Company</label>
-                                    <select name="company" id="company" class="form-control font-weight-light text-sm" onchange="cariApp()">
+                                    <label for="company" class="font-weight-normal">Company</label>
+                                    <select name="company" id="company" class="form-control font-weight-normal text-sm" onchange="cariApp()">
                                         <option value="0" selected disabled>Select an option</option>
                                         <?php foreach ($company as $row) { ?>
                                             <option value="<?= $row->id_company ?>"> <?= $row->company ?></option>
@@ -33,46 +34,47 @@
                                     </select>
                                 </div>
                                 <div class="form-group" id="form_app">
-                                    <label for="application" class="font-weight-light">Application</label>
-                                    <select name="application" id="application" class="form-control font-weight-light text-sm">
+                                    <label for="application" class="font-weight-normal">Application</label>
+                                    <select name="application" id="application" class="form-control font-weight-normal text-sm">
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="subject" class="font-weight-light">Subject</label>
-                                    <select name="subject" id="subject" class="form-control font-weight-light text-sm">
+                                    <label for="subject" class="font-weight-normal">Subject</label>
+                                    <select name="subject" id="subject" class="form-control font-weight-normal text-sm">
                                         <option value="0" selected disabled>Select an option</option>
                                         <?php foreach ($subject as $row) { ?>
                                             <option value="<?= $row->id_subject ?>"> <?= $row->subject ?></option>
                                         <?php } ?>
                                     </select>
-                                    <!-- <input type="hidden" name="for_department" value="<?= $row->department_id ?>" class="form-control"> -->
                                 </div>
                                 <div class="form-group">
-                                    <label for="subject" class="font-weight-light">Message</label>
-                                    <!-- <input type="text" name="subject" class="form-control"> -->
-                                    <textarea name="message" id="message" class="form-control font-weight-light text-sm"></textarea>
+                                    <label for="subject" class="font-weight-normal">Message</label>
+                                    <textarea name="message" id="message" class="form-control font-weight-normal text-sm"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="img_ticket" class="font-weight-light">Image</label>
+                                    <label for="img_ticket" class="font-weight-normal">Image</label>
                                     <div class="input-group">
                                         <div class="custom-file">
                                             <input type="file" name="img_ticket" id="img_ticket" class="custom-file-input" required>
                                             <label class="custom-file-label" for="img_ticket">Choose file</label>
                                         </div>
                                     </div>
-                                    <!-- <input type="file" name="img_ticket"> -->
                                 </div>
 
-                                <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                                <button type="reset" class="btn btn-danger btn-sm">Reset</button>
-                            </form>
-                            <!-- <?php echo form_close() ?> -->
+
+                                <!-- <?php echo form_close() ?> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="float-right">
+                            <button type="reset" class="btn btn-danger btn-md text-sm mr-1" onclick="back()">Cancel</button>
+                            <button type="submit" class="btn btn-primary btn-md text-sm">Save</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
-
     </section>
 </div>
 <script type="text/javascript">
@@ -124,6 +126,7 @@
 
 
     });
+
     // $("#formSimpanTicket").on("submit", function(event) {
     //     event.preventDefault();
     //     var image = document.getElementById('img_ticket');
@@ -263,5 +266,9 @@
         } else {
             $('#form_app').hide();
         }
+    }
+
+    function back() {
+        window.location.href = "<?= base_url('helpdesk/ticket/admin') ?>"
     }
 </script>

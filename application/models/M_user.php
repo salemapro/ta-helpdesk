@@ -96,4 +96,24 @@ class M_user extends CI_Model
         $this->db->where('id_user', $id_user);
         return $this->db->update('user', $data);
     }
+
+    function jumlah_user()
+    {
+        $this->db->select('*');
+        $this->db->from('user');
+        // $this->db->where('status_ticket', 2);
+
+        return $this->db->get()->num_rows();
+    }
+
+    function user_divisi()
+    {
+        $divisi = $this->session->divisi_id;
+
+        $this->db->select('*');
+        $this->db->from('user');
+        $this->db->where('divisi_id', $divisi);
+
+        return $this->db->get()->num_rows();
+    }
 }

@@ -1,8 +1,10 @@
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-
+            <div class="row mb-4 mt-4">
+                <div class="col-sm-6">
+                    <h1 class="m-0 font-weight-bolder">Edit Divisi</h1>
+                </div>
             </div>
         </div>
     </section>
@@ -13,42 +15,22 @@
                 <div class="card-body">
                     <div class="row mt-2">
                         <div class="col-4">
-                            <h5 class="font-weight-light"> Divisi Details</h5>
-                            <p class="font-weight-light text-black-50  text-sm"> This information will be displayed publicly.</p>
+                            <h5 class="font-weight-normal"> Divisi Details</h5>
+                            <p class="font-weight-normal text-black-50  text-sm"> This information will be displayed publicly.</p>
                         </div>
                         <div class="col-8 text-sm">
                             <div class="form-group">
-                                <label for="divisi" class="font-weight-light">Divisi</label>
+                                <label for="divisi" class="font-weight-normal">Divisi</label>
                                 <input type="hidden" name="id_divisi" id="id_divisi" value="<?= $divisi->id_divisi ?>" class="form-control">
-                                <input type="text" name="divisi" id="divisi" class="form-control text-black-50 font-weight-light text-sm" value="<?= $divisi->divisi ?>">
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row mt-2">
-                        <div class="col-4">
-                            <h5 class="font-weight-light"> Divisi Agent</h5>
-                            <p class="font-weight-light text-black-50  text-sm"> List of agent assigned to the divisi.</p>
-                        </div>
-                        <div class="col-8 text-sm">
-                            <div class="form-group">
-                                <label for="role" class="font-weight-light">Agent</label>
-                                <!-- <select name="role" id="role" class="form-control text-black-50 font-weight-light text-sm">
-                                    <option value="" selected disabled>Select an option</option>
-                                    <?php
-                                    foreach ($role as $row) :
-                                        echo "<option value='$row->id_role'>$row->role" . "</option>";
-                                    endforeach;
-                                    ?>
-                                </select> -->
+                                <input type="text" name="divisi" id="divisi" class="form-control text-dark font-weight-normal text-sm" value="<?= $divisi->divisi ?>">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer float-right ">
-                    <div class="col-12">
-                        <button type="reset" onclick="back()" class="btn btn-danger btn-sm">Cancel</button>
-                        <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                <div class="card-footer">
+                    <div class="float-right">
+                        <button type="reset" onclick="back()" class="btn btn-danger text-sm">Cancel</button>
+                        <button type="submit" class="btn btn-primary text-sm">Update</button>
                     </div>
                 </div>
                 <!-- </form> -->

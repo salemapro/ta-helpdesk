@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Application</h4>
+                <h4 class="modal-title">Create Application</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -10,16 +10,16 @@
             <?php echo form_open('helpdesk/client/save_app', ['class' => 'formSimpanApp']) ?>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label for="inputApp" class="col-sm-3 col-form-label">Application</label>
+                    <label for="inputApp" class="col-sm-3 col-form-label font-weight-normal text-sm">Application</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="application" name="application" placeholder="Application Name">
+                        <input type="text" class="form-control font-weight-normal text-sm" id="application" name="application" placeholder="Application Name">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputCompany" class="col-sm-3 col-form-label">Company</label>
+                    <label for="inputCompany" class="col-sm-3 col-form-label font-weight-normal text-sm">Company</label>
                     <div class="col-sm-9">
                         <!-- <input type="text" class="form-control" id="inputApplication" name="app" placeholder="Company Name"> -->
-                        <select class="form-control select2 text-sm" id="company" name="company" required="">
+                        <select class="form-control select2 font-weight-normal text-sm" id="company" name="company" required="">
                             <option value="" selected="" disabled="">-- Select Company --</option>
                             <?php
                             foreach ($company as $row) :
@@ -31,8 +31,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="button" class="btn btn-danger text-sm" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary text-sm">Save</button>
             </div>
             <?php echo form_close() ?>
         </div>

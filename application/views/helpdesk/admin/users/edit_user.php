@@ -1,8 +1,10 @@
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-
+            <div class="row mb-4 mt-4">
+                <div class="col-sm-6">
+                    <h1 class="m-0 font-weight-bolder">Edit User</h1>
+                </div>
             </div>
         </div>
     </section>
@@ -14,30 +16,30 @@
                 <div class="card-body">
                     <div class="row mt-2">
                         <div class="col-4">
-                            <h5 class="font-weight-light"> User Details</h5>
-                            <p class="font-weight-light text-black-50  text-sm"> This information will be displayed publicly.</p>
+                            <h5 class="font-weight-normal"> User Details</h5>
+                            <p class="font-weight-normal text-black-50  text-sm"> This information will be displayed publicly.</p>
                         </div>
                         <div class="col-8 text-sm">
                             <div class="form-group">
-                                <label for="code_user" class="font-weight-light">Code User</label>
+                                <label for="code_user" class="font-weight-normal">Code User</label>
                                 <input type="hidden" name="id" id="id" value="<?= $user->id_user ?>" class="form-control">
-                                <input type="text" name="code_user" id="code_user" readonly class="form-control text-black-50 font-weight-light text-sm" value="<?= $user->code_user ?>">
+                                <input type="text" name="code_user" id="code_user" readonly class="form-control text-dark font-weight-normal text-sm" value="<?= $user->code_user ?>">
                             </div>
                             <div class="form-group">
-                                <label for="fullname" class="font-weight-light">Full Name</label>
-                                <input type="text" name="fullname" id="fullname" class="form-control text-black-50 font-weight-light text-sm" value="<?= $user->fullname ?>">
+                                <label for="fullname" class="font-weight-normal">Full Name</label>
+                                <input type="text" name="fullname" id="fullname" class="form-control text-dark font-weight-normal text-sm" value="<?= $user->fullname ?>">
                             </div>
                             <div class="form-group">
-                                <label for="email" class="font-weight-light">Email</label>
-                                <input type="text" name="email" id="email" readonly class="form-control text-black-50 font-weight-light text-sm" value="<?= $user->email ?>">
+                                <label for="email" class="font-weight-normal">Email</label>
+                                <input type="text" name="email" id="email" readonly class="form-control text-dark font-weight-normal text-sm" value="<?= $user->email ?>">
                             </div>
                             <div class="form-group">
-                                <label for="password" class="font-weight-light">Password</label>
-                                <input type="text" name="password" id="password" class="form-control text-black-50 font-weight-light text-sm" value="<?= $user->password ?>">
+                                <label for="password" class="font-weight-normal">Password</label>
+                                <input type="text" name="password" id="password" class="form-control text-dark font-weight-normal text-sm" value="<?= $user->password ?>">
                             </div>
                             <div class="form-group">
-                                <label for="company" class="font-weight-light">Company</label>
-                                <select name="company" id="company" class="form-control text-black-50 font-weight-light text-sm">
+                                <label for="company" class="font-weight-normal">Company</label>
+                                <select name="company" id="company" class="form-control text-dark font-weight-normal text-sm">
                                     <option value="" disabled>Select an option</option>
                                     <?php
                                     foreach ($company as $row) { ?>
@@ -52,8 +54,8 @@
                             if ($user->divisi_id != 0) {
                             ?>
                                 <div class="form-group">
-                                    <label for="divisi" class="font-weight-light">Divisi</label>
-                                    <select name="divisi" id="divisi" class="form-control text-black-50 font-weight-light text-sm">
+                                    <label for="divisi" class="font-weight-normal">Divisi</label>
+                                    <select name="divisi" id="divisi" class="form-control text-dark font-weight-normal text-sm">
                                         <option value="" disabled>Select an option</option>
                                         <?php
                                         foreach ($divisi as $row) { ?>
@@ -66,9 +68,9 @@
                                 </div>
                             <?php } else { ?>
                                 <div class="form-group">
-                                    <label for="div" class="font-weight-light">Divisi</label>
-                                    <input type="text" name="div" id="div" class="form-control text-black-50 font-weight-light text-sm" placeholder="-" readonly>
-                                    <input type="hidden" name="divisi" id="divisi" class="form-control text-black-50 font-weight-light text-sm" value="0" readonly>
+                                    <label for="div" class="font-weight-normal">Divisi</label>
+                                    <input type="text" name="div" id="div" class="form-control text-dark font-weight-normal text-sm" placeholder="-" readonly>
+                                    <input type="hidden" name="divisi" id="divisi" class="form-control text-dark font-weight-normal text-sm" value="0" readonly>
                                 </div>
                             <?php } ?>
                         </div>
@@ -76,13 +78,13 @@
                     <hr>
                     <div class="row mt-2">
                         <div class="col-4">
-                            <h5 class="font-weight-light"> User Settings</h5>
-                            <p class="font-weight-light text-black-50  text-sm"> User settings and permissions access.</p>
+                            <h5 class="font-weight-normal"> User Settings</h5>
+                            <p class="font-weight-normal text-black-50  text-sm"> User settings and permissions access.</p>
                         </div>
                         <div class="col-8 text-sm">
                             <div class="form-group">
-                                <label for="role" class="font-weight-light">Role</label>
-                                <select name="role" id="role" class="form-control text-black-50 font-weight-light text-sm">
+                                <label for="role" class="font-weight-normal">Role</label>
+                                <select name="role" id="role" class="form-control text-dark font-weight-normal text-sm">
                                     <option value="" disabled>Select an option</option>
                                     <?php
                                     foreach ($role as $row) { ?>
@@ -100,22 +102,22 @@
                                 } else {
                                     $desc = "deactived";
                                 } ?>
-                                <label for="status" class="font-weight-light">Status</label><br>
+                                <label for="status" class="font-weight-normal">Status</label><br>
                                 <div class="custom-control custom-switch">
                                     <!-- <input type="checkbox" name="my-checkbox" id="status" data-bootstrap-switch data-off-color="danger" data-on-color="success"> -->
                                     <input type="checkbox" class="custom-control-input" id="customSwitch1" <?php echo $status ?>>
                                     <label class="custom-control-label" for="customSwitch1">
-                                        <span class="text-xs font-weight-light text-black-50">The user is <?= $desc ?></span>
+                                        <span class="text-xs font-weight-normal text-black-50">The user is <?= $desc ?></span>
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer float-right ">
-                    <div class="col-12">
-                        <button type="reset" onclick="back()" class="btn btn-danger btn-sm">Cancel</button>
-                        <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                <div class="card-footer">
+                    <div class="float-right">
+                        <button type="reset" onclick="back()" class="btn btn-danger text-sm">Cancel</button>
+                        <button type="submit" class="btn btn-primary text-sm">Update</button>
                     </div>
                 </div>
                 <!-- </form> -->

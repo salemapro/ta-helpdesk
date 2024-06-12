@@ -123,7 +123,7 @@
         const formData = new FormData(this);
 
         $.ajax({
-            url: '<?php echo base_url('helpdesk/user/update_user'); ?>',
+            url: '<?php echo base_url('helpdesk/user/update_account'); ?>',
             type: 'POST',
             data: formData,
             contentType: false,

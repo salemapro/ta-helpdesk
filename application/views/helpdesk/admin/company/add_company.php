@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Company</h4>
+                <h4 class="modal-title font-weight-normal">Create Company</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -10,15 +10,15 @@
             <?php echo form_open('helpdesk/client/save_company', ['class' => 'formSimpanCompany']) ?>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label for="inputCompany" class="col-sm-3 col-form-label">Company</label>
+                    <label for="inputCompany" class="col-sm-3 col-form-label font-weight-normal text-sm">Company</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="inputCompany" name="company" placeholder="Company Name">
+                        <input type="text" class="form-control font-weight-normal text-sm" id="inputCompany" name="company" placeholder="Company Name">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="button" class="btn btn-danger text-sm" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary text-sm">Save</button>
             </div>
             <?php echo form_close() ?>
         </div>

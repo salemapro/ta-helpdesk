@@ -25,7 +25,7 @@
                             <!-- small box -->
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <!-- <h3><?= $tiket_wait ?></h3> -->
+                                    <h3><?= $ticket_wait ?></h3>
 
                                     <p>Menunggu Respon</p>
                                 </div>
@@ -40,7 +40,7 @@
                             <!-- small box -->
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <!-- <h3><?= $tiket_proses ?></h3> -->
+                                    <h3><?= $ticket_proses ?></h3>
 
                                     <p>Proses Pengerjaan</p>
                                 </div>
@@ -55,7 +55,7 @@
                             <!-- small box -->
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <!-- <h3><?= $tiket_close ?></h3> -->
+                                    <h3><?= $ticket_close ?></h3>
 
                                     <p>Tiket Sukses</p>
                                 </div>
@@ -70,7 +70,7 @@
                             <!-- small box -->
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <!-- <h3><?= $user ?></h3> -->
+                                    <h3><?= $user ?></h3>
 
                                     <p>Karyawan</p>
                                 </div>

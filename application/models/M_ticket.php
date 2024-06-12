@@ -102,4 +102,66 @@ class M_ticket extends CI_Model
         $this->db->where('id_ticket', $id);
         return $this->db->update('ticket', $update);
     }
+
+    function ticket_wait()
+    {
+        $this->db->select('*');
+        $this->db->from('ticket');
+        $this->db->where('status_ticket', 0);
+
+        return $this->db->get()->num_rows();
+    }
+
+    function ticket_wait_agent()
+    {
+        $divisi = $this->session->divisi_id;
+        $this->db->select('*');
+        $this->db->from('ticket');
+        $this->db->where('status_ticket', 0);
+        $this->db->where('divisi_id', $divisi);
+
+        return $this->db->get()->num_rows();
+    }
+
+    function ticket_proses()
+    {
+        $this->db->select('*');
+        $this->db->from('ticket');
+        $this->db->where('status_ticket', 1);
+
+        return $this->db->get()->num_rows();
+    }
+
+    function ticket_proses_agent()
+    {
+        $divisi = $this->session->divisi_id;
+        $this->db->select('*');
+        $this->db->from('ticket');
+        $this->db->where('status_ticket', 1);
+        $divisi = $this->session->divisi_id;
+        $this->db->where('divisi_id', $divisi);
+
+        return $this->db->get()->num_rows();
+    }
+
+    function ticket_close()
+    {
+        $this->db->select('*');
+        $this->db->from('ticket');
+        $this->db->where('status_ticket', 2);
+
+        return $this->db->get()->num_rows();
+    }
+
+    function ticket_close_agent()
+    {
+        $divisi = $this->session->divisi_id;
+        $this->db->select('*');
+        $this->db->from('ticket');
+        $this->db->where('status_ticket', 2);
+        $this->db->where('divisi_id', $divisi);
+
+
+        return $this->db->get()->num_rows();
+    }
 }

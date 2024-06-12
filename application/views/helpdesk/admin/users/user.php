@@ -1,72 +1,98 @@
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-
+            <div class="row mb-4 mt-4">
+                <div class="col-sm-6">
+                    <h1 class="m-0 font-weight-bolder">User</h1>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-11">
+                            <button class="btn btn-primary text-sm float-right" onclick="crtUser()">Create User</button>
+                        </div>
+                        <div class="col-1">
+                            <button class="btn btn-outline-primary text-sm float-right" onclick="reload()">
+                                <i class="fas fa-sync"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
     <section class="content">
-        <div class="row mt-2">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
+        <div class="container-fluid">
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- <div class="card-header">
                         <h3 class="card-title">User</h3>
-                        <!-- <a href="<?= base_url('') ?>" class="btn btn-primary btn-sm float-right ">Create User</a> -->
                         <button class="btn btn-primary text-sm float-right" onclick="crtUser()">Create User</button>
 
-                    </div>
+                    </div> -->
 
-                    <div class="card-body">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Name</th>
-                                    <th>Role</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $no = 1;
-                                foreach ($user as $key => $row) { ?>
+                        <div class="card-body table-responsive text-sm">
+                            <table id="example1" class="table table-head-fixed text-nowrap">
+                                <thead>
                                     <tr>
-                                        <td><?= $no++ ?></td>
-                                        <td>
-                                            <?= $row->fullname ?><br>
-                                            <p class="text-black-50 font-weight-light text-sm"><i class="fas fa-envelope"></i> <?= $row->email ?></p>
-                                        </td>
-                                        <td>
-                                            <?php if ($row->divisi_id == 0) {
-                                                echo $row->role . ' - Client';
-                                            } else {
-                                                echo $row->role . ' - ' . $row->divisi;
-                                            }
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <?php if ($row->status == '1') {
-                                                echo 'Active';
-                                            } else {
-                                                echo 'Non Active';
-                                            }
-                                            ?>
-                                        </td>
-                                        <td nowrap align="center">
-                                            <button title="Update" class="btn btn-sm btn-success" onclick="get_user(<?= $row->id_user ?>);">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            &nbsp;
-                                            <button title="Delete" onclick="deleteConfirm(<?= $row->id_user ?>);" class="btn btn-sm btn-danger">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </td>
+                                        <!-- <th class="col-md-1 font-weight-normal text-sm">No</th> -->
+                                        <th class="font-weight-normal text-sm">Name</th>
+                                        <th class="font-weight-normal text-sm">Role</th>
+                                        <th class="font-weight-normal text-sm">Status</th>
+                                        <th class="col-md-2 font-weight-normal text-sm">Action</th>
                                     </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($user as $key => $row) { ?>
+                                        <tr>
+                                            <!-- <td><?= $no++ ?></td> -->
+                                            <td class="text-sm">
+                                                <div class="media align-items-center">
+                                                    <div class="avatar-wrapper2">
+                                                        <img src="<?php echo base_url('assets/back') ?><?= $row->avatar; ?>" class="img-size-32 img-circle">
+                                                    </div>
+                                                    <div class="media-body ml-2 ">
+                                                        <h4 class="dropdown-item-title text-sm mb-0 ">
+                                                            <?= $row->fullname; ?>
+                                                        </h4>
+                                                        <p class="text-sm text-muted mb-0"><?= $row->email; ?></p>
+                                                    </div>
+                                                </div>
+                                                <!-- <?= $row->fullname ?><br>
+                                                <p class="text-black-50 font-weight-light text-sm"><i class="fas fa-envelope"></i> <?= $row->email ?></p> -->
+                                            </td>
+                                            <td>
+                                                <?php if ($row->divisi_id == 0) {
+                                                    echo $row->role . ' - Client';
+                                                } else {
+                                                    echo $row->role . ' - ' . $row->divisi;
+                                                }
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php if ($row->status == '1') {
+                                                    echo 'Active';
+                                                } else {
+                                                    echo 'Non Active';
+                                                }
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <button title="Update" class="btn btn-sm btn-success" onclick="get_user(<?= $row->id_user ?>);">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                                <!-- &nbsp; -->
+                                                <button title="Delete" onclick="deleteConfirm(<?= $row->id_user ?>);" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -75,6 +101,15 @@
 </div>
 
 <script type="text/javascript">
+    $(function() {
+        $("#example1").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+
     function crtUser() {
         window.location.href = "<?= base_url('helpdesk/user/new_user') ?>"
     }
@@ -124,5 +159,9 @@
                 });
             }
         })
+    }
+
+    function reload() {
+        location.reload();
     }
 </script>

@@ -1,37 +1,24 @@
 <div class="content-wrapper">
-    <section class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-4 mt-4">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-bolder">Tickets</h1>
+                    <h1 class="m-0 font-weight-bolder">Report</h1>
                 </div>
                 <div class="col-sm-6">
-                    <div class="row">
-                        <div class="col-11">
-                            <button class="btn btn-primary text-sm float-right" onclick="crtTicket()">Create Ticket</button>
-                        </div>
-                        <div class="col-1">
-                            <button class="btn btn-outline-primary text-sm float-right" onclick="reload()">
-                                <i class="fas fa-sync"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <!-- <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard v1</li>
+                    </ol> -->
                 </div>
             </div>
         </div>
-    </section>
+    </div>
     <section class="content">
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="card">
-                        <!-- <div class="card-header">
-                        <h3 class="card-title">Data Ticket</h3>
-                        <a href="<?= base_url('helpdesk/ticket/add_ticket') ?>" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#form_tiket">
-                            Tambah Ticket
-                        </a>
-                        <button class="btn btn-primary text-sm float-right" onclick="crtTicket()">Create Ticket</button>
-                    </div> -->
                         <div class="card-body table-responsive text-sm">
                             <table id="example1" class="table table-head-fixed text-nowrap">
                                 <thead>
@@ -40,7 +27,7 @@
                                         <th class="font-weight-normal text-sm">Customer</th>
                                         <th class="font-weight-normal text-sm">Ticket Summary</th>
                                         <th class="font-weight-normal text-sm">Status</th>
-                                        <th class="font-weight-normal text-sm">Confirm</th>
+                                        <!-- <th class="font-weight-normal text-sm">Confirm</th> -->
                                         <th class="font-weight-normal text-sm">Action</th>
                                     </tr>
                                 </thead>
@@ -62,6 +49,8 @@
                                                         <p class="text-sm text-muted mb-0"><?= $row->email; ?></p>
                                                     </div>
                                                 </div>
+                                                <!-- <img src="<?php echo base_url('assets/back') ?><?= $row->avatar ?>" class="img-circle img-size-32 mr-2">
+                                                <?= $row->fullname ?> -->
                                             </td>
                                             <td class="text-sm"><?= $row->subject ?></td>
                                             <td class="text-sm">
@@ -76,7 +65,7 @@
                                                 }
                                                 ?>
                                             </td>
-                                            <td class="text-sm">
+                                            <!-- <td class="text-sm">
                                                 <?php
                                                 if ($row->status_ticket == '0') { ?>
                                                     <button class="btn btn-success btn-sm text-sm" onclick="confirm(<?= $row->id_ticket ?>)"> confirm </button>
@@ -85,13 +74,16 @@
                                                 <?php } else { ?>
                                                     <button class="btn btn-danger btn-sm text-sm"> closed </button>
                                                 <?php } ?>
-                                            </td>
+                                            </td> -->
                                             <td class="text-sm">
-                                                <a href="<?= base_url('helpdesk/ticket/detail_ticket_admin/' . $row->id_ticket) ?>" class="btn btn-primary btn-sm">
+                                                <!-- <a href="<?= base_url('helpdesk/ticket/detail_ticket_admin/' . $row->id_ticket) ?>" class="btn btn-primary btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
                                                 <a onclick="return confirm('Yakin Akan Menghapus?')" href="<?= base_url('tiket/delete_tiket/' . $row->id_ticket) ?>" class="btn btn-danger btn-sm">
                                                     <i class="fa fa-trash"></i>
+                                                </a> -->
+                                                <a href="#" class="btn btn-default btn-sm">
+                                                    <i class="fa fa-print"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -105,6 +97,7 @@
         </div>
     </section>
 </div>
+
 <script>
     $(function() {
         $("#example1").DataTable({
@@ -115,97 +108,54 @@
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 
-    function crtTicket() {
-        window.location.href = "<?= base_url('helpdesk/ticket/new_ticket') ?>"
-    }
-
-    function confirm(id) {
-        Swal.fire({
-            title: 'Confirm ticket ini?',
-            text: `You won't be able to revert this`,
-            icon: 'info',
-            showCancelButton: true,
-            cancelButtonColor: '#d33',
-            confirmButtonColor: '#3085d6',
-            cancelButtonText: 'Cancel',
-            confirmButtonText: 'Yes',
-        }).then((result) => {
-            if (result.value) {
-                $.ajax({
-                    type: "post",
-                    url: "<?php echo base_url('') ?>",
-                    data: {
-                        id_ticket: id,
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'konfirmasi',
-                                text: response.success,
-                                showCancelButton: false,
-                                showConfirmButton: false
-                            });
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-                        }
-                    }
-                });
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('avatarInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('current-avatar').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
             }
-        })
-    }
+        });
+    });
 
-    function closeTicket(id, user) {
-        Swal.fire({
-            title: 'Close this ticket?',
-            text: `You won't be able to revert this`,
-            icon: 'info',
-            showCancelButton: true,
-            cancelButtonColor: '#d33',
-            confirmButtonColor: '#3085d6',
-            cancelButtonText: 'Cancel',
-            confirmButtonText: 'Yes',
-        }).then((result) => {
-            if (result.value) {
-                $.ajax({
-                    type: "post",
-                    url: "<?php echo base_url('helpdesk/ticket/close_confirm') ?>",
-                    data: {
-                        id_ticket: id,
-                        status_ticket: 2,
-                        solved_by: user
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.error) {
-                            toastr.error(response.error);
-                        }
+    $('#updateAccount').on('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
 
-                        if (response.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success',
-                                text: response.success,
-                                showCancelButton: false,
-                                showConfirmButton: false
-                            });
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-                        }
-                    },
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        console.log("Error response", xhr.status, xhr.responseText, thrownError);
-                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                    }
-                });
+        $.ajax({
+            url: '<?php echo base_url('helpdesk/user/update_account'); ?>',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function(response) {
+                console.log("Success response", response);
+                if (response.error) {
+                    toastr.error(response.error);
+                }
+                if (response.success) {
+                    console.log("Showing Swal.fire");
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: response.success,
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    });
+                    setTimeout(function() {
+                        window.location.href = "<?= base_url('helpdesk/user/account_admin') ?>"
+                    }, 1000);
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.log("Error response", xhr.status, xhr.responseText, thrownError);
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
-        })
-    }
-
-    function reload() {
-        location.reload();
-    }
+        });
+        return false;
+    });
 </script>

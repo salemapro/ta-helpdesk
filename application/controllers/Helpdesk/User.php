@@ -96,7 +96,7 @@ class User extends CI_Controller
         }
     }
 
-    public function update_user()
+    public function update_account()
     {
         $response = array('error' => '', 'success' => '');
 
@@ -153,60 +153,60 @@ class User extends CI_Controller
         echo json_encode($response);
     }
 
-    // public function update_user()
-    // {
-    //     if ($this->input->is_ajax_request() == true) {
-    //         $id_user = $this->input->post('id_user', true);
-    //         $code_user = $this->input->post('code_user', true);
-    //         $fullname = $this->input->post('fullname', true);
-    //         $email = $this->input->post('email', true);
-    //         $password = $this->input->post('password', true);
-    //         $company = $this->input->post('company', true);
-    //         $divisi = $this->input->post('divisi', true);
-    //         $role = $this->input->post('role', true);
-    //         $status = $this->input->post('status', true);
-    //         // $status = "1";
-    //         $update = date('Y-m-d');
+    public function update_user()
+    {
+        if ($this->input->is_ajax_request() == true) {
+            $id_user = $this->input->post('id_user', true);
+            $code_user = $this->input->post('code_user', true);
+            $fullname = $this->input->post('fullname', true);
+            $email = $this->input->post('email', true);
+            $password = $this->input->post('password', true);
+            $company = $this->input->post('company', true);
+            $divisi = $this->input->post('divisi', true);
+            $role = $this->input->post('role', true);
+            $status = $this->input->post('status', true);
+            // $status = "1";
+            $update = date('Y-m-d');
 
-    //         $this->form_validation->set_rules(
-    //             'fullname',
-    //             'Full Name',
-    //             'required[user.fullname]',
-    //             [
-    //                 'required' => '%s tidak boleh kosong'
-    //             ]
-    //         );
-    //         $this->form_validation->set_rules(
-    //             'email',
-    //             'Email',
-    //             'trim|required[user.email]',
-    //             [
-    //                 'required' => '%s tidak boleh kosong'
-    //             ]
-    //         );
-    //         $this->form_validation->set_rules(
-    //             'password',
-    //             'Password',
-    //             'trim|required[user.password]',
-    //             [
-    //                 'required' => '%s tidak boleh kosong'
-    //             ]
-    //         );
+            $this->form_validation->set_rules(
+                'fullname',
+                'Full Name',
+                'required[user.fullname]',
+                [
+                    'required' => '%s tidak boleh kosong'
+                ]
+            );
+            $this->form_validation->set_rules(
+                'email',
+                'Email',
+                'trim|required[user.email]',
+                [
+                    'required' => '%s tidak boleh kosong'
+                ]
+            );
+            $this->form_validation->set_rules(
+                'password',
+                'Password',
+                'trim|required[user.password]',
+                [
+                    'required' => '%s tidak boleh kosong'
+                ]
+            );
 
-    //         if ($this->form_validation->run() == TRUE) {
-    //             $this->M_user->update_user($id_user, $fullname, $email, $password, $company, $divisi, $role, $status, $update);
-    //             // $this->M_user->update_user_detail($code_user, $company);
-    //             $msg = [
-    //                 'success' => 'user berhasil diupdate'
-    //             ];
-    //         } else {
-    //             $msg = [
-    //                 'error' => validation_errors()
-    //             ];
-    //         }
-    //         echo json_encode($msg);
-    //     }
-    // }
+            if ($this->form_validation->run() == TRUE) {
+                $this->M_user->update_user($id_user, $fullname, $email, $password, $company, $divisi, $role, $status, $update);
+                // $this->M_user->update_user_detail($code_user, $company);
+                $msg = [
+                    'success' => 'user berhasil diupdate'
+                ];
+            } else {
+                $msg = [
+                    'error' => validation_errors()
+                ];
+            }
+            echo json_encode($msg);
+        }
+    }
 
     public function deleteUser()
     {

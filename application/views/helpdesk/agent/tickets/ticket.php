@@ -32,7 +32,7 @@
                             <table id="example1" class="table table-head-fixed text-nowrap">
                                 <thead>
                                     <tr>
-                                        <!-- <th class="nowrap font-weight-light text-sm">No</th> -->
+                                        <th nowrap="" class="col-md-1 font-weight-normal text-sm">No</th>
                                         <th class="font-weight-normal text-sm">Customer</th>
                                         <th class="font-weight-normal text-sm">Ticket Summary</th>
                                         <th class="font-weight-normal text-sm">Status</th>
@@ -45,10 +45,21 @@
                                     $no = 1;
                                     foreach ($agent as $row) { ?>
                                         <tr>
-                                            <!-- <td><?= $no++ ?></td> -->
+                                            <td><?= $no++ ?></td>
                                             <td class="text-sm">
-                                                <img src="<?php echo base_url('assets/back') ?><?= $row->avatar ?>" class="img-circle img-size-32 mr-2">
-                                                <?= $row->fullname ?>
+                                                <div class="media align-items-center">
+                                                    <div class="avatar-wrapper2">
+                                                        <img src="<?php echo base_url('assets/back') ?><?= $row->avatar; ?>" class="img-size-32 img-circle">
+                                                    </div>
+                                                    <div class="media-body ml-2 ">
+                                                        <h4 class="dropdown-item-title text-sm mb-0">
+                                                            <?= $row->fullname; ?>
+                                                        </h4>
+                                                        <p class="text-sm text-muted mb-0"><?= $row->email; ?></p>
+                                                    </div>
+                                                </div>
+                                                <!-- <img src="<?php echo base_url('assets/back') ?><?= $row->avatar ?>" class="img-circle img-size-32 mr-2">
+                                                <?= $row->fullname ?> -->
                                             </td>
                                             <td class="text-sm"><?= $row->subject ?></td>
                                             <td class="text-sm">
