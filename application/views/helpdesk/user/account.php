@@ -1,19 +1,18 @@
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-4 mt-4">
                 <div class="col-sm-6">
                     <h1 class="m-0 font-weight-bolder">Account Settings</h1>
-                </div><!-- /.col -->
+                </div>
                 <div class="col-sm-6">
                     <!-- <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active">Dashboard v1</li>
                     </ol> -->
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                </div>
+            </div>
+        </div>
     </div>
     <section class="content">
         <div class="container-fluid">
@@ -59,7 +58,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-md float-sm-right">Save</button>
+                                <button type="submit" class="btn btn-primary text-sm float-sm-right">Save</button>
                             </div>
                         </div>
                     </form>
@@ -78,23 +77,23 @@
                                     <div class="col-8 text-dark text-sm">
                                         <div class="form-group">
                                             <label for="current_pass" class="font-weight-normal">Current Password</label>
-                                            <input type="text" name="current_pass" id="current_pass" class="form-control text-sm" placeholder="Your current password">
+                                            <input type="password" name="current_pass" id="current_pass" class="form-control text-sm" placeholder="Your current password">
                                             <input type="hidden" readonly name="user_id" value="<?= $this->session->id_user ?>" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="new_pass" class="font-weight-normal">New Password</label>
-                                            <input type="text" name="new_pass" id="new_pass" class="form-control text-sm" placeholder="Your new password">
+                                            <input type="password" name="new_pass" id="new_pass" class="form-control text-sm" placeholder="Your new password">
                                         </div>
                                         <div class="form-group">
                                             <label for="confirm_pass" class="font-weight-normal">Current Password</label>
-                                            <input type="text" name="confirm_pass" id="confirm_pass" class="form-control text-sm" placeholder="Confirm your new password">
+                                            <input type="password" name="confirm_pass" id="confirm_pass" class="form-control text-sm" placeholder="Confirm your new password">
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-md float-sm-right">Change Password</button>
+                                <button type="submit" class="btn btn-primary text-sm float-sm-right">Change Password</button>
                             </div>
                         </div>
                     </form>
@@ -124,6 +123,44 @@
 
         $.ajax({
             url: '<?php echo base_url('helpdesk/user/update_account'); ?>',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function(response) {
+                console.log("Success response", response);
+                if (response.error) {
+                    toastr.error(response.error);
+                }
+                if (response.success) {
+                    console.log("Showing Swal.fire");
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: response.success,
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    });
+                    setTimeout(function() {
+                        window.location.href = "<?= base_url('helpdesk/user/account_user') ?>"
+                    }, 1000);
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.log("Error response", xhr.status, xhr.responseText, thrownError);
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        });
+        return false;
+    });
+
+    $('#changePassword').on('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+
+        $.ajax({
+            url: '<?php echo base_url('helpdesk/user/change_password'); ?>',
             type: 'POST',
             data: formData,
             contentType: false,

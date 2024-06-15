@@ -1,17 +1,25 @@
-<table width="700" style="font-size:10px">
+<table width="700" style="font-size: 10px">
     <tr>
-        <td width="195" height="110"><img src="dataon.png" width="110" height="110" /> </td>
+        <td width="195" height="110"><img src="<?= base_url() ?>assets/back/dist/img/insaba.png" width=" 110" height="" /> </td>
         <td width="133"></td>
-        <td width="362" align="right"><b>PT. INDODEV
-                NIAGA INTERNET (DATAON)</b><br />
-            Jalan Tegal Rotan No. 78<br />
-            ,Bintaro 15413<br /><b>
-                T:</b>+62216505829
-            <b>F:</b>+62216505827
+        <td width="362" align="right">
+            <b>CV. Insaba Pratista Agya</b> <br />
+            Jalan Mars Utara No.20 <br />
+            Bandung 40286<br /><b>
+                T:</b> 022-87515131
         </td>
     </tr>
 </table>
 <table width="100%">
+    <tr>
+        <th colspan="7">
+            <font size="+1">
+                DETAIL TICKET REPORT
+            </font>
+        </th>
+    </tr>
+</table>
+<!-- <table width="100%">
     <tr>
         <th colspan="7">
             <font size="+2">DETAIL ISSUE
@@ -41,8 +49,7 @@
         <td>Status</td>
         <td>:</td>
         <?php
-        $qw = "select pr_deskription from PARAMDETAILwhere detail_number = '$data[10]' and
-pr_number=1";
+        $qw = "select pr_deskription from PARAMDETAILwhere detail_number = '$data[10]' and pr_number=1";
         $pw = odbc_exec($koneksi, $qw);
         odbc_fetch_into($pw, $stat);
         ?>
@@ -168,4 +175,54 @@ pr_number=1";
         <td></td>
         <td colspan="3">Date : <?php echo $mm[0] ?></td>
     </tr>
+</table> -->
+<!-- <script type="text/javascript">
+    window.print();
+</script> -->
+
+<!-- <link rel="stylesheet" href="<?= base_url() ?>assets/back/dist/css/adminlte.min.css"> -->
+<!-- <div class="container mt-3">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="display-4 text-center">Laporan HELPDESK</h3>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th>No</th>
+                <th>No Ticket</th>
+                <th>Subject</th>
+                <th>Waktu Daftar</th>
+                <th>Waktu Selesai</th>
+                <th>Status</th>
+            </tr>
+            <!-- <?php
+                    $no = 1;
+                    foreach ($get_laporan as $row) {
+                    ?>
+                <tr>
+                    <td><?= $no++ ?></td>
+                    <td><?= $row->no_ticket ?></td>
+                    <td><?= $row->subject ?></td>
+                    <td><?= $row->tgl_daftar ?></td>
+                    <td><?= $row->waktu_tanggapan ?></td>
+                    <td>
+                        <?php
+                        if ($row->status_ticket == '3') {
+                            echo 'Solved';
+                        }
+                        ?>
+                    </td>
+                </tr>
+            <?php
+                    }
+            ?> -->
 </table>
+</div>
+</div> -->
+
+<!-- <script type="text/javascript">
+    window.print();
+</script> -->

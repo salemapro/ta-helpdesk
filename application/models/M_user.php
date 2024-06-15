@@ -24,6 +24,18 @@ class M_user extends CI_Model
         return $this->db->get('user_role')->result();
     }
 
+    function get_password($id)
+    {
+        $this->db->where('id_user', $id);
+        $query = $this->db->get('user');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                return $row->password;
+            }
+        }
+        return null;
+    }
+
     function code_user()
     {
         $q = $this->db->query("SELECT MAX(RIGHT(code_user,3)) AS code_user FROM user");
@@ -95,6 +107,13 @@ class M_user extends CI_Model
     {
         $this->db->where('id_user', $id_user);
         return $this->db->update('user', $data);
+    }
+
+    function update_password($id_user, $new_pass)
+    {
+        $update = ['password' => $new_pass];
+        $this->db->where('id_user', $id_user);
+        return $this->db->update('user', $update);
     }
 
     function jumlah_user()

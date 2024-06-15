@@ -82,7 +82,7 @@
                                                 <a onclick="return confirm('Yakin Akan Menghapus?')" href="<?= base_url('tiket/delete_tiket/' . $row->id_ticket) ?>" class="btn btn-danger btn-sm">
                                                     <i class="fa fa-trash"></i>
                                                 </a> -->
-                                                <a href="#" class="btn btn-default btn-sm">
+                                                <a href="<?= base_url('helpdesk/report/print_report_admin/' . $row->id_ticket) ?>" class="btn btn-default btn-sm">
                                                     <i class="fa fa-print"></i>
                                                 </a>
                                             </td>

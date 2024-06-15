@@ -223,6 +223,20 @@ class Ticket extends CI_Controller
             echo json_encode($response);
         }
     }
+
+    function delete_ticket()
+    {
+        if ($this->input->is_ajax_request() == true) {
+            $id = $this->input->post('id_ticket', true);
+            $delete = $this->M_ticket->delete_ticket($id);
+
+            if ($delete) {
+                $response['success'] = 'Ticket Berhasil Terhapus';
+            }
+            echo json_encode($response);
+        }
+    }
+
     // function save_ticket()
     // {
 

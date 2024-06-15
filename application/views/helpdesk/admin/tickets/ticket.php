@@ -90,7 +90,7 @@
                                                 <a href="<?= base_url('helpdesk/ticket/detail_ticket_admin/' . $row->id_ticket) ?>" class="btn btn-primary btn-sm">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                                <a onclick="return confirm('Yakin Akan Menghapus?')" href="<?= base_url('tiket/delete_tiket/' . $row->id_ticket) ?>" class="btn btn-danger btn-sm">
+                                                <a onclick="deleteTicket(<?= $row->id_ticket ?>)" href="#" class="btn btn-danger btn-sm">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </td>
@@ -176,6 +176,52 @@
                         id_ticket: id,
                         status_ticket: 2,
                         solved_by: user
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.error) {
+                            toastr.error(response.error);
+                        }
+
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: response.success,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            });
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        console.log("Error response", xhr.status, xhr.responseText, thrownError);
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                    }
+                });
+            }
+        })
+    }
+
+    function deleteTicket(id) {
+        Swal.fire({
+            title: 'Delete this ticket?',
+            text: `You won't be able to revert this`,
+            icon: 'info',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            cancelButtonText: 'Cancel',
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "post",
+                    url: "<?php echo base_url('helpdesk/ticket/delete_ticket') ?>",
+                    data: {
+                        id_ticket: id,
                     },
                     dataType: "json",
                     success: function(response) {

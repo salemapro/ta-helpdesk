@@ -164,4 +164,10 @@ class M_ticket extends CI_Model
 
         return $this->db->get()->num_rows();
     }
+
+    function delete_ticket($id)
+    {
+        $this->db->where('id_ticket', $id);
+        return $this->db->delete('ticket');
+    }
 }

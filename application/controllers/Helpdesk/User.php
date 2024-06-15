@@ -80,8 +80,6 @@ class User extends CI_Controller
                 $this->form_validation->set_rules('role', 'Role', 'required', ['required' => '%s tidak boleh kosong']);
             }
 
-
-
             if ($this->form_validation->run() == TRUE) {
                 $this->M_user->save_user($code_user, $fullname, $email, $password, $company, $divisi, $role, $status, $avatar, $update);
                 $msg = [
@@ -197,7 +195,7 @@ class User extends CI_Controller
                 $this->M_user->update_user($id_user, $fullname, $email, $password, $company, $divisi, $role, $status, $update);
                 // $this->M_user->update_user_detail($code_user, $company);
                 $msg = [
-                    'success' => 'user berhasil diupdate'
+                    'success' => 'User Berhasil Diupdate'
                 ];
             } else {
                 $msg = [
@@ -239,5 +237,41 @@ class User extends CI_Controller
     {
         // $data['cln'] = $this->M_client->get_client();
         $this->template->load('helpdesk/template_user', 'helpdesk/user/account');
+    }
+
+    function change_password()
+    {
+        $response = array('error' => '', 'success' => '');
+        $id_user = $this->input->post('user_id', true);
+        $current_pass = $this->input->post('current_pass', true);
+        $new_pass = $this->input->post('new_pass', true);
+        $confirm_pass = $this->input->post('confirm_pass', true);
+
+        $this->form_validation->set_rules('current_pass', 'Current Password', 'required', ['required' => '%s tidak boleh kosong']);
+        $this->form_validation->set_rules('new_pass', 'New Password', 'required', ['required' => '%s tidak boleh kosong']);
+        $this->form_validation->set_rules('confirm_pass', 'Confirm Password', 'required', ['required' => '%s tidak boleh kosong']);
+
+        if ($this->form_validation->run() == TRUE) {
+            $password = $this->M_user->get_password($id_user);
+
+            if ($current_pass == $password) {
+                if ($new_pass == $confirm_pass) {
+                    // $this->M_user->update_password($new_pass);
+                    if ($this->M_user->update_password($id_user, $new_pass)) {
+                        $response['success'] = 'Password updated successfully.';
+                    } else {
+                        $response['error'] = 'Failed to update password.';
+                    }
+                } else {
+                    $response['error'] = 'Confirm Password Salah.';
+                }
+            } else {
+                $response['error'] = 'Password Salah';
+            }
+        } else {
+            $response['error'] = validation_errors();
+        }
+
+        echo json_encode($response);
     }
 }

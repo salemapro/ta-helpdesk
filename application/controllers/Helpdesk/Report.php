@@ -8,6 +8,7 @@ class Report extends CI_Controller
         parent::__construct();
         $this->load->model('M_subject');
         $this->load->model('M_ticket');
+        // $this->load->model('M_report');
         cek_login();
     }
 
@@ -16,5 +17,11 @@ class Report extends CI_Controller
         // $data['sub'] = $this->M_subject->get_subject();
         $data['ticket'] = $this->M_ticket->get_ticket();
         $this->template->load('helpdesk/template_admin', 'helpdesk/admin/report/report', $data);
+    }
+
+    function print_report_admin($id)
+    {
+        // $data['get_report'] = $this->M_report->get_report($id)->result();
+        $this->template->load('helpdesk/template_admin', 'helpdesk/admin/report/print_report');
     }
 }
