@@ -3,18 +3,17 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2">
+                    <div class="row mb-3 mt-3">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard </h1>
-                        </div><!-- /.col -->
+                            <h1 class="m-0 font-weight-bolder">Dashboard </h1>
+                        </div>
                         <div class="col-sm-6">
 
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
+                        </div>
+                    </div>
                     <div class="alert alert-success"> Selamat Datang <b><?= $this->session->fullname; ?></b></div>
-                </div><!-- /.container-fluid -->
+                </div>
             </div>
-            <!-- /.content-header -->
 
             <!-- Main content -->
             <section class="content">

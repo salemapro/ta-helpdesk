@@ -7,6 +7,8 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="<?= base_url() ?>assets/back/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Select2 -->
+<script src="<?= base_url() ?>assets/back/plugins/select2/js/select2.full.min.js"></script>
 <!-- ChartJS -->
 <script src="<?= base_url() ?>assets/back/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
@@ -34,7 +36,6 @@
 <script src="<?php echo base_url('assets/back') ?>/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="<?php echo base_url('assets/back') ?>/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?php echo base_url('assets/back') ?>/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
 <!-- Toastr -->
 <script src="<?php echo base_url('assets/back') ?>/plugins/toastr/toastr.min.js"></script>
 <!-- Bootstrap Switch -->

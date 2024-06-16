@@ -1,9 +1,9 @@
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-4 mt-4">
+            <div class="row mb-3 mt-3">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-bolder">Tickets</h1>
+                    <h3 class="m-0 font-weight-bolder">Tickets</h3>
                 </div>
                 <div class="col-sm-6">
                     <div class="row">
@@ -64,9 +64,9 @@
                                             <td class="text-sm"><?= $row->subject ?></td>
                                             <td class="text-sm">
                                                 <?php if ($row->status_ticket == '0') {
-                                                    echo '<span class="badge badge-warning">waiting...</span>';
+                                                    echo '<span class="badge badge-warning">waiting</span>';
                                                 } else if ($row->status_ticket == '1') {
-                                                    echo '<span class="badge badge-success">process..</span>';
+                                                    echo '<span class="badge badge-success">process</span>';
                                                 } else {
                                                     echo '<span class="badge badge-danger">solved</span>';
                                                 }

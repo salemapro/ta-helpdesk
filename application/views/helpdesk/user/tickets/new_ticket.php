@@ -1,8 +1,10 @@
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-
+            <div class="row mb-3 mt-3">
+                <div class="col-sm-6">
+                    <h3 class="m-0 font-weight-bold text-black"> Create Ticket</h3>
+                </div>
             </div>
         </div>
     </section>
@@ -22,25 +24,25 @@
                                 <div class="form-group">
                                     <label for="no_ticket" class="font-weight-normal">No. Ticket</label>
                                     <input type="text" readonly name="no_ticket" id="no_ticket" value="<?= $no_ticket ?>" class="form-control">
-                                    <input type="text" readonly name="sender_id" value="<?= $this->session->id_user ?>" class="form-control">
                                 </div>
                                 <div class="form-group">
+                                    <label for="sender_id" class="font-weight-normal">Customer</label>
+                                    <input type="hidden" readonly name="sender_id" id="sender_id" value="<?= $this->session->id_user ?>" class="form-control">
+                                    <input type="text" readonly name="fullname" id="fullname" value="<?= $this->session->fullname ?>" class="form-control">
+                                </div>
+                                <div class="form-group" id="form_company">
                                     <label for="company" class="font-weight-normal">Company</label>
-                                    <select name="company" id="company" class="form-control font-weight-normal text-sm" onchange="cariApp()">
-                                        <option value="0" selected disabled>Select an option</option>
-                                        <?php foreach ($company as $row) { ?>
-                                            <option value="<?= $row->id_company ?>"> <?= $row->company ?></option>
-                                        <?php } ?>
+                                    <select name="company" id="company" class="form-control select2bs4 font-weight-normal text-sm">
                                     </select>
                                 </div>
                                 <div class="form-group" id="form_app">
                                     <label for="application" class="font-weight-normal">Application</label>
-                                    <select name="application" id="application" class="form-control font-weight-normal text-sm">
+                                    <select name="application" id="application" class="form-control select2bs4 font-weight-normal text-sm">
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="subject" class="font-weight-normal">Subject</label>
-                                    <select name="subject" id="subject" class="form-control font-weight-normal text-sm">
+                                    <select name="subject" id="subject" class="form-control select2bs4 font-weight-normal text-sm">
                                         <option value="0" selected disabled>Select an option</option>
                                         <?php foreach ($subject as $row) { ?>
                                             <option value="<?= $row->id_subject ?>"> <?= $row->subject ?></option>
@@ -81,21 +83,55 @@
     $(document).ready(function() {
         $(function() {
             bsCustomFileInput.init();
+            $('.select2').select2()
+
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
         });
+
+        $(function() {
+            var user = $("#sender_id").val();
+            $.ajax({
+                type: "post",
+                url: "../client/get_company",
+                data: {
+                    id_user: user
+                },
+                success: function(data) {
+                    $('#company').empty();
+                    if (typeof data === 'string') {
+                        data = JSON.parse(data);
+                    }
+                    if (Array.isArray(data)) {
+                        data.forEach(function(company) {
+                            $('#company').append('<option value="' + company.id_company + '">' + company.company + '</option>');
+                        });
+                        cariApp();
+                    } else {
+                        console.error("Data is not in the expected format: ", data);
+                    }
+                    // $('#form_company').show();
+                },
+                error: function(xhr, status, error) {
+                    console.error("An error occurred while fetching applications:", error);
+                }
+            });
+        })
 
         $('#form_app').hide();
 
         $("#formSimpanTicket").on("submit", function(e) {
-            e.preventDefault(); // Prevent the default form submission
+            e.preventDefault();
 
-            var formData = new FormData(this); // Create a FormData object from the form
+            var formData = new FormData(this);
 
             $.ajax({
                 type: "post",
                 url: "<?php echo base_url('helpdesk/ticket/save_ticket') ?>",
                 data: formData,
-                processData: false, // Important: Prevent jQuery from processing the data
-                contentType: false, // Important: Prevent jQuery from setting content type
+                processData: false,
+                contentType: false,
                 dataType: "json",
                 success: function(response) {
                     console.log("Success response", response);
@@ -125,115 +161,8 @@
         });
 
 
+
     });
-
-    // $("#formSimpanTicket").on("submit", function(event) {
-    //     event.preventDefault();
-    //     var image = document.getElementById('img_ticket');
-    //     var file = image.files[0];
-
-    //     if (file) {
-    //         var reader = new FileReader();
-    //         reader.onloadend = function() {
-    //             var img_ticket = reader.result.split(';base64,')[1];
-    //             var no_ticket = $('#no_ticket').val();
-    //             var subject = $('#subject').val();
-    //             var message = $('#message').val();
-    //             var company = $('#company').val();
-    //             var application = $('#application').val();
-
-    //             $.ajax({
-    //                 type: "post",
-    //                 url: "<?php echo base_url('helpdesk/ticket/save_ticket') ?>",
-    //                 data: {
-    //                     no_ticket: no_ticket,
-    //                     subject: subject,
-    //                     message: message,
-    //                     company: company,
-    //                     application: application,
-    //                     img_ticket: img_ticket
-    //                 },
-    //                 // encypte: "multipart/form-data",
-    //                 dataType: "json",
-    //                 success: function(response) {
-    //                     if (response.error) {
-    //                         toastr.error(response.error);
-    //                     }
-    //                     if (response.success) {
-    //                         Swal.fire({
-    //                             icon: 'success',
-    //                             title: 'Berhasil',
-    //                             text: response.success,
-    //                             showCancelButton: false,
-    //                             showConfirmButton: false
-    //                         });
-    //                         setTimeout(function() {
-    //                             window.location.href = "<?= base_url('helpdesk/ticket/ticket') ?>"
-    //                         }, 1000);
-    //                     }
-    //                 },
-    //                 error: function(xhr, ajaxOptions, thrownError) {
-    //                     alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-    //                 }
-    //             });
-    //         };
-    //         reader.readAsDataURL(file);
-    //     } else {
-    //         alert("Please select an image file.");
-    //     }
-
-    //     return false;
-    // });
-
-    // $('.formSimpanTicket').submit(function(e) {
-    //     // var sender_id = $('#sender_id').val();
-    //     // var no_ticket = $('#no_ticket').val();
-    //     // var subject = $('#subject').val();
-    //     // var message = $('#message').val();
-    //     // var company = $('#company').val();
-    //     // var application = $('#application').val();
-    //     // var img_ticket = $('#img_ticket').val();
-
-    //     $.ajax({
-    //         type: "post",
-    //         url: $(this).attr('action'),
-    //         data: $(this).serialize(),
-    //         // data: {
-    //         //     sender_id: sender_id,
-    //         //     no_ticket: no_ticket,
-    //         //     subject: subject,
-    //         //     message: message,
-    //         //     company: company,
-    //         //     application: application,
-    //         //     img_ticket: img_ticket
-    //         // },
-    //         dataType: "json",
-    //         success: function(response) {
-    //             if (response.error) {
-    //                 // $('.pesan').html(response.error).show();
-    //                 toastr.error(response.error);
-    //             }
-    //             if (response.success) {
-    //                 Swal.fire({
-    //                     icon: 'success',
-    //                     title: 'Berhasil',
-    //                     text: response.success,
-    //                     showCancelButton: false,
-    //                     showConfirmButton: false
-    //                 });
-    //                 setTimeout(function() {
-    //                     window.location.href = "<?= base_url('helpdesk/ticket/ticket') ?>"
-    //                     // location.reload();
-    //                 }, 1000)
-    //             }
-    //         },
-    //         error: function(xhr, ajaxOptions, thrownError) {
-    //             alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-    //         }
-    //     });
-    //     return false;
-    // });
-    // });
 
     function cariApp() {
         var company = $("#company").val();

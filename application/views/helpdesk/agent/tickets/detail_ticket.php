@@ -1,15 +1,15 @@
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-4 mt-4">
+            <div class="row mb-3 mt-3">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-bolder">Ticket Detail</h1>
+                    <h3 class="m-0 font-weight-bolder">Ticket Detail</h3>
                 </div>
                 <div class="col-sm-6">
                     <div class="row">
                         <div class="col-11">
                             <!-- <button class="btn btn-primary text-sm float-right" onclick="crtTicket()">Create Ticket</button> -->
-                            <button class="btn btn-primary text-sm float-right" onclick="back()"> Back </button>
+                            <button class="btn btn-primary text-sm float-right mr-2" onclick="back()"> Back </button>
                         </div>
                         <div class="col-1">
                             <button class="btn btn-outline-primary text-sm float-right" onclick="reload()">

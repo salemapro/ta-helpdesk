@@ -8,7 +8,7 @@ class Divisi extends CI_Controller
         parent::__construct();
         $this->load->model('M_divisi');
         // $this->load->model('M_client');
-        // cek_login();
+        cek_login();
     }
 
     public function divisi()

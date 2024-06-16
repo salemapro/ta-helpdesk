@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2024 at 07:41 AM
+-- Generation Time: Jun 16, 2024 at 09:44 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.1.30
 
@@ -41,33 +41,9 @@ CREATE TABLE `application` (
 --
 
 INSERT INTO `application` (`id_application`, `application`, `company_id`, `created_at`, `updated_at`) VALUES
-(1, 'Mobile Legends', 2, '2024-05-29 14:18:28', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `client`
---
-
-CREATE TABLE `client` (
-  `id_client` int(11) NOT NULL,
-  `user_code` varchar(6) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `fullname` varchar(100) NOT NULL,
-  `num_phone` varchar(20) NOT NULL,
-  `company_id` int(11) NOT NULL,
-  `divisi_id` int(11) NOT NULL,
-  `avatar` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `client`
---
-
-INSERT INTO `client` (`id_client`, `user_code`, `email`, `fullname`, `num_phone`, `company_id`, `divisi_id`, `avatar`, `created_at`, `updated_at`) VALUES
-(1, 'CLN001', 'giyu@gmail.com', 'Tomiyoka Giyu', '0897651234', 2, 0, '', '2024-05-29 14:15:04', '2024-05-29');
+(1, 'Mobile Legends', 2, '2024-05-29 14:18:28', ''),
+(3, 'Point Blank', 3, '2024-06-08 02:24:11', ''),
+(4, 'Gensin Impact', 2, '2024-06-16 02:32:13', '');
 
 -- --------------------------------------------------------
 
@@ -88,7 +64,8 @@ CREATE TABLE `company` (
 
 INSERT INTO `company` (`id_company`, `company`, `created_at`, `updated_at`) VALUES
 (1, 'CV Insaba Pratista Agya', '2024-05-29 12:16:41', ''),
-(2, 'PT Masoem ', '2024-05-29 14:13:57', '');
+(2, 'PT Masoem ', '2024-05-29 14:13:57', ''),
+(3, 'PT Astra', '2024-06-08 02:22:23', '');
 
 -- --------------------------------------------------------
 
@@ -108,36 +85,9 @@ CREATE TABLE `divisi` (
 --
 
 INSERT INTO `divisi` (`id_divisi`, `divisi`, `created_at`, `updated_at`) VALUES
-(1, 'Call Center', '2024-05-29 12:30:29', '2024-05-29'),
+(1, 'Call Center', '2024-05-29 12:30:29', '2024-06-12'),
 (2, 'Developer', '2024-05-29 14:32:46', '2024-05-29'),
 (3, 'Konsultan IT', '2024-05-29 14:32:57', '2024-05-29');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `employee`
---
-
-CREATE TABLE `employee` (
-  `id_employee` int(11) NOT NULL,
-  `user_code` varchar(6) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `fullname` varchar(100) NOT NULL,
-  `num_phone` varchar(20) NOT NULL,
-  `company_id` int(11) NOT NULL,
-  `divisi_id` int(11) NOT NULL,
-  `avatar` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `employee`
---
-
-INSERT INTO `employee` (`id_employee`, `user_code`, `email`, `fullname`, `num_phone`, `company_id`, `divisi_id`, `avatar`, `created_at`, `updated_at`) VALUES
-(1, 'EMP001', 'gojo@gmail.com', 'Gojo Satoru', '0812345678', 1, 2, '', '2024-05-29 13:17:10', '2024-05-29'),
-(2, 'EMP002', 'ssayyidah18@gmail.com', 'Salma Sayyidah', '081998443418', 1, 1, '', '2024-05-29 14:35:48', '2024-05-29');
 
 -- --------------------------------------------------------
 
@@ -158,8 +108,10 @@ CREATE TABLE `subject` (
 --
 
 INSERT INTO `subject` (`id_subject`, `subject`, `divisi_id`, `created_at`, `updated_at`) VALUES
-(1, 'Tidak Bisa Login', 2, '2024-05-30 12:40:38', '2024-05-30'),
-(2, 'Bagaimana Cara Mengganti Password?', 3, '2024-05-30 12:40:50', '2024-05-30');
+(1, 'Tidak Bisa Login', 2, '2024-05-30 12:40:38', '2024-06-12'),
+(2, 'Bagaimana Cara Mengganti Password?', 3, '2024-05-30 12:40:50', '2024-05-30'),
+(3, 'Tidak Bisa Ganti Image Profile', 2, '2024-06-08 02:50:39', '2024-06-08'),
+(4, 'lainnya..', 1, '2024-06-16 06:54:28', '2024-06-16');
 
 -- --------------------------------------------------------
 
@@ -189,7 +141,10 @@ CREATE TABLE `ticket` (
 
 INSERT INTO `ticket` (`id_ticket`, `no_ticket`, `subject`, `message`, `img_ticket`, `sender_id`, `company_id`, `app_id`, `divisi_id`, `status_ticket`, `solved_by`, `created_at`, `solved_at`) VALUES
 (1, 'T0106240001', '1', 'abcd', 'dd511dc18cc46a09ced3d0bd11b55424.jpg', 3, 2, 1, 2, 2, 'Gojo Satoru', '2024-06-01 04:02:35', '2024-06-06'),
-(2, 'T0206240001', '2', 'aku ga bisa bang', 'c28328928d5b38afa792c6411100ba99.jpg', 3, 2, 1, 3, 0, '0', '2024-06-01 18:03:44', '');
+(3, 'T0806240001', '3', 'bang kenapa aku tidak bisa login bang', '3d322ee80f002538fac7615532f11395.png', 5, 3, 3, 2, 1, '', '2024-06-08 02:25:48', ''),
+(5, 'T1606240001', '2', 'bang tutor ganti password dong :(', '7f78fb11e67161adfe42f322922aa8bf.png', 3, 2, 4, 3, 0, '', '2024-06-16 03:11:35', ''),
+(6, 'T1606240002', '2', 'bang tutor ganti pw bang', '593e48fa7b30750f66ef9fc1dd007e67.png', 5, 3, 3, 3, 0, '', '2024-06-16 03:47:31', ''),
+(7, 'T1606240003', '4', 'bangg tolong banggg', 'ac120f1874c1de5c48f8db1531fdbcb5.png', 3, 2, 4, 1, 0, '', '2024-06-16 06:57:33', '');
 
 -- --------------------------------------------------------
 
@@ -216,7 +171,10 @@ INSERT INTO `ticket_detail` (`id`, `ticket_id`, `user_id`, `comment`, `date`) VA
 (35, 1, 1, 'sipp', '2024-06-03 09:39:40'),
 (36, 2, 4, 'halo bang', '2024-06-03 17:23:04'),
 (37, 2, 3, 'p balap', '2024-06-03 17:23:46'),
-(38, 1, 2, 'pp', '2024-06-04 07:49:39');
+(38, 1, 2, 'pp', '2024-06-04 07:49:39'),
+(39, 3, 2, 'salah password kali bang', '2024-06-08 02:27:20'),
+(40, 3, 5, 'mana ada', '2024-06-08 02:27:40'),
+(41, 7, 1, 'apaa bang', '2024-06-16 06:58:19');
 
 -- --------------------------------------------------------
 
@@ -244,10 +202,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `code_user`, `email`, `password`, `fullname`, `company_id`, `divisi_id`, `role_id`, `status`, `avatar`, `created_at`, `updated_at`) VALUES
-(1, 'USR001', 'ssayyidah18@gmail.com', '123', 'Salma Sayyidah', 1, 1, 1, 1, '/dist/img/avatar3.png', '2024-05-29 12:02:56', '2024-05-30'),
-(2, 'USR002', 'gojo@gmail.com', '123', 'Gojo Satoru', 1, 2, 2, 1, '/dist/img/avatar4.png', '2024-05-29 17:57:17', '2024-05-29'),
-(3, 'USR003', 'giyu@gmail.com', '123', 'Tomiyoka Giyu', 2, 0, 3, 1, '/dist/img/avatar5.png', '2024-05-29 17:59:01', '2024-05-29'),
-(4, 'USR004', 'dazai@gmail.com', '123', 'Dazai Osamu', 1, 3, 2, 1, '/dist/img/avatar4.png', '2024-05-29 18:09:42', '2024-05-29');
+(1, 'USR001', 'ssayyidah18@gmail.com', '123', 'salemaaa', 1, 1, 1, 1, '/dist/img/avatar/avatar_1.jpg', '2024-05-29 12:02:56', '2024-05-30'),
+(2, 'USR002', 'gojo@gmail.com', '123', 'Gojo Satoru', 1, 2, 2, 1, '/dist/img/avatar/avatar_22.png', '2024-05-29 17:57:17', '2024-06-12'),
+(3, 'USR003', 'giyu@gmail.com', '123', 'Tomiyoka Giyu', 2, 0, 3, 1, '/dist/img/avatar/avatar_3.jpg', '2024-05-29 17:59:01', '2024-05-29'),
+(4, 'USR004', 'dazai@gmail.com', '123', 'Dazai Osamu', 1, 3, 2, 1, '/dist/img/avatar/avatar_4.jpg', '2024-05-29 18:09:42', '2024-06-12'),
+(5, 'USR005', 'yami@gmail.com', '123', 'Yami Sukehiro', 3, 0, 3, 1, '/dist/img/avatar/avatar_5.jpg', '2024-06-08 02:22:54', '2024-06-08');
 
 -- --------------------------------------------------------
 
@@ -282,12 +241,6 @@ ALTER TABLE `application`
   ADD PRIMARY KEY (`id_application`);
 
 --
--- Indexes for table `client`
---
-ALTER TABLE `client`
-  ADD PRIMARY KEY (`id_client`);
-
---
 -- Indexes for table `company`
 --
 ALTER TABLE `company`
@@ -298,12 +251,6 @@ ALTER TABLE `company`
 --
 ALTER TABLE `divisi`
   ADD PRIMARY KEY (`id_divisi`);
-
---
--- Indexes for table `employee`
---
-ALTER TABLE `employee`
-  ADD PRIMARY KEY (`id_employee`);
 
 --
 -- Indexes for table `subject`
@@ -343,19 +290,13 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `application`
 --
 ALTER TABLE `application`
-  MODIFY `id_application` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `client`
---
-ALTER TABLE `client`
-  MODIFY `id_client` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_application` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `id_company` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_company` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `divisi`
@@ -364,34 +305,28 @@ ALTER TABLE `divisi`
   MODIFY `id_divisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `employee`
---
-ALTER TABLE `employee`
-  MODIFY `id_employee` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `id_subject` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_subject` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `ticket_detail`
 --
 ALTER TABLE `ticket_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_role`

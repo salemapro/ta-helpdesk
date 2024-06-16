@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Helpdesk</title>
+    <title>Login | Helpdesk IT</title>
+    <link rel="icon" type="image/x-icon" href="<?php echo base_url('assets/back/dist/img/fav-insaba.png') ?>">
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -22,7 +24,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="#"><b>Admin</b>LTE</a>
+            <a href="#"><b>Helpdesk</b> IT</a>
         </div>
         <div class="card">
             <div class="card-body login-card-body">

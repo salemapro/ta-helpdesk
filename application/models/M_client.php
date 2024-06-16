@@ -29,6 +29,24 @@ class M_client extends CI_Model
         return $this->db->get('application')->result();
     }
 
+    function get_company_user($id_user)
+    {
+        // $this->db->join('company', 'user.company_id = company.id_company', 'left');
+        $this->db->where('id_user', $id_user);
+        $query = $this->db->get('user');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $company_id = $row->company_id;
+            }
+        }
+
+        $this->db->from('company');
+        $this->db->where('id_company', $company_id);
+        return $this->db->get()->result();
+
+        // return null;
+    }
+
     function get_application($company)
     {
         // $this->db->join('company', 'application.company_id = company.id_company', 'left');

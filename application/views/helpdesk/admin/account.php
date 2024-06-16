@@ -1,9 +1,9 @@
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-4 mt-4">
+            <div class="row mb-3 mt-3">
                 <div class="col-sm-6">
-                    <h1 class="m-0 font-weight-bolder">Account Settings</h1>
+                    <h3 class="m-0 font-weight-bolder">Account Settings</h3>
                 </div>
                 <div class="col-sm-6">
                     <!-- <ol class="breadcrumb float-sm-right">

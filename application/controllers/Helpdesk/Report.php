@@ -14,9 +14,20 @@ class Report extends CI_Controller
 
     public function report_admin()
     {
-        // $data['sub'] = $this->M_subject->get_subject();
         $data['ticket'] = $this->M_ticket->get_ticket();
         $this->template->load('helpdesk/template_admin', 'helpdesk/admin/report/report', $data);
+    }
+
+    public function report_agent()
+    {
+        $data['ticket'] = $this->M_ticket->get_ticket_agent();
+        $this->template->load('helpdesk/template_agent', 'helpdesk/agent/report/report', $data);
+    }
+
+    public function report_user()
+    {
+        $data['ticket'] = $this->M_ticket->get_ticket_user();
+        $this->template->load('helpdesk/template_user', 'helpdesk/user/report/report', $data);
     }
 
     function print_report_admin($id)

@@ -39,22 +39,26 @@ class Ticket extends CI_Controller
         $data['no_ticket'] = $this->M_ticket->get_no_ticket();
         $data['subject'] = $this->M_subject->get_subject();
         $data['user'] = $this->M_user->get_all_data();
+        $this->template->load('helpdesk/template_admin', 'helpdesk/admin/tickets/new_ticket', $data);
     }
 
-    //for client and agent
+    //for client
     function new_ticket()
     {
-        $role = $this->session->role_id;
+        $id = $this->session->id_user;
         $data['no_ticket'] = $this->M_ticket->get_no_ticket();
         $data['subject'] = $this->M_subject->get_subject();
-        $data['company'] = $this->M_client->get_company();
-        if ($role == '1') {
-            $this->template->load('helpdesk/template_admin', 'helpdesk/admin/tickets/new_ticket', $data);
-        } else if ($role == '2') {
-            $this->template->load('helpdesk/template_agent', 'helpdesk/agent/tickets/new_ticket', $data);
-        } else {
-            $this->template->load('helpdesk/template_user', 'helpdesk/user/tickets/new_ticket', $data);
-        }
+        // $data['company'] = $this->M_client->get_company();
+        // $data['app'] = $this->M_client->get_app();
+        $this->template->load('helpdesk/template_user', 'helpdesk/user/tickets/new_ticket', $data);
+
+        // if ($role == '1') {
+        //     $this->template->load('helpdesk/template_admin', 'helpdesk/admin/tickets/new_ticket', $data);
+        // } else if ($role == '2') {
+        //     $this->template->load('helpdesk/template_agent', 'helpdesk/agent/tickets/new_ticket', $data);
+        // } else {
+        //     $this->template->load('helpdesk/template_user', 'helpdesk/user/tickets/new_ticket', $data);
+        // }
     }
 
     function detail_ticket_admin($id_ticket)
@@ -133,7 +137,7 @@ class Ticket extends CI_Controller
                         'subject' => $this->input->post('subject'),
                         'message' => $this->input->post('message'),
                         'img_ticket' => $file_path,
-                        'sender_id' => $this->session->userdata('id_user'),
+                        'sender_id' => $this->input->post('sender_id'),
                         'company_id' => $this->input->post('company'),
                         'app_id' => $this->input->post('application'),
                         'divisi_id' => $divisi,

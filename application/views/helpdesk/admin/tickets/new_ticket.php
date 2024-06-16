@@ -1,8 +1,10 @@
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-
+            <div class="row mb-3 mt-3">
+                <div class="col-sm-6">
+                    <h3 class="m-0 font-weight-bold text-black"> Create Ticket</h3>
+                </div>
             </div>
         </div>
     </section>
@@ -22,25 +24,40 @@
                                 <div class="form-group">
                                     <label for="no_ticket" class="font-weight-normal">No. Ticket</label>
                                     <input type="text" readonly name="no_ticket" id="no_ticket" value="<?= $no_ticket ?>" class="form-control">
-                                    <input type="hidden" readonly name="sender_id" value="<?= $this->session->id_user ?>" class="form-control">
+                                    <!-- <input type="hidden" readonly name="sender_id" value="<?= $this->session->id_user ?>" class="form-control"> -->
                                 </div>
                                 <div class="form-group">
-                                    <label for="company" class="font-weight-normal">Company</label>
-                                    <select name="company" id="company" class="form-control font-weight-normal text-sm" onchange="cariApp()">
+                                    <label for="costumer" class="font-weight-normal">Costumer</label>
+                                    <select name="sender_id" id="sender_id" class="form-control select2bs4 font-weight-normal text-sm" onchange="cariCompany()">
                                         <option value="0" selected disabled>Select an option</option>
-                                        <?php foreach ($company as $row) { ?>
-                                            <option value="<?= $row->id_company ?>"> <?= $row->company ?></option>
+                                        <?php foreach ($user as $row) { ?>
+                                            <option value="<?= $row->id_user ?>">
+                                                <!-- <div class="media align-items-center">
+                                                    <div class="avatar-wrapper2">
+                                                        <img src="<?php echo base_url('assets/back') ?><?= $row->avatar; ?>" class="img-size-32 img-circle">
+                                                    </div>
+                                                    <div class="media-body ml-2 ">
+                                                        <h4 class="dropdown-item-title text-sm mb-0 ">
+                                                            <?= $row->fullname; ?>
+                                                        </h4>
+                                                    </div>
+                                                </div> -->
+                                                <?= $row->fullname; ?>
+                                            </option>
                                         <?php } ?>
                                     </select>
                                 </div>
+                                <div class="form-group" id="form_company">
+                                    <label for="company" class="font-weight-normal">Company</label>
+                                    <select name="company" id="company" class="form-control select2bs4 font-weight-normal text-sm"></select>
+                                </div>
                                 <div class="form-group" id="form_app">
                                     <label for="application" class="font-weight-normal">Application</label>
-                                    <select name="application" id="application" class="form-control font-weight-normal text-sm">
-                                    </select>
+                                    <select name="application" id="application" class="form-control select2bs4 font-weight-normal text-sm"></select>
                                 </div>
                                 <div class="form-group">
                                     <label for="subject" class="font-weight-normal">Subject</label>
-                                    <select name="subject" id="subject" class="form-control font-weight-normal text-sm">
+                                    <select name="subject" id="subject" class="form-control select2bs4 font-weight-normal text-sm" style="width: 100%; height: 100%;">
                                         <option value="0" selected disabled>Select an option</option>
                                         <?php foreach ($subject as $row) { ?>
                                             <option value="<?= $row->id_subject ?>"> <?= $row->subject ?></option>
@@ -81,9 +98,16 @@
     $(document).ready(function() {
         $(function() {
             bsCustomFileInput.init();
+            $('.select2').select2()
+
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
         });
 
         $('#form_app').hide();
+        $('#form_company').hide();
 
         $("#formSimpanTicket").on("submit", function(e) {
             e.preventDefault(); // Prevent the default form submission
@@ -123,8 +147,6 @@
 
             return false;
         });
-
-
     });
 
     // $("#formSimpanTicket").on("submit", function(event) {
@@ -235,9 +257,38 @@
     // });
     // });
 
+    function cariCompany() {
+        var user = $("#sender_id").val();
+        // var app = $('#application');
+        $.ajax({
+            type: "post",
+            url: "../client/get_company",
+            data: {
+                id_user: user
+            },
+            success: function(data) {
+                $('#company').empty();
+                if (typeof data === 'string') {
+                    data = JSON.parse(data);
+                }
+                if (Array.isArray(data)) {
+                    data.forEach(function(company) {
+                        $('#company').append('<option value="' + company.id_company + '">' + company.company + '</option>');
+                    });
+                    cariApp();
+                } else {
+                    console.error("Data is not in the expected format: ", data);
+                }
+                $('#form_company').show();
+            },
+            error: function(xhr, status, error) {
+                console.error("An error occurred while fetching applications:", error);
+            }
+        });
+    }
+
     function cariApp() {
         var company = $("#company").val();
-        // var app = $('#application');
         if (company != "1") {
             $.ajax({
                 type: "post",

@@ -19,6 +19,11 @@ class M_user extends CI_Model
         return $this->db->get('user')->result();
     }
 
+    function get_all_data()
+    {
+        return $this->db->get('user')->result();
+    }
+
     function get_user_roles()
     {
         return $this->db->get('user_role')->result();

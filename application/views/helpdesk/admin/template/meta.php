@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/back/plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/back/dist/css/adminlte.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="<?= base_url() ?>assets/back/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/back/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="<?php echo base_url('assets/back') ?>/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!-- Toastr -->

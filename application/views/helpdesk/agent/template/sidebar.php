@@ -45,10 +45,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?php echo base_url('') ?>" class="nav-link">
-                        <i class="nav-icon fas fa-inbox"></i>
+                    <a href="<?php echo base_url('helpdesk/report/report_agent') ?>" class="nav-link">
+                        <i class="nav-icon fas fa-file"></i>
                         <p>
-                            Laporan
+                            Report
                             <!-- <span class="right badge badge-danger">New</span> -->
                         </p>
                     </a>

@@ -7,6 +7,8 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="<?= base_url() ?>assets/back/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Select2 -->
+<script src="<?= base_url() ?>assets/back/plugins/select2/js/select2.full.min.js"></script>
 <!-- ChartJS -->
 <script src="<?= base_url() ?>assets/back/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->

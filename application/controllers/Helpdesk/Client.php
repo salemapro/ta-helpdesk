@@ -8,8 +8,6 @@ class Client extends CI_Controller
         parent::__construct();
         $this->load->model('M_client');
         $this->load->model('M_user');
-        $this->load->model('M_users');
-        // $this->load->model('M_company');
         cek_login();
     }
 
@@ -36,6 +34,13 @@ class Client extends CI_Controller
     {
         $company = $this->input->post('company');
         $result = $this->M_client->get_application($company);
+        echo json_encode($result);
+    }
+
+    public function get_company()
+    {
+        $id_user = $this->input->post('id_user');
+        $result = $this->M_client->get_company_user($id_user);
         echo json_encode($result);
     }
 
