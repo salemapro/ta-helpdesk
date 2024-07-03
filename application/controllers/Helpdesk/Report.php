@@ -8,6 +8,7 @@ class Report extends CI_Controller
         parent::__construct();
         $this->load->model('M_subject');
         $this->load->model('M_ticket');
+        $this->load->library('Pdf');
         // $this->load->model('M_report');
         cek_login();
     }
@@ -30,9 +31,14 @@ class Report extends CI_Controller
         $this->template->load('helpdesk/template_user', 'helpdesk/user/report/report', $data);
     }
 
+
     function print_report_admin($id)
     {
-        // $data['get_report'] = $this->M_report->get_report($id)->result();
-        $this->template->load('helpdesk/template_admin', 'helpdesk/admin/report/print_report');
+        error_reporting(0);
+        $pdf = new Pdf('P', 'mm', 'A4');
+        $pdf->setMargins(20, 20, 10);
+        $pdf->AddPage();
+        $pdf->logo("assets/back/dist/img/insaba.png");
+        $pdf->Output();
     }
 }

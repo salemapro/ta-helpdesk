@@ -23,7 +23,7 @@
                             <table id="example1" class="table table-head-fixed text-nowrap">
                                 <thead>
                                     <tr>
-                                        <th class="col-md-1 font-weight-normal text-sm">No</th>
+                                        <th class="col-ms-1 font-weight-normal text-sm">No</th>
                                         <th class="font-weight-normal text-sm">Customer</th>
                                         <th class="font-weight-normal text-sm">Ticket Summary</th>
                                         <th class="font-weight-normal text-sm">Status</th>
@@ -55,13 +55,13 @@
                                             <td class="text-sm"><?= $row->subject ?></td>
                                             <td class="text-sm">
                                                 <?php if ($row->status_ticket == '0') {
-                                                    echo '<span class="badge badge-warning">Waiting...</span>';
+                                                    echo '<span class="badge badge-danger">Waiting</span>';
                                                     // } else if ($row->status_ticket == '1') {
                                                     //     echo '<span class="badge badge-info">Opened</span>';
                                                 } else if ($row->status_ticket == '1') {
-                                                    echo '<span class="badge badge-success">Process..</span>';
+                                                    echo '<span class="badge badge-warning">Process</span>';
                                                 } else {
-                                                    echo '<span class="badge badge-danger">Solved</span>';
+                                                    echo '<span class="badge badge-success">Solved</span>';
                                                 }
                                                 ?>
                                             </td>
