@@ -13,6 +13,17 @@ class M_ticket extends CI_Model
         return $this->db->get('ticket')->result();
     }
 
+    function ticket_report($id)
+    {
+        $this->db->join('user', 'ticket.sender_id = user.id_user', 'left');
+        $this->db->join('subject', 'ticket.subject = subject.id_subject', 'left');
+        $this->db->join('divisi', 'ticket.divisi_id = divisi.id_divisi', 'left');
+        $this->db->join('company', 'ticket.company_id = company.id_company', 'left');
+        $this->db->join('application', 'ticket.app_id = application.id_application', 'left');
+        $this->db->where('ticket.id_ticket', $id);
+        return $this->db->get('ticket')->row();
+    }
+
     function get_ticket_user()
     {
         $user = $this->session->id_user;
