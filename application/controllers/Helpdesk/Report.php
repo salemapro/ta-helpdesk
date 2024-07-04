@@ -106,7 +106,6 @@ class Report extends CI_Controller
         $pdf->desc2($ticket->message);
 
         //row7
-
         $comment = $this->M_ticket->get_comment($id);
         if ($comment) {
             $pdf->Cell(10, 12, '', 0, 1);

@@ -84,8 +84,7 @@
                                                     <button class="btn btn-danger btn-sm text-sm" onclick="confirm(<?= $row->id_ticket ?>)"> confirm </button>
                                                 <?php } else if ($row->status_ticket == '1') { ?>
                                                     <button class="btn btn-warning btn-sm text-sm" onclick="closeTicket(<?= $row->id_ticket . ',\'' . $this->session->fullname . '\'' ?>)"> close </button>
-                                                <?php } else { ?>
-                                                    <button class="btn btn-success btn-sm text-sm"> closed </button>
+
                                                 <?php } ?>
                                             </td>
                                             <td class="text-sm">

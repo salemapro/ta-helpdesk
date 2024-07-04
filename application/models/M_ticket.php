@@ -10,6 +10,7 @@ class M_ticket extends CI_Model
         $this->db->join('divisi', 'ticket.divisi_id = divisi.id_divisi', 'left');
         $this->db->join('company', 'ticket.company_id = company.id_company', 'left');
         $this->db->join('application', 'ticket.app_id = application.id_application', 'left');
+        $this->db->order_by('ticket.created_at', 'DESC');
         return $this->db->get('ticket')->result();
     }
 
@@ -21,6 +22,7 @@ class M_ticket extends CI_Model
         $this->db->join('company', 'ticket.company_id = company.id_company', 'left');
         $this->db->join('application', 'ticket.app_id = application.id_application', 'left');
         $this->db->where('ticket.id_ticket', $id);
+        // $this->db->order_by('ticket.created_at', 'DESC');
         return $this->db->get('ticket')->row();
     }
 
@@ -33,6 +35,7 @@ class M_ticket extends CI_Model
         $this->db->join('company', 'ticket.company_id = company.id_company', 'left');
         $this->db->join('application', 'ticket.app_id = application.id_application', 'left');
         $this->db->where('ticket.sender_id', $user);
+        $this->db->order_by('ticket.created_at', 'DESC');
         return $this->db->get('ticket')->result();
     }
 
@@ -45,6 +48,7 @@ class M_ticket extends CI_Model
         $this->db->join('company', 'ticket.company_id = company.id_company', 'left');
         $this->db->join('application', 'ticket.app_id = application.id_application', 'left');
         $this->db->where('ticket.divisi_id', $divisi);
+        $this->db->order_by('ticket.created_at', 'DESC');
         return $this->db->get('ticket')->result();
     }
 
