@@ -19,6 +19,7 @@
                                     <tr>
                                         <th class="col-md-1 font-weight-normal text-sm">No</th>
                                         <th class="font-weight-normal text-sm">Customer</th>
+                                        <th class="font-weight-normal text-sm">Ticket Number</th>
                                         <th class="font-weight-normal text-sm">Ticket Summary</th>
                                         <th class="font-weight-normal text-sm">Status</th>
                                         <!-- <th class="font-weight-normal text-sm">Confirm</th> -->
@@ -44,6 +45,7 @@
                                                     </div>
                                                 </div>
                                             </td>
+                                            <td class="text-sm"><?= $row->no_ticket ?></td>
                                             <td class="text-sm"><?= $row->subject ?></td>
                                             <td class="text-sm">
                                                 <?php if ($row->status_ticket == '0') {

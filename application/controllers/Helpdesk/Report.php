@@ -9,7 +9,7 @@ class Report extends CI_Controller
         $this->load->model('M_subject');
         $this->load->model('M_ticket');
         $this->load->library('Pdf');
-        // $this->load->model('M_report');
+        $this->load->model('M_report');
         cek_login();
     }
 
@@ -29,6 +29,56 @@ class Report extends CI_Controller
     {
         $data['ticket'] = $this->M_ticket->get_ticket_user();
         $this->template->load('helpdesk/template_user', 'helpdesk/user/report/report', $data);
+    }
+
+    public function filter_tickets()
+    {
+        $start_date = $this->input->post('start_date');
+        $end_date = $this->input->post('end_date');
+
+        log_message('debug', 'Start Date: ' . $start_date);
+        log_message('debug', 'End Date: ' . $end_date);
+
+        $this->load->model('M_report');
+        $tickets = $this->M_report->get_filtered_tickets($start_date, $end_date);
+
+        log_message('debug', 'Filtered Tickets: ' . print_r($tickets, true));
+
+        $output = '';
+        $no = 1;
+        foreach ($tickets as $row) {
+            $output .= '<tr>
+                        <td>' . $no++ . '</td>
+                        <td class="text-sm">
+                            <div class="media align-items-center">
+                                <div class="avatar-wrapper2">
+                                    <img src="' . base_url('assets/back/' . $row->avatar) . '" class="img-size-32 img-circle">
+                                </div>
+                                <div class="media-body ml-2">
+                                    <h4 class="dropdown-item-title text-sm mb-0">' . $row->fullname . '</h4>
+                                    <p class="text-sm text-muted mb-0">' . $row->email . '</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-sm">' . $row->no_ticket . '</td>
+                        <td class="text-sm">' . $row->subject . '</td>
+                        <td class="text-sm">';
+            if ($row->status_ticket == '0') {
+                $output .= '<span class="badge badge-danger">Waiting</span>';
+            } else if ($row->status_ticket == '1') {
+                $output .= '<span class="badge badge-warning">Process</span>';
+            } else {
+                $output .= '<span class="badge badge-success">Solved</span>';
+            }
+            $output .= '</td>
+                        <td class="text-sm">
+                            <a href="' . base_url('helpdesk/report/print_report/' . $row->id_ticket) . '" class="btn btn-default btn-sm">
+                                <i class="fa fa-print"></i>
+                            </a>
+                        </td>
+                    </tr>';
+        }
+        echo $output;
     }
 
 

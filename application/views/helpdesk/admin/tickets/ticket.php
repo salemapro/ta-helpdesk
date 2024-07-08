@@ -41,7 +41,7 @@
                                         <th class="font-weight-normal text-sm">Ticket Summary</th>
                                         <th class="font-weight-normal text-sm">Agent</th>
                                         <th class="font-weight-normal text-sm">Status</th>
-                                        <th class="font-weight-normal text-sm">Confirm</th>
+                                        <th class="col-ms-1 font-weight-normal text-sm">Confirm</th>
                                         <th class="font-weight-normal text-sm">Action</th>
                                     </tr>
                                 </thead>
@@ -81,9 +81,9 @@
                                             <td class="text-sm">
                                                 <?php
                                                 if ($row->status_ticket == '0') { ?>
-                                                    <button class="btn btn-danger btn-sm text-sm" onclick="confirm(<?= $row->id_ticket ?>)"> confirm </button>
+                                                    <button class="btn btn-danger btn-sm text-sm" onclick="confirm(<?= $row->id_ticket ?>)"> <i class="fa fa-check"></i> </button>
                                                 <?php } else if ($row->status_ticket == '1') { ?>
-                                                    <button class="btn btn-warning btn-sm text-sm" onclick="closeTicket(<?= $row->id_ticket . ',\'' . $this->session->fullname . '\'' ?>)"> close </button>
+                                                    <button class="btn btn-warning btn-sm" style="width: 32px;" onclick="closeTicket(<?= $row->id_ticket . ',\'' . $this->session->fullname . '\'' ?>)"> <i class="fa fa-hourglass-end"></i> </button>
 
                                                 <?php } ?>
                                             </td>

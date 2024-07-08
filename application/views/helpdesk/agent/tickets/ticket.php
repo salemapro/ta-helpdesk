@@ -64,22 +64,22 @@
                                             <td class="text-sm"><?= $row->subject ?></td>
                                             <td class="text-sm">
                                                 <?php if ($row->status_ticket == '0') {
-                                                    echo '<span class="badge badge-warning">waiting</span>';
+                                                    echo '<span class="badge badge-danger">waiting</span>';
                                                 } else if ($row->status_ticket == '1') {
-                                                    echo '<span class="badge badge-success">process</span>';
+                                                    echo '<span class="badge badge-warning">process</span>';
                                                 } else {
-                                                    echo '<span class="badge badge-danger">solved</span>';
+                                                    echo '<span class="badge badge-success">solved</span>';
                                                 }
                                                 ?>
                                             </td>
                                             <td class="text-sm">
                                                 <?php
                                                 if ($row->status_ticket == '0') { ?>
-                                                    <button class="btn btn-success btn-sm text-sm" onclick="confirm(<?= $row->id_ticket ?>)"> Confirm </button>
+                                                    <button class="btn btn-danger btn-sm text-sm" onclick="confirm(<?= $row->id_ticket ?>)"> <i class="fa fa-check"></i>
+                                                    </button>
                                                 <?php } else if ($row->status_ticket == '1') { ?>
-                                                    <button class="btn btn-warning btn-sm text-sm" onclick="closeTicket(<?= $row->id_ticket . ',\'' . $this->session->fullname . '\'' ?>)"> Close </button>
-                                                <?php } else { ?>
-                                                    <button class="btn btn-danger btn-sm text-sm"> Closed </button>
+                                                    <button class="btn btn-warning btn-sm text-sm" onclick="closeTicket(<?= $row->id_ticket . ',\'' . $this->session->fullname . '\'' ?>)"> <i class="fa fa-hourglass-end"></i>
+                                                    </button>
                                                 <?php } ?>
                                             </td>
                                             <td class="text-sm">

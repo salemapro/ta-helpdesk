@@ -8,6 +8,8 @@ class M_user extends CI_Model
     {
         $this->db->join('user_role', 'user.role_id = user_role.id_role', 'left');
         $this->db->join('divisi', 'user.divisi_id = divisi.id_divisi', 'left');
+        $this->db->order_by('user.created_at', 'ASC');
+
         return $this->db->get('user')->result();
     }
 

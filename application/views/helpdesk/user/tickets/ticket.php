@@ -72,11 +72,11 @@
                                             <td class="text-sm"><?= $row->subject ?></td>
                                             <td class="text-sm">
                                                 <?php if ($row->status_ticket == '0') {
-                                                    echo '<span class="badge badge-warning">waiting</span>';
+                                                    echo '<span class="badge badge-danger">waiting</span>';
                                                 } else if ($row->status_ticket == '1') {
-                                                    echo '<span class="badge badge-success">process</span>';
+                                                    echo '<span class="badge badge-warning">process</span>';
                                                 } else {
-                                                    echo '<span class="badge badge-danger">solved</span>';
+                                                    echo '<span class="badge badge-success">solved</span>';
                                                 }
                                                 ?>
                                             </td>

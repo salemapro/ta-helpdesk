@@ -24,10 +24,10 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="#"><b>Helpdesk</b> IT</a>
+            <a href="#"><b>HELPDESK</b> IT</a>
         </div>
         <div class="card">
-            <div class="card-body login-card-body">
+            <div class="card-body login-card-body" style="border-radius: 20px;">
                 <p class="login-box-msg">Sign in to start your session</p>
                 <!-- <?= $this->session->flashdata('message'); ?> -->
                 <form action="#" method="post" id="formLogin">

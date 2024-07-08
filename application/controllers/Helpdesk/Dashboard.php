@@ -32,7 +32,7 @@ class Dashboard extends CI_Controller
 
     public function user()
     {
-        $data['ticket'] = $this->M_ticket->get_ticket_user();
-        $this->template->load('helpdesk/template_user', 'helpdesk/user/tickets/ticket', $data);
+        // $data['ticket'] = $this->M_ticket->get_ticket_user();
+        $this->template->load('helpdesk/template_user', 'helpdesk/user/dashboard');
     }
 }

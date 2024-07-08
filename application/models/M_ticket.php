@@ -22,7 +22,6 @@ class M_ticket extends CI_Model
         $this->db->join('company', 'ticket.company_id = company.id_company', 'left');
         $this->db->join('application', 'ticket.app_id = application.id_application', 'left');
         $this->db->where('ticket.id_ticket', $id);
-        // $this->db->order_by('ticket.created_at', 'DESC');
         return $this->db->get('ticket')->row();
     }
 
