@@ -43,7 +43,9 @@
                             <div class="col-12">
                                 <h4>
                                     <i class="fas fa-ticket-alt"></i> <b>HELPDESK TICKET</b>
-                                    <small class="float-right">Date: <?= $ticket->created_at ?></small>
+                                    <small class="float-right">Date: <?= date('d-m-Y h:i', strtotime($ticket->created_at)) ?></small>
+                                    <!-- <small class="float-right">Date: <?= $ticket->created_at ?></small> -->
+                                    <!-- date('d-m-Y', strtotime($row['tanggal_pengembalian'])) -->
                                 </h4>
                             </div>
                         </div>
@@ -159,10 +161,16 @@
                         <hr>
                         <div class="card-body">
                             <!-- <p><?= $ticket->subject ?></p><br> -->
-                            <h5 class="mb-3"><b>Subject : <?= $ticket->subject ?></b></h5>
-                            <img class="img-fluid pad" src="<?= base_url('assets/images/tiket/' . $ticket->img_ticket) ?>" alt="Photo">
+                            <!-- <h5 class="mb-3"><b>Subject : <?= $ticket->subject ?></b></h5> -->
+                            <h5 class="mt-3"><b>Subject :</b></h5>
+                            <input type="text" readonly value="<?= $ticket->subject ?>" class="form-control">
+
                             <h5 class="mt-3"><b>Description :</b></h5>
-                            <p><?= $ticket->message ?></p>
+                            <textarea readonly class="form-control" rows="3"><?= $ticket->message ?></textarea>
+                            <!-- <p><?= $ticket->message ?></p> -->
+
+                            <h5 class="mt-3"><b>Image :</b></h5>
+                            <img class="img-fluid pad" src="<?= base_url('assets/images/tiket/' . $ticket->img_ticket) ?>" alt="Image Ticket">
                             <!-- </div> -->
 
                             <!-- <div class="card-body"> -->

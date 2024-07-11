@@ -35,7 +35,7 @@
                         <div class="card-body">
                             <!-- <div class="form-group"> -->
                             <div class="input-group date p-0 shadow-sm" id="start-date" data-target-input="nearest">
-                                <input type="text" id="start-date-data" placeholder="contoh: 2024-06-16" class="form-control datetimepicker-input py-4 px-4" data-toggle="datetimepicker" data-target="#start-date" />
+                                <input type="text" id="start-date-data" placeholder="DD-MM-YYYY" class="form-control datetimepicker-input py-4 px-4" data-toggle="datetimepicker" data-target="#start-date" />
                                 <div class="input-group-append" data-target="#start-date" data-toggle="datetimepicker">
                                     <div class="input-group-text px-4"><i class="fa fa-calendar"></i></div>
                                 </div>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="card-body">
                             <div class="input-group date p-0 shadow-sm" id="end-date" data-target-input="nearest">
-                                <input type="text" id="end-date-data" placeholder="contoh: 2024-06-16" class="form-control datetimepicker-input py-4 px-4" data-toggle="datetimepicker" data-target="#end-date" autocomplete="off" />
+                                <input type="text" id="end-date-data" placeholder="DD-MM-YYYY" class="form-control datetimepicker-input py-4 px-4" data-toggle="datetimepicker" data-target="#end-date" autocomplete="off" />
                                 <div class="input-group-append" data-target="#end-date" data-toggle="datetimepicker">
                                     <div class="input-group-text px-4"><i class="fa fa-calendar"></i></div>
                                 </div>
@@ -151,7 +151,7 @@
             console.error('Datetime picker plugin not loaded');
         }
         $("#start-date").datetimepicker({
-            format: 'YYYY-MM-DD',
+            format: 'DD-MM-YYYY',
             defaultDate: new Date()
         });
 
@@ -166,7 +166,7 @@
         })
 
         $("#end-date").datetimepicker({
-            format: 'YYYY-MM-DD',
+            format: 'DD-MM-YYYY',
             defaultDate: new Date()
         });
 
@@ -290,9 +290,11 @@
     function filterTickets() {
         var startDate = $('#start-date-data').val();
         var endDate = $('#end-date-data').val();
+        var role = <?php echo json_encode($this->session->role_id); ?>;
 
         console.log('Start Date:', startDate);
         console.log('End Date:', endDate);
+        console.log('Role:', role);
         console.log('Filtering tickets with dates:', startDate, endDate);
 
         $.ajax({
@@ -300,7 +302,8 @@
             method: 'POST',
             data: {
                 start_date: startDate,
-                end_date: endDate
+                end_date: endDate,
+                role: role
             },
             success: function(response) {
                 $('#tbody').html(response);

@@ -85,78 +85,98 @@
                 var email = $('#email').val();
                 var password = $('#password').val();
 
-                $.ajax({
-                    type: "post",
-                    url: "<?php echo base_url('helpdesk/auth/login_aksi') ?>",
-                    data: {
-                        "email": email,
-                        "password": password
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.role == '1') {
-                            Swal.fire({
-                                    icon: 'success',
-                                    title: 'Login Berhasil',
-                                    text: response.success,
-                                    showCancelButton: false,
-                                    showConfirmButton: false,
-                                    timer: '1000'
-                                })
-                                .then(function() {
-                                    window.location.href = "<?php echo base_url('helpdesk/dashboard/admin') ?>";
+                if (!validateForm()) {
+                    return false; // Stop the execution if the form is not valid
+                } else {
+                    $.ajax({
+                        type: "post",
+                        url: "<?php echo base_url('helpdesk/auth/login_aksi') ?>",
+                        data: {
+                            "email": email,
+                            "password": password
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.role == '1') {
+                                Swal.fire({
+                                        icon: 'success',
+                                        title: 'Login Berhasil',
+                                        text: response.success,
+                                        showCancelButton: false,
+                                        showConfirmButton: false,
+                                        timer: '1000'
+                                    })
+                                    .then(function() {
+                                        window.location.href = "<?php echo base_url('helpdesk/dashboard/admin') ?>";
+                                    });
+                            }
+                            if (response.role == '2') {
+                                Swal.fire({
+                                        icon: 'success',
+                                        title: 'Login Berhasil',
+                                        text: response.success,
+                                        showCancelButton: false,
+                                        showConfirmButton: false,
+                                        timer: '1000'
+                                    })
+                                    .then(function() {
+                                        window.location.href = "<?php echo base_url('helpdesk/dashboard/agent') ?>";
+                                    });
+                            }
+                            if (response.role == '3') {
+                                Swal.fire({
+                                        icon: 'success',
+                                        title: 'Login Berhasil',
+                                        text: response.success,
+                                        showCancelButton: false,
+                                        showConfirmButton: false,
+                                        timer: '1000'
+                                    })
+                                    .then(function() {
+                                        window.location.href = "<?php echo base_url('helpdesk/dashboard/user') ?>";
+                                    });
+                            }
+                            if (response.error) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: response.error
                                 });
-                        }
-                        if (response.role == '2') {
-                            Swal.fire({
-                                    icon: 'success',
-                                    title: 'Login Berhasil',
-                                    text: response.success,
-                                    showCancelButton: false,
-                                    showConfirmButton: false,
-                                    timer: '1000'
-                                })
-                                .then(function() {
-                                    window.location.href = "<?php echo base_url('helpdesk/dashboard/agent') ?>";
-                                });
-                        }
-                        if (response.role == '3') {
-                            Swal.fire({
-                                    icon: 'success',
-                                    title: 'Login Berhasil',
-                                    text: response.success,
-                                    showCancelButton: false,
-                                    showConfirmButton: false,
-                                    timer: '1000'
-                                })
-                                .then(function() {
-                                    window.location.href = "<?php echo base_url('helpdesk/dashboard/user') ?>";
-                                });
-                        }
-                        if (response.error) {
+                            }
+                        },
+                        error: function(response) {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Oops...',
-                                text: response.error
+                                title: 'Oops',
+                                text: 'server error!'
                             });
-                        }
-                    },
-                    error: function(response) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops',
-                            text: 'server error!'
-                        });
 
-                        console.log(response);
-                    },
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                    }
-                });
-                return false;
+                            console.log(response);
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                        }
+                    });
+                    return false;
+                }
+
             });
+
         });
+
+        function validateForm() {
+            if (document.forms["formLogin"]["email"].value == "") {
+                toastr.error("Email Pengguna harus diisi !!");
+                document.forms["formLogin"]["email"].focus();
+                return false;
+            }
+            if (document.forms["formLogin"]["password"].value == "") {
+                toastr.error("Kata Sandi harus diisi !!");
+                document.forms["formLogin"]["password"].focus();
+                return false;
+            }
+            return true;
+        }
     </script>
 </body>
 

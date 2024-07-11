@@ -40,7 +40,7 @@
                                     <select name="application" id="application" class="form-control select2bs4 font-weight-normal text-sm">
                                     </select>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="subject" class="font-weight-normal">Subject</label>
                                     <select name="subject" id="subject" class="form-control select2bs4 font-weight-normal text-sm">
                                         <option value="0" selected disabled>Select an option</option>
@@ -48,6 +48,19 @@
                                             <option value="<?= $row->id_subject ?>"> <?= $row->subject ?></option>
                                         <?php } ?>
                                     </select>
+                                </div> -->
+                                <div class="form-group">
+                                    <label for="subject" class="font-weight-normal">Subject</label>
+                                    <select name="subject" id="subject" class="form-control select2bs4 font-weight-normal text-sm" onchange="checkCustomOption(this)">
+                                        <option value="0" selected disabled>Select an option</option>
+                                        <?php foreach ($subject as $row) { ?>
+                                            <option value="<?= $row->id_subject ?>"> <?= $row->subject ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="customSubject">
+                                    <label for="customInput" class="font-weight-normal">Input Subject</label>
+                                    <input type="text" name="customInput" id="customInput" class="form-control font-weight-normal text-sm" placeholder="Input your question or problem">
                                 </div>
                                 <div class="form-group">
                                     <label for="subject" class="font-weight-normal">Message</label>
@@ -57,7 +70,7 @@
                                     <label for="img_ticket" class="font-weight-normal">Image</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" name="img_ticket" id="img_ticket" class="custom-file-input" required>
+                                            <input type="file" name="img_ticket" id="img_ticket" class="custom-file-input">
                                             <label class="custom-file-label" for="img_ticket">Choose file</label>
                                         </div>
                                     </div>
@@ -120,47 +133,50 @@
         })
 
         $('#form_app').hide();
+        $('#customSubject').hide();
 
         $("#formSimpanTicket").on("submit", function(e) {
             e.preventDefault();
+            if (!validateForm()) {
+                return false;
+            } else {
+                var formData = new FormData(this);
+                console.log("FormData: ", formData);
 
-            var formData = new FormData(this);
-
-            $.ajax({
-                type: "post",
-                url: "<?php echo base_url('helpdesk/ticket/save_ticket') ?>",
-                data: formData,
-                processData: false,
-                contentType: false,
-                dataType: "json",
-                success: function(response) {
-                    console.log("Success response", response);
-                    if (response.error) {
-                        toastr.error(response.error);
+                $.ajax({
+                    type: "post",
+                    url: "<?php echo base_url('helpdesk/ticket/save_ticket') ?>",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function(response) {
+                        console.log("Success response", response);
+                        if (response.error) {
+                            toastr.error(response.error);
+                        }
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: response.success,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            });
+                            setTimeout(function() {
+                                window.location.href = "<?= base_url('helpdesk/ticket/user') ?>"
+                            }, 1000);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        console.log("Error response", xhr.status, xhr.responseText, thrownError);
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil',
-                            text: response.success,
-                            showCancelButton: false,
-                            showConfirmButton: false
-                        });
-                        setTimeout(function() {
-                            window.location.href = "<?= base_url('helpdesk/ticket/user') ?>"
-                        }, 1000);
-                    }
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    console.log("Error response", xhr.status, xhr.responseText, thrownError);
-                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                }
-            });
+                });
 
-            return false;
+                return false;
+            }
         });
-
-
 
     });
 
@@ -195,6 +211,52 @@
         } else {
             $('#form_app').hide();
         }
+    }
+
+    function checkCustomOption(select) {
+        var selectOption = select.value;
+        var customInput = document.getElementById("customInput");
+        console.log("id subject: ", selectOption);
+
+        if (selectOption == 1) {
+            $('#customSubject').show();
+            setTimeout(function() {
+                customInput.focus();
+            }, 100);
+            customInput.value = "";
+            console.log("Custom Subject Work ");
+        } else {
+            $('#customSubject').hide();
+            var selectedOptionText = select.options[select.selectedIndex].text;
+            customInput.value = selectedOptionText;
+            console.log("subject: ", customInput.value);
+        }
+    }
+
+    function validateForm() {
+        var subjectId = document.forms["formSimpanTicket"]["subject"].value;
+
+        if (document.forms["formSimpanTicket"]["application"].value == "") {
+            toastr.error("Application harus diisi !!");
+            document.forms["formSimpanTicket"]["application"].focus();
+            return false;
+        }
+        if (subjectId == "0" || subjectId == null || subjectId == "") {
+            toastr.error("Subject harus diisi !!");
+            document.forms["formSimpanTicket"]["subject"].focus();
+            return false;
+        }
+        if (document.forms["formSimpanTicket"]["message"].value == "") {
+            toastr.error("Message harus diisi !!");
+            document.forms["formSimpanTicket"]["message"].focus();
+            return false;
+        }
+        if (document.forms["formSimpanTicket"]["img_ticket"].value == "") {
+            toastr.error("Image Ticket harus diisi !!");
+            document.forms["formSimpanTicket"]["img_ticket"].focus();
+            return false;
+        }
+        return true;
     }
 
     function back() {

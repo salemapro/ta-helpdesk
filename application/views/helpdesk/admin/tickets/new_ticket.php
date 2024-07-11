@@ -57,12 +57,16 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="subject" class="font-weight-normal">Subject</label>
-                                    <select name="subject" id="subject" class="form-control select2bs4 font-weight-normal text-sm" style="width: 100%; height: 100%;">
+                                    <select name="subject" id="subject" class="form-control select2bs4 font-weight-normal text-sm" style="width: 100%; height: 100%;" onchange="checkCustomOption(this)">
                                         <option value="0" selected disabled>Select an option</option>
                                         <?php foreach ($subject as $row) { ?>
                                             <option value="<?= $row->id_subject ?>"> <?= $row->subject ?></option>
                                         <?php } ?>
                                     </select>
+                                </div>
+                                <div class="form-group" id="customSubject">
+                                    <label for="customInput" class="font-weight-normal">Input Subject</label>
+                                    <input type="text" name="customInput" id="customInput" class="form-control font-weight-normal text-sm" placeholder="Input your question or problem">
                                 </div>
                                 <div class="form-group">
                                     <label for="subject" class="font-weight-normal">Message</label>
@@ -72,7 +76,7 @@
                                     <label for="img_ticket" class="font-weight-normal">Image</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" name="img_ticket" id="img_ticket" class="custom-file-input" required>
+                                            <input type="file" name="img_ticket" id="img_ticket" class="custom-file-input">
                                             <label class="custom-file-label" for="img_ticket">Choose file</label>
                                         </div>
                                     </div>
@@ -108,44 +112,54 @@
 
         $('#form_app').hide();
         $('#form_company').hide();
+        $('#customSubject').hide();
 
         $("#formSimpanTicket").on("submit", function(e) {
             e.preventDefault(); // Prevent the default form submission
+            if (!validateForm()) {
+                return false; // Stop the execution if the form is not valid
+            } else {
+                // var selectedOption = document.getElementById("subject").value;
+                // var userInput = selectedOption == 4 ? document.getElementById("customInput").value : selectedOption;
+                var formData = new FormData(this);
 
-            var formData = new FormData(this); // Create a FormData object from the form
+                console.log("FormData: ", formData);
+                // console.log("id_subject: ", selectedOption);
+                // console.log("subject: ", userInput);
 
-            $.ajax({
-                type: "post",
-                url: "<?php echo base_url('helpdesk/ticket/save_ticket') ?>",
-                data: formData,
-                processData: false, // Important: Prevent jQuery from processing the data
-                contentType: false, // Important: Prevent jQuery from setting content type
-                dataType: "json",
-                success: function(response) {
-                    console.log("Success response", response);
-                    if (response.error) {
-                        toastr.error(response.error);
+                $.ajax({
+                    type: "post",
+                    url: "<?php echo base_url('helpdesk/ticket/save_ticket') ?>",
+                    data: formData,
+                    processData: false, // Important: Prevent jQuery from processing the data
+                    contentType: false, // Important: Prevent jQuery from setting content type
+                    dataType: "json",
+                    success: function(response) {
+                        console.log("Success response", response);
+                        if (response.error) {
+                            toastr.error(response.error);
+                        }
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: response.success,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            });
+                            setTimeout(function() {
+                                window.location.href = "<?= base_url('helpdesk/ticket/admin') ?>"
+                            }, 1000);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        console.log("Error response", xhr.status, xhr.responseText, thrownError);
+                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil',
-                            text: response.success,
-                            showCancelButton: false,
-                            showConfirmButton: false
-                        });
-                        setTimeout(function() {
-                            window.location.href = "<?= base_url('helpdesk/ticket/admin') ?>"
-                        }, 1000);
-                    }
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    console.log("Error response", xhr.status, xhr.responseText, thrownError);
-                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                }
-            });
+                });
 
-            return false;
+                return false;
+            }
         });
     });
 
@@ -257,6 +271,26 @@
     // });
     // });
 
+    function checkCustomOption(select) {
+        var selectOption = select.value;
+        var customInput = document.getElementById("customInput");
+        console.log("id subject: ", selectOption);
+
+        if (selectOption == 1) {
+            $('#customSubject').show();
+            setTimeout(function() {
+                customInput.focus();
+            }, 100);
+            customInput.value = "";
+            console.log("Custom Subject Work ");
+        } else {
+            $('#customSubject').hide();
+            var selectedOptionText = select.options[select.selectedIndex].text;
+            customInput.value = selectedOptionText;
+            console.log("subject: ", customInput.value);
+        }
+    }
+
     function cariCompany() {
         var user = $("#sender_id").val();
         // var app = $('#application');
@@ -317,6 +351,38 @@
         } else {
             $('#form_app').hide();
         }
+    }
+
+    function validateForm() {
+        var senderId = document.forms["formSimpanTicket"]["sender_id"].value;
+        var subjectId = document.forms["formSimpanTicket"]["subject"].value;
+
+        if (senderId == "0" || senderId == null || senderId == "") {
+            toastr.error("Costumer harus diisi !!");
+            document.forms["formSimpanTicket"]["sender_id"].focus();
+            return false;
+        }
+        if (document.forms["formSimpanTicket"]["application"].value == "") {
+            toastr.error("Application harus diisi !!");
+            document.forms["formSimpanTicket"]["application"].focus();
+            return false;
+        }
+        if (subjectId == "0" || subjectId == null || subjectId == "") {
+            toastr.error("Subject harus diisi !!");
+            document.forms["formSimpanTicket"]["subject"].focus();
+            return false;
+        }
+        if (document.forms["formSimpanTicket"]["message"].value == "") {
+            toastr.error("Message harus diisi !!");
+            document.forms["formSimpanTicket"]["message"].focus();
+            return false;
+        }
+        if (document.forms["formSimpanTicket"]["img_ticket"].value == "") {
+            toastr.error("Image Ticket harus diisi !!");
+            document.forms["formSimpanTicket"]["img_ticket"].focus();
+            return false;
+        }
+        return true;
     }
 
     function back() {

@@ -33,14 +33,32 @@ class Report extends CI_Controller
 
     public function filter_tickets()
     {
-        $start_date = $this->input->post('start_date');
-        $end_date = $this->input->post('end_date');
+        $start_date_unformated = $this->input->post('start_date');
+        $start_date_formated = new DateTime($start_date_unformated);
+        $start_date = $start_date_formated->format('Y-m-d');
+
+        $end_date_unformated = $this->input->post('end_date');
+        $end_date_formated = new DateTime($end_date_unformated);
+        $end_date = $end_date_formated->format('Y-m-d');
+
+        $role = $this->input->post('role');
 
         log_message('debug', 'Start Date: ' . $start_date);
         log_message('debug', 'End Date: ' . $end_date);
+        log_message('debug', 'Role: ' . $role);
+
 
         $this->load->model('M_report');
-        $tickets = $this->M_report->get_filtered_tickets($start_date, $end_date);
+        if ($role == 1) {
+            log_message('debug', 'Role: ' . $role);
+            $tickets = $this->M_report->get_filtered_tickets($start_date, $end_date);
+        } else if ($role == 2) {
+            log_message('debug', 'Role: ' . $role);
+            $tickets = $this->M_report->get_filtered_tickets_agent($start_date, $end_date);
+        } else {
+            log_message('debug', 'Role: ' . $role);
+            $tickets = $this->M_report->get_filtered_tickets_user($start_date, $end_date);
+        }
 
         log_message('debug', 'Filtered Tickets: ' . print_r($tickets, true));
 

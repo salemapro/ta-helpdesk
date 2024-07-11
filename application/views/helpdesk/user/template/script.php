@@ -1,4 +1,5 @@
 <!-- jQuery -->
+<script src="<?= base_url() ?>assets/back/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="<?= base_url() ?>assets/back/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -42,6 +43,8 @@
 <!-- Bootstrap Switch -->
 <script src="<?php echo base_url('assets/back') ?>/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <script src="<?php echo base_url('assets/back') ?>/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- Moment -->
+<script src="<?= base_url() ?>assets/back/plugins/moment/moment.min.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="<?= base_url() ?>assets/back/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->

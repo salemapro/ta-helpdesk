@@ -109,11 +109,14 @@
                         </div>
                         <hr>
                         <div class="card-body">
-                            <h5 class="mb-3"><b>Subject : <?= $ticket->subject ?></b></h5>
-                            <img class="img-fluid pad" src="<?= base_url('assets/images/tiket/' . $ticket->img_ticket) ?>" alt="Photo">
+                            <h5 class="mt-3"><b>Subject :</b></h5>
+                            <input type="text" readonly value="<?= $ticket->subject ?>" class="form-control">
 
                             <h5 class="mt-3"><b>Description :</b></h5>
-                            <p><?= $ticket->message ?></p>
+                            <textarea readonly class="form-control" rows="3"><?= $ticket->message ?></textarea>
+
+                            <h5 class="mt-3"><b>Image :</b></h5>
+                            <img class="img-fluid pad" src="<?= base_url('assets/images/tiket/' . $ticket->img_ticket) ?>" alt="Image Ticket">
 
                             <h5 class="mt-5"><b>Comments :</b></h5>
                             <div class="card-footer card-comments">

@@ -104,10 +104,12 @@
             </section>
         </div>
         <script>
-            // $(document).ready(function() {
-            //     var list = <?php echo json_encode($ticket_wait); ?>;
-            //     if (list.length == 0) {
-            //         Swal.fire('Information', 'You have new ticket', 'info');
-            //     }
-            // });
+            $(document).ready(function() {
+                var role = <?php echo json_encode($this->session->role_id); ?>;
+                console.log('Role:', role);
+                // var list = <?php echo json_encode($ticket_wait); ?>;
+                // if (list.length == 0) {
+                //     Swal.fire('Information', 'You have new ticket', 'info');
+                // }
+            });
         </script>

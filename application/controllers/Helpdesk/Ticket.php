@@ -38,7 +38,7 @@ class Ticket extends CI_Controller
     {
         $data['no_ticket'] = $this->M_ticket->get_no_ticket();
         $data['subject'] = $this->M_subject->get_subject();
-        $data['user'] = $this->M_user->get_all_data();
+        $data['user'] = $this->M_user->get_all_data_user();
         $this->template->load('helpdesk/template_admin', 'helpdesk/admin/tickets/new_ticket', $data);
     }
 
@@ -134,7 +134,8 @@ class Ticket extends CI_Controller
                     // Get other form data
                     $data = array(
                         'no_ticket' => $this->input->post('no_ticket'),
-                        'subject' => $this->input->post('subject'),
+                        'subject_id' => $this->input->post('subject'),
+                        'subject' => $this->input->post('customInput'),
                         'message' => $this->input->post('message'),
                         'img_ticket' => $file_path,
                         'sender_id' => $this->input->post('sender_id'),

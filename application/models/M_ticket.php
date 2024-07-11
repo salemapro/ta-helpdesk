@@ -6,7 +6,7 @@ class M_ticket extends CI_Model
     function get_ticket()
     {
         $this->db->join('user', 'ticket.sender_id = user.id_user', 'left');
-        $this->db->join('subject', 'ticket.subject = subject.id_subject', 'left');
+        // $this->db->join('subject', 'ticket.subject_id = subject.id_subject', 'left');
         $this->db->join('divisi', 'ticket.divisi_id = divisi.id_divisi', 'left');
         $this->db->join('company', 'ticket.company_id = company.id_company', 'left');
         $this->db->join('application', 'ticket.app_id = application.id_application', 'left');
@@ -17,7 +17,7 @@ class M_ticket extends CI_Model
     function ticket_report($id)
     {
         $this->db->join('user', 'ticket.sender_id = user.id_user', 'left');
-        $this->db->join('subject', 'ticket.subject = subject.id_subject', 'left');
+        // $this->db->join('subject', 'ticket.subject_id = subject.id_subject', 'left');
         $this->db->join('divisi', 'ticket.divisi_id = divisi.id_divisi', 'left');
         $this->db->join('company', 'ticket.company_id = company.id_company', 'left');
         $this->db->join('application', 'ticket.app_id = application.id_application', 'left');
@@ -29,7 +29,7 @@ class M_ticket extends CI_Model
     {
         $user = $this->session->id_user;
         $this->db->join('user', 'ticket.sender_id = user.id_user', 'left');
-        $this->db->join('subject', 'ticket.subject = subject.id_subject', 'left');
+        // $this->db->join('subject', 'ticket.subject_id = subject.id_subject', 'left');
         $this->db->join('divisi', 'ticket.divisi_id = divisi.id_divisi', 'left');
         $this->db->join('company', 'ticket.company_id = company.id_company', 'left');
         $this->db->join('application', 'ticket.app_id = application.id_application', 'left');
@@ -42,7 +42,7 @@ class M_ticket extends CI_Model
     {
         $divisi = $this->session->divisi_id;
         $this->db->join('user', 'ticket.sender_id = user.id_user', 'left');
-        $this->db->join('subject', 'ticket.subject = subject.id_subject', 'left');
+        // $this->db->join('subject', 'ticket.subject_id = subject.id_subject', 'left');
         $this->db->join('divisi', 'ticket.divisi_id = divisi.id_divisi', 'left');
         $this->db->join('company', 'ticket.company_id = company.id_company', 'left');
         $this->db->join('application', 'ticket.app_id = application.id_application', 'left');
@@ -70,7 +70,7 @@ class M_ticket extends CI_Model
     function get_id_tiket($id_ticket)
     {
         $this->db->join('user', 'ticket.sender_id = user.id_user', 'left');
-        $this->db->join('subject', 'ticket.subject = subject.id_subject', 'left');
+        // $this->db->join('subject', 'ticket.subject = subject.id_subject', 'left');
         $this->db->join('divisi', 'ticket.divisi_id = divisi.id_divisi', 'left');
         $this->db->join('company', 'ticket.company_id = company.id_company', 'left');
         $this->db->join('application', 'ticket.app_id = application.id_application', 'left');
