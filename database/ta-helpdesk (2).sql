@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2024 at 09:44 AM
+-- Generation Time: Jul 11, 2024 at 08:12 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.1.30
 
@@ -108,10 +108,10 @@ CREATE TABLE `subject` (
 --
 
 INSERT INTO `subject` (`id_subject`, `subject`, `divisi_id`, `created_at`, `updated_at`) VALUES
-(1, 'Tidak Bisa Login', 2, '2024-05-30 12:40:38', '2024-06-12'),
+(1, 'lainnya...', 1, '2024-05-30 12:40:38', '2024-06-12'),
 (2, 'Bagaimana Cara Mengganti Password?', 3, '2024-05-30 12:40:50', '2024-05-30'),
 (3, 'Tidak Bisa Ganti Image Profile', 2, '2024-06-08 02:50:39', '2024-06-08'),
-(4, 'lainnya..', 1, '2024-06-16 06:54:28', '2024-06-16');
+(4, 'Tidak Bisa Login', 2, '2024-06-16 06:54:28', '2024-06-16');
 
 -- --------------------------------------------------------
 
@@ -122,7 +122,8 @@ INSERT INTO `subject` (`id_subject`, `subject`, `divisi_id`, `created_at`, `upda
 CREATE TABLE `ticket` (
   `id_ticket` int(11) NOT NULL,
   `no_ticket` varchar(11) NOT NULL,
-  `subject` varchar(100) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  `subject` text NOT NULL,
   `message` text NOT NULL,
   `img_ticket` text NOT NULL,
   `sender_id` int(11) NOT NULL,
@@ -139,12 +140,9 @@ CREATE TABLE `ticket` (
 -- Dumping data for table `ticket`
 --
 
-INSERT INTO `ticket` (`id_ticket`, `no_ticket`, `subject`, `message`, `img_ticket`, `sender_id`, `company_id`, `app_id`, `divisi_id`, `status_ticket`, `solved_by`, `created_at`, `solved_at`) VALUES
-(1, 'T0106240001', '1', 'abcd', 'dd511dc18cc46a09ced3d0bd11b55424.jpg', 3, 2, 1, 2, 2, 'Gojo Satoru', '2024-06-01 04:02:35', '2024-06-06'),
-(3, 'T0806240001', '3', 'bang kenapa aku tidak bisa login bang', '3d322ee80f002538fac7615532f11395.png', 5, 3, 3, 2, 1, '', '2024-06-08 02:25:48', ''),
-(5, 'T1606240001', '2', 'bang tutor ganti password dong :(', '7f78fb11e67161adfe42f322922aa8bf.png', 3, 2, 4, 3, 0, '', '2024-06-16 03:11:35', ''),
-(6, 'T1606240002', '2', 'bang tutor ganti pw bang', '593e48fa7b30750f66ef9fc1dd007e67.png', 5, 3, 3, 3, 0, '', '2024-06-16 03:47:31', ''),
-(7, 'T1606240003', '4', 'bangg tolong banggg', 'ac120f1874c1de5c48f8db1531fdbcb5.png', 3, 2, 4, 1, 0, '', '2024-06-16 06:57:33', '');
+INSERT INTO `ticket` (`id_ticket`, `no_ticket`, `subject_id`, `subject`, `message`, `img_ticket`, `sender_id`, `company_id`, `app_id`, `divisi_id`, `status_ticket`, `solved_by`, `created_at`, `solved_at`) VALUES
+(1, 'T1107240001', 3, 'Tidak Bisa Ganti Image Profile', 'kak saya tidak bisa ganti foto profile kenapa ya??', 'dcf47571291d03ff9f0309d438900a59.png', 3, 2, 1, 2, 1, '', '2024-07-11 05:55:00', ''),
+(2, 'T1107240002', 1, 'Lupa Password', 'kak saya tidak bisa login karena lupa password, bisa tolong beritahu password saya apa?', '5e97c61f6e25fd422529013a5ecacca2.png', 3, 2, 4, 1, 0, '', '2024-07-11 06:01:31', '');
 
 -- --------------------------------------------------------
 
@@ -165,16 +163,8 @@ CREATE TABLE `ticket_detail` (
 --
 
 INSERT INTO `ticket_detail` (`id`, `ticket_id`, `user_id`, `comment`, `date`) VALUES
-(1, 1, 3, 'gimana kak sudah?', '2024-06-02 22:59:42'),
-(33, 1, 3, 'kak?', '2024-06-02 23:21:34'),
-(34, 1, 2, 'dalam proses ya', '2024-06-02 23:23:11'),
-(35, 1, 1, 'sipp', '2024-06-03 09:39:40'),
-(36, 2, 4, 'halo bang', '2024-06-03 17:23:04'),
-(37, 2, 3, 'p balap', '2024-06-03 17:23:46'),
-(38, 1, 2, 'pp', '2024-06-04 07:49:39'),
-(39, 3, 2, 'salah password kali bang', '2024-06-08 02:27:20'),
-(40, 3, 5, 'mana ada', '2024-06-08 02:27:40'),
-(41, 7, 1, 'apaa bang', '2024-06-16 06:58:19');
+(44, 1, 2, 'okee sebentar ya kak', '2024-07-11 05:57:52'),
+(45, 1, 3, 'siap', '2024-07-11 05:58:18');
 
 -- --------------------------------------------------------
 
@@ -314,13 +304,13 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `ticket_detail`
 --
 ALTER TABLE `ticket_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `user`
