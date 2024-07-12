@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2024 at 08:12 AM
+-- Generation Time: Jul 12, 2024 at 08:43 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.1.30
 
@@ -92,6 +92,29 @@ INSERT INTO `divisi` (`id_divisi`, `divisi`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notification`
+--
+
+CREATE TABLE `notification` (
+  `id_notification` int(11) NOT NULL,
+  `ticket_id` int(11) NOT NULL,
+  `notification` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`id_notification`, `ticket_id`, `notification`, `created_at`) VALUES
+(3, 9, 'New Ticket from Tomiyoka Giyu', '2024-07-12 05:10:48'),
+(4, 10, 'New Ticket from Tomiyoka Giyu', '2024-07-12 06:34:43'),
+(5, 11, 'New Ticket from Tomiyoka Giyu', '2024-07-12 06:39:44'),
+(6, 12, 'New Ticket from Tomiyoka Giyu', '2024-07-12 06:41:13');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `subject`
 --
 
@@ -142,7 +165,17 @@ CREATE TABLE `ticket` (
 
 INSERT INTO `ticket` (`id_ticket`, `no_ticket`, `subject_id`, `subject`, `message`, `img_ticket`, `sender_id`, `company_id`, `app_id`, `divisi_id`, `status_ticket`, `solved_by`, `created_at`, `solved_at`) VALUES
 (1, 'T1107240001', 3, 'Tidak Bisa Ganti Image Profile', 'kak saya tidak bisa ganti foto profile kenapa ya??', 'dcf47571291d03ff9f0309d438900a59.png', 3, 2, 1, 2, 1, '', '2024-07-11 05:55:00', ''),
-(2, 'T1107240002', 1, 'Lupa Password', 'kak saya tidak bisa login karena lupa password, bisa tolong beritahu password saya apa?', '5e97c61f6e25fd422529013a5ecacca2.png', 3, 2, 4, 1, 0, '', '2024-07-11 06:01:31', '');
+(2, 'T1107240002', 1, 'Lupa Password', 'kak saya tidak bisa login karena lupa password, bisa tolong beritahu password saya apa?', '5e97c61f6e25fd422529013a5ecacca2.png', 3, 2, 4, 1, 0, '', '2024-07-11 06:01:31', ''),
+(3, 'T1107240003', 4, 'Tidak Bisa Login', 'test test', '5ea2499f78983c95b2b7410dc9035ef7.jpeg', 3, 2, 1, 2, 0, '', '2024-07-11 10:47:17', ''),
+(4, 'T1107240004', 2, 'Bagaimana Cara Mengganti Password?', 'test ', '31d27cc478d9fc167b276fd6602dc168.jpeg', 3, 2, 1, 3, 0, '', '2024-07-11 10:49:26', ''),
+(5, 'T1107240005', 2, 'Bagaimana Cara Mengganti Password?', 'p', 'cb067b7dd7bfa0ddaf7ecd151c7bb18b.png', 3, 2, 1, 3, 0, '', '2024-07-11 11:00:10', ''),
+(6, 'T1107240006', 3, 'Tidak Bisa Ganti Image Profile', 'test test test', '881820b3f2c2e12f26e7a7b1fafc6a42.png', 3, 2, 1, 2, 0, '', '2024-07-11 11:01:56', ''),
+(7, 'T1107240007', 2, 'Bagaimana Cara Mengganti Password?', 'test3', '29cfe12ccef12a40682c16e9330f9e8f.png', 3, 2, 1, 3, 0, '', '2024-07-11 15:27:26', ''),
+(8, 'T1207240001', 3, 'Tidak Bisa Ganti Image Profile', 'test', 'a2038f4926d8070e88f6a9dc3d48ee12.png', 3, 2, 1, 2, 0, '', '2024-07-12 04:57:34', ''),
+(9, 'T1207240002', 3, 'Tidak Bisa Ganti Image Profile', 'test ke 100 kali', '3d177ae4ca65f9530330fd1318d177cf.jpeg', 3, 2, 1, 2, 0, '', '2024-07-12 05:10:48', ''),
+(10, 'T1207240003', 1, 'cuma test aja kak', 'testtttttt', 'c80bad05cd0306fa020512d7591762f1.png', 3, 2, 1, 1, 0, '', '2024-07-12 06:34:43', ''),
+(11, 'T1207240004', 1, 'test lagi kak', 'test ajaaah', '98769247eb405d5f228cbcaed15beb89.png', 3, 2, 1, 1, 0, '', '2024-07-12 06:39:44', ''),
+(12, 'T1207240005', 2, 'Bagaimana Cara Mengganti Password?', 'test lagi maap', '651e7d656511bb2794751e340ddf11b2.png', 3, 2, 1, 3, 0, '', '2024-07-12 06:41:13', '');
 
 -- --------------------------------------------------------
 
@@ -201,6 +234,29 @@ INSERT INTO `user` (`id_user`, `code_user`, `email`, `password`, `fullname`, `co
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_notification`
+--
+
+CREATE TABLE `user_notification` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `notification_id` int(11) DEFAULT NULL,
+  `is_read` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_notification`
+--
+
+INSERT INTO `user_notification` (`id`, `user_id`, `notification_id`, `is_read`) VALUES
+(1, 1, 3, 1),
+(2, 2, 3, 1),
+(3, 1, 5, 1),
+(4, 4, 6, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_role`
 --
 
@@ -243,6 +299,12 @@ ALTER TABLE `divisi`
   ADD PRIMARY KEY (`id_divisi`);
 
 --
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`id_notification`);
+
+--
 -- Indexes for table `subject`
 --
 ALTER TABLE `subject`
@@ -265,6 +327,14 @@ ALTER TABLE `ticket_detail`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
+
+--
+-- Indexes for table `user_notification`
+--
+ALTER TABLE `user_notification`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `notification_id` (`notification_id`);
 
 --
 -- Indexes for table `user_role`
@@ -295,6 +365,12 @@ ALTER TABLE `divisi`
   MODIFY `id_divisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `id_notification` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
@@ -304,7 +380,7 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `ticket_detail`
@@ -319,10 +395,27 @@ ALTER TABLE `user`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `user_notification`
+--
+ALTER TABLE `user_notification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
   MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `user_notification`
+--
+ALTER TABLE `user_notification`
+  ADD CONSTRAINT `user_notification_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`),
+  ADD CONSTRAINT `user_notification_ibfk_2` FOREIGN KEY (`notification_id`) REFERENCES `notification` (`id_notification`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

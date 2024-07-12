@@ -5,6 +5,28 @@
          </li>
      </ul>
      <ul class="navbar-nav ml-auto">
+         <!-- <li class="nav-item dropdown">
+             <a class="nav-link" data-toggle="dropdown" href="#">
+                 <i class="far fa-bell"></i>
+                 <?php if (count($notifications) > 0) : ?>
+                     <span class='badge badge-warning navbar-badge'><?= count($notifications); ?></span>
+                 <?php endif; ?>
+             </a>
+             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                 <?php if (count($notifications) == 0) : ?>
+                     <span class="dropdown-item dropdown-header"> You don't have new notification </span>
+                 <?php else : ?>
+                     <span class="dropdown-item dropdown-header"><?= count($notifications); ?> Notifications</span>
+                 <?php endif; ?>
+                 <div class="dropdown-divider">
+                 </div>
+                 <?php foreach ($notifications as $item) : ?>
+                     <a href="#" id="badgeNotif" class="dropdown-item text-sm" onclick="markNotif(<?= $item['id'] ?>, <?= $item['ticket_id'] ?>)">
+                         <i class="fas fa-envelope mr-2"></i> <?= $item['notification']; ?>
+                     </a>
+                 <?php endforeach; ?>
+             </div>
+         </li> -->
          <li class="nav-item dropdown user-menu">
              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                  <img src="<?php echo base_url('assets/back') ?><?= $this->session->avatar; ?>" class="user-image img-circle elevation-1" alt="User Image">
@@ -47,3 +69,37 @@
          </li>
      </ul>
  </nav>
+ <script type="text/javascript">
+     function markNotif(id, ticket_id) {
+         var url = "<?php echo base_url('helpdesk/notification/mark_notification_as_read') ?>";
+         console.log("Constructed URL:", url);
+         console.log("Sending ID:", id);
+
+         $.ajax({
+             type: "post",
+             url: url,
+             data: {
+                 id: id,
+                 <?php echo $this->security->get_csrf_token_name(); ?>: '<?php echo $this->security->get_csrf_hash(); ?>'
+             },
+             dataType: "json",
+             success: function(response) {
+                 console.log("Success response", response);
+                 if (response.error) {
+                     toastr.error(response.error);
+                 }
+                 if (response.success) {
+                     toastr.success(response.success);
+                     setTimeout(function() {
+                         window.location.href = "<?= base_url('helpdesk/ticket/detail_ticket_user/') ?>" + ticket_id
+                     }, 1000);
+                 }
+             },
+             error: function(xhr, ajaxOptions, thrownError) {
+                 console.log("Error response", xhr.status, xhr.responseText, thrownError);
+                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+             }
+         });
+
+     }
+ </script>

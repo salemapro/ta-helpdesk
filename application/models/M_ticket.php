@@ -67,6 +67,18 @@ class M_ticket extends CI_Model
         return "T" . date('dmy') . $kd;
     }
 
+    function get_ticket_id($no_ticket)
+    {
+        $this->db->where('no_ticket', $no_ticket);
+        $query = $this->db->get('ticket');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                return $row->id_ticket;
+            }
+        }
+        return null;
+    }
+
     function get_id_tiket($id_ticket)
     {
         $this->db->join('user', 'ticket.sender_id = user.id_user', 'left');

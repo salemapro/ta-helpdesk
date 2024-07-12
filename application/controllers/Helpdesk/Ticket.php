@@ -1,17 +1,20 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Ticket extends CI_Controller
+class Ticket extends MY_Controller
 {
     public function __construct()
     {
         parent::__construct();
         $this->load->helper(array('form', 'url'));
+        $this->load->library('session');
         $this->load->library('form_validation');
+        // $this->load->library('notification');
         $this->load->model('M_ticket');
         $this->load->model('M_subject');
         $this->load->model('M_client');
         $this->load->model('M_user');
+        $this->load->model('M_notif');
         cek_login();
     }
 
@@ -145,8 +148,29 @@ class Ticket extends CI_Controller
                         'status_ticket' => 0
                     );
 
+                    $sender = $this->input->post('sender_id');
+                    $fullname = $this->M_user->get_sender_name($sender);
+
+                    $no_ticket = $this->input->post('no_ticket');
+
                     // Save the data to the database
                     if ($this->M_ticket->insert($data)) {
+                        $ticket_id = $this->M_ticket->get_ticket_id($no_ticket);
+                        $message = "New Ticket from " . $fullname;
+                        $notification_id = $this->M_notif->create_notification($ticket_id, $message);
+
+                        $admins = $this->db->get_where('user', array('role_id' => 1, 'divisi_id' => $divisi))->result();
+                        foreach ($admins as $admin) {
+                            $this->M_notif->assign_notification_to_user($admin->id_user, $notification_id);
+                        }
+
+                        // Send notification to agents in the same division
+                        // $ticket = $this->db->get_where('ticket', array('id_ticket' => $ticket_id))->row();
+                        $agents = $this->db->get_where('user', array('role_id' => 2, 'divisi_id' => $divisi))->result();
+                        foreach ($agents as $agent) {
+                            $this->M_notif->assign_notification_to_user($agent->id_user, $notification_id);
+                        }
+
                         $response['success'] = 'Ticket saved successfully.';
                     } else {
                         $response['error'] = 'Failed to save ticket.';

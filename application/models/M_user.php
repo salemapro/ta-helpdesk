@@ -32,6 +32,18 @@ class M_user extends CI_Model
         return $this->db->get('user')->result();
     }
 
+    function get_sender_name($sender)
+    {
+        $this->db->where('id_user', $sender);
+        $query = $this->db->get('user');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                return $row->fullname;
+            }
+        }
+        return null;
+    }
+
     function get_user_roles()
     {
         return $this->db->get('user_role')->result();
