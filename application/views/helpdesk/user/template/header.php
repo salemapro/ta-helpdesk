@@ -5,7 +5,7 @@
          </li>
      </ul>
      <ul class="navbar-nav ml-auto">
-         <!-- <li class="nav-item dropdown">
+         <li class="nav-item dropdown">
              <a class="nav-link" data-toggle="dropdown" href="#">
                  <i class="far fa-bell"></i>
                  <?php if (count($notifications) > 0) : ?>
@@ -13,20 +13,22 @@
                  <?php endif; ?>
              </a>
              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                 <?php if (count($notifications) == 0) : ?>
-                     <span class="dropdown-item dropdown-header"> You don't have new notification </span>
+                 <?php if (empty($notifications)) : ?>
+                     <span class="dropdown-item dropdown-header">You don't have new notifications</span>
                  <?php else : ?>
                      <span class="dropdown-item dropdown-header"><?= count($notifications); ?> Notifications</span>
+                     <div class="dropdown-divider"></div>
+                     <?php foreach ($notifications as $item) : ?>
+                         <?php if ($item['is_read'] !== TRUE) : ?>
+                             <a href="#" id="badgeNotif" class="dropdown-item text-sm" onclick="markNotif(<?= $item['id_notification'] ?>, <?= $item['ticket_id'] ?>)">
+                                 <i class="fas fa-envelope mr-2"></i> <?= $item['notification']; ?>
+                             </a>
+                             <div class="dropdown-divider"></div>
+                         <?php endif; ?>
+                     <?php endforeach; ?>
                  <?php endif; ?>
-                 <div class="dropdown-divider">
-                 </div>
-                 <?php foreach ($notifications as $item) : ?>
-                     <a href="#" id="badgeNotif" class="dropdown-item text-sm" onclick="markNotif(<?= $item['id'] ?>, <?= $item['ticket_id'] ?>)">
-                         <i class="fas fa-envelope mr-2"></i> <?= $item['notification']; ?>
-                     </a>
-                 <?php endforeach; ?>
              </div>
-         </li> -->
+         </li>
          <li class="nav-item dropdown user-menu">
              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                  <img src="<?php echo base_url('assets/back') ?><?= $this->session->avatar; ?>" class="user-image img-circle elevation-1" alt="User Image">

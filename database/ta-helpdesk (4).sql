@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 12, 2024 at 08:43 AM
+-- Generation Time: Jul 27, 2024 at 06:52 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.1.30
 
@@ -41,9 +41,12 @@ CREATE TABLE `application` (
 --
 
 INSERT INTO `application` (`id_application`, `application`, `company_id`, `created_at`, `updated_at`) VALUES
-(1, 'Mobile Legends', 2, '2024-05-29 14:18:28', ''),
-(3, 'Point Blank', 3, '2024-06-08 02:24:11', ''),
-(4, 'Gensin Impact', 2, '2024-06-16 02:32:13', '');
+(1, 'Sistem Informasi Pengelolaan Keuangan Daerah (SIPKD)', 6, '2024-07-24 15:56:03', ''),
+(2, 'Sistem Keuangan Bisnis dan Pemerintahan Daerah (BLUD)', 4, '2024-07-24 15:57:18', ''),
+(3, 'Sistem Pembayaran BINAPAY', 3, '2024-07-24 15:57:45', ''),
+(4, 'Sistem Informasi Eksekutif (SIE)', 5, '2024-07-24 15:58:10', ''),
+(5, 'Sistem Pencarian Tagihan Kwetansi BasTracker', 2, '2024-07-24 15:59:51', ''),
+(6, 'Sistem Informasi Pengelolaan Aset Daerah (BMD)', 7, '2024-07-24 16:01:35', '');
 
 -- --------------------------------------------------------
 
@@ -64,8 +67,12 @@ CREATE TABLE `company` (
 
 INSERT INTO `company` (`id_company`, `company`, `created_at`, `updated_at`) VALUES
 (1, 'CV Insaba Pratista Agya', '2024-05-29 12:16:41', ''),
-(2, 'PT Masoem ', '2024-05-29 14:13:57', ''),
-(3, 'PT Astra', '2024-06-08 02:22:23', '');
+(2, 'RSUD Kabupaten Subang', '2024-05-29 14:13:57', ''),
+(3, 'Bank BJB', '2024-06-08 02:22:23', ''),
+(4, 'Pemerintah Daerah Kab. Subang', '2024-07-14 06:15:42', ''),
+(5, 'Pemerintah Daerah Kab. Sumedang', '2024-07-24 15:53:40', ''),
+(6, 'Pemerintah Daerah Kab. Ciamis', '2024-07-24 15:54:30', ''),
+(7, 'Pemerintah Daerah Kab. Pangandaran', '2024-07-24 16:00:55', '');
 
 -- --------------------------------------------------------
 
@@ -102,16 +109,6 @@ CREATE TABLE `notification` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `notification`
---
-
-INSERT INTO `notification` (`id_notification`, `ticket_id`, `notification`, `created_at`) VALUES
-(3, 9, 'New Ticket from Tomiyoka Giyu', '2024-07-12 05:10:48'),
-(4, 10, 'New Ticket from Tomiyoka Giyu', '2024-07-12 06:34:43'),
-(5, 11, 'New Ticket from Tomiyoka Giyu', '2024-07-12 06:39:44'),
-(6, 12, 'New Ticket from Tomiyoka Giyu', '2024-07-12 06:41:13');
-
 -- --------------------------------------------------------
 
 --
@@ -131,10 +128,31 @@ CREATE TABLE `subject` (
 --
 
 INSERT INTO `subject` (`id_subject`, `subject`, `divisi_id`, `created_at`, `updated_at`) VALUES
-(1, 'lainnya...', 1, '2024-05-30 12:40:38', '2024-06-12'),
-(2, 'Bagaimana Cara Mengganti Password?', 3, '2024-05-30 12:40:50', '2024-05-30'),
-(3, 'Tidak Bisa Ganti Image Profile', 2, '2024-06-08 02:50:39', '2024-06-08'),
-(4, 'Tidak Bisa Login', 2, '2024-06-16 06:54:28', '2024-06-16');
+(1, 'Lainnya...', 1, '2024-07-24 15:29:05', '2024-07-24'),
+(2, 'Tidak bisa login ke aplikasi', 1, '2024-07-24 15:29:24', '2024-07-24'),
+(3, 'Lupa password akses', 1, '2024-07-24 15:29:42', '2024-07-24'),
+(4, 'Modul pembayaran tidak berfungsi', 1, '2024-07-24 15:29:59', '2024-07-24'),
+(5, 'Halaman utama tidak dapat dimuat', 1, '2024-07-24 15:30:20', '2024-07-24'),
+(6, 'Gangguan koneksi internet', 1, '2024-07-24 15:30:37', '2024-07-24'),
+(7, 'Error saat mengirim email', 1, '2024-07-24 15:30:55', '2024-07-24'),
+(8, 'Perangkat tidak terdeteksi di jaringan', 1, '2024-07-24 15:31:17', '2024-07-24'),
+(9, 'Aplikasi tidak merespons', 1, '2024-07-24 15:31:39', '2024-07-24'),
+(10, 'Kesalahan dalam pengisian data', 3, '2024-07-24 15:32:07', '2024-07-24'),
+(11, 'Kesulitan mengoperasikan fitur pencarian', 3, '2024-07-24 15:33:31', '2024-07-24'),
+(12, 'Instruksi pengguna tidak jelas', 3, '2024-07-24 15:34:00', '2024-07-24'),
+(13, 'Proses verifikasi data bermasalah', 3, '2024-07-24 15:34:17', '2024-07-24'),
+(14, 'Laporan hasil tidak sesuai', 3, '2024-07-24 15:34:30', '2024-07-24'),
+(15, 'Konsistensi data tidak terjaga', 3, '2024-07-24 15:34:51', '2024-07-24'),
+(16, 'Permintaan bantuan untuk laporan data', 3, '2024-07-24 15:35:14', '2024-07-24'),
+(17, 'Permasalahan integrasi sistem', 3, '2024-07-24 15:35:30', '2024-07-24'),
+(18, 'Aplikasi mengalami crash', 2, '2024-07-24 15:35:47', '2024-07-24'),
+(19, 'Bug pada fitur pencarian', 2, '2024-07-24 15:36:03', '2024-07-24'),
+(20, 'Error saat update data', 2, '2024-07-24 15:36:18', '2024-07-24'),
+(21, 'Perubahan alur kerja tidak berjalan dengan baik', 2, '2024-07-24 15:36:41', '2024-07-24'),
+(22, 'Masalah performa aplikasi', 2, '2024-07-24 15:36:59', '2024-07-24'),
+(23, 'Fitur baru tidak berfungsi sebagaimana mestinya', 2, '2024-07-24 15:37:23', '2024-07-24'),
+(24, 'Tampilan aplikasi tidak konsisten', 2, '2024-07-24 15:37:44', '2024-07-24'),
+(25, 'Kesalahan saat menyimpan data', 2, '2024-07-24 15:38:02', '2024-07-24');
 
 -- --------------------------------------------------------
 
@@ -159,24 +177,6 @@ CREATE TABLE `ticket` (
   `solved_at` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `ticket`
---
-
-INSERT INTO `ticket` (`id_ticket`, `no_ticket`, `subject_id`, `subject`, `message`, `img_ticket`, `sender_id`, `company_id`, `app_id`, `divisi_id`, `status_ticket`, `solved_by`, `created_at`, `solved_at`) VALUES
-(1, 'T1107240001', 3, 'Tidak Bisa Ganti Image Profile', 'kak saya tidak bisa ganti foto profile kenapa ya??', 'dcf47571291d03ff9f0309d438900a59.png', 3, 2, 1, 2, 1, '', '2024-07-11 05:55:00', ''),
-(2, 'T1107240002', 1, 'Lupa Password', 'kak saya tidak bisa login karena lupa password, bisa tolong beritahu password saya apa?', '5e97c61f6e25fd422529013a5ecacca2.png', 3, 2, 4, 1, 0, '', '2024-07-11 06:01:31', ''),
-(3, 'T1107240003', 4, 'Tidak Bisa Login', 'test test', '5ea2499f78983c95b2b7410dc9035ef7.jpeg', 3, 2, 1, 2, 0, '', '2024-07-11 10:47:17', ''),
-(4, 'T1107240004', 2, 'Bagaimana Cara Mengganti Password?', 'test ', '31d27cc478d9fc167b276fd6602dc168.jpeg', 3, 2, 1, 3, 0, '', '2024-07-11 10:49:26', ''),
-(5, 'T1107240005', 2, 'Bagaimana Cara Mengganti Password?', 'p', 'cb067b7dd7bfa0ddaf7ecd151c7bb18b.png', 3, 2, 1, 3, 0, '', '2024-07-11 11:00:10', ''),
-(6, 'T1107240006', 3, 'Tidak Bisa Ganti Image Profile', 'test test test', '881820b3f2c2e12f26e7a7b1fafc6a42.png', 3, 2, 1, 2, 0, '', '2024-07-11 11:01:56', ''),
-(7, 'T1107240007', 2, 'Bagaimana Cara Mengganti Password?', 'test3', '29cfe12ccef12a40682c16e9330f9e8f.png', 3, 2, 1, 3, 0, '', '2024-07-11 15:27:26', ''),
-(8, 'T1207240001', 3, 'Tidak Bisa Ganti Image Profile', 'test', 'a2038f4926d8070e88f6a9dc3d48ee12.png', 3, 2, 1, 2, 0, '', '2024-07-12 04:57:34', ''),
-(9, 'T1207240002', 3, 'Tidak Bisa Ganti Image Profile', 'test ke 100 kali', '3d177ae4ca65f9530330fd1318d177cf.jpeg', 3, 2, 1, 2, 0, '', '2024-07-12 05:10:48', ''),
-(10, 'T1207240003', 1, 'cuma test aja kak', 'testtttttt', 'c80bad05cd0306fa020512d7591762f1.png', 3, 2, 1, 1, 0, '', '2024-07-12 06:34:43', ''),
-(11, 'T1207240004', 1, 'test lagi kak', 'test ajaaah', '98769247eb405d5f228cbcaed15beb89.png', 3, 2, 1, 1, 0, '', '2024-07-12 06:39:44', ''),
-(12, 'T1207240005', 2, 'Bagaimana Cara Mengganti Password?', 'test lagi maap', '651e7d656511bb2794751e340ddf11b2.png', 3, 2, 1, 3, 0, '', '2024-07-12 06:41:13', '');
-
 -- --------------------------------------------------------
 
 --
@@ -190,14 +190,6 @@ CREATE TABLE `ticket_detail` (
   `comment` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ticket_detail`
---
-
-INSERT INTO `ticket_detail` (`id`, `ticket_id`, `user_id`, `comment`, `date`) VALUES
-(44, 1, 2, 'okee sebentar ya kak', '2024-07-11 05:57:52'),
-(45, 1, 3, 'siap', '2024-07-11 05:58:18');
 
 -- --------------------------------------------------------
 
@@ -225,11 +217,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `code_user`, `email`, `password`, `fullname`, `company_id`, `divisi_id`, `role_id`, `status`, `avatar`, `created_at`, `updated_at`) VALUES
-(1, 'USR001', 'ssayyidah18@gmail.com', '123', 'salemaaa', 1, 1, 1, 1, '/dist/img/avatar/avatar_1.jpg', '2024-05-29 12:02:56', '2024-05-30'),
-(2, 'USR002', 'gojo@gmail.com', '123', 'Gojo Satoru', 1, 2, 2, 1, '/dist/img/avatar/avatar_22.png', '2024-05-29 17:57:17', '2024-06-12'),
-(3, 'USR003', 'giyu@gmail.com', '123', 'Tomiyoka Giyu', 2, 0, 3, 1, '/dist/img/avatar/avatar_3.jpg', '2024-05-29 17:59:01', '2024-05-29'),
-(4, 'USR004', 'dazai@gmail.com', '123', 'Dazai Osamu', 1, 3, 2, 1, '/dist/img/avatar/avatar_4.jpg', '2024-05-29 18:09:42', '2024-06-12'),
-(5, 'USR005', 'yami@gmail.com', '123', 'Yami Sukehiro', 3, 0, 3, 1, '/dist/img/avatar/avatar_5.jpg', '2024-06-08 02:22:54', '2024-06-08');
+(1, 'USR001', 'ssayyidah18@gmail.com', '123', 'Salma Sayyidah', 1, 1, 1, 1, '/dist/img/avatar/avatar_1.jpg', '2024-05-29 12:02:56', '2024-07-24'),
+(8, 'USR002', 'ryan@gmail.com', '1234', 'Ryan Pribowo', 1, 2, 2, 1, '/dist/img/avatar4.png', '2024-07-24 15:39:42', '2024-07-24'),
+(9, 'USR003', 'mulki@gmail.com', '1234', 'Mulki Mantasya', 1, 2, 2, 1, '/dist/img/avatar4.png', '2024-07-24 15:40:32', '2024-07-24'),
+(10, 'USR004', 'dida@gmail.com', '1234', 'Dida Kusdiana', 1, 3, 2, 1, '/dist/img/avatar4.png', '2024-07-24 15:41:11', '2024-07-24'),
+(11, 'USR005', 'arie@gmail.com', '1234', 'Arie Afriadi', 1, 3, 2, 1, '/dist/img/avatar4.png', '2024-07-24 15:42:18', '2024-07-24'),
+(12, 'USR006', 'irfan@gmail.com', '1234', 'Irfan Miftahul Khoir', 1, 1, 2, 1, '/dist/img/avatar4.png', '2024-07-24 15:44:40', '2024-07-24');
 
 -- --------------------------------------------------------
 
@@ -244,16 +237,6 @@ CREATE TABLE `user_notification` (
   `is_read` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `user_notification`
---
-
-INSERT INTO `user_notification` (`id`, `user_id`, `notification_id`, `is_read`) VALUES
-(1, 1, 3, 1),
-(2, 2, 3, 1),
-(3, 1, 5, 1),
-(4, 4, 6, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -263,18 +246,17 @@ INSERT INTO `user_notification` (`id`, `user_id`, `notification_id`, `is_read`) 
 CREATE TABLE `user_role` (
   `id_role` int(11) NOT NULL,
   `role` varchar(100) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` text NOT NULL
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_role`
 --
 
-INSERT INTO `user_role` (`id_role`, `role`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', '2024-05-29 16:53:24', ''),
-(2, 'Agent', '2024-05-29 16:53:24', ''),
-(3, 'Client', '2024-05-29 16:53:36', '');
+INSERT INTO `user_role` (`id_role`, `role`, `created_at`) VALUES
+(1, 'Admin', '2024-05-29 16:53:24'),
+(2, 'Agent', '2024-05-29 16:53:24'),
+(3, 'Client', '2024-05-29 16:53:36');
 
 --
 -- Indexes for dumped tables
@@ -350,13 +332,13 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `application`
 --
 ALTER TABLE `application`
-  MODIFY `id_application` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_application` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `id_company` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_company` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `divisi`
@@ -368,37 +350,37 @@ ALTER TABLE `divisi`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id_notification` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_notification` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `id_subject` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_subject` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ticket_detail`
 --
 ALTER TABLE `ticket_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user_notification`
 --
 ALTER TABLE `user_notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_role`

@@ -6,6 +6,7 @@ class M_subject extends CI_Model
     function get_subject()
     {
         $this->db->join('divisi', 'subject.divisi_id = divisi.id_divisi', 'left');
+        $this->db->order_by('subject.created_at', 'DESC');
         return $this->db->get('subject')->result();
     }
 

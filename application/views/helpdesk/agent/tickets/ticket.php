@@ -75,7 +75,7 @@
                                             <td class="text-sm">
                                                 <?php
                                                 if ($row->status_ticket == '0') { ?>
-                                                    <button class="btn btn-danger btn-sm text-sm" onclick="confirm(<?= $row->id_ticket ?>)"> <i class="fa fa-check"></i>
+                                                    <button class="btn btn-danger btn-sm text-sm" onclick="confirm(<?= $row->id_ticket . ',' . $row->sender_id ?>)"> <i class="fa fa-check"></i>
                                                     </button>
                                                 <?php } else if ($row->status_ticket == '1') { ?>
                                                     <button class="btn btn-warning btn-sm text-sm" onclick="closeTicket(<?= $row->id_ticket . ',\'' . $this->session->fullname . '\'' ?>)"> <i class="fa fa-hourglass-end"></i>
@@ -112,7 +112,7 @@
         window.location.href = "<?= base_url('helpdesk/ticket/new_ticket') ?>"
     }
 
-    function confirm(id) {
+    function confirm(id, sender) {
         Swal.fire({
             title: 'Confirm ticket ini?',
             text: `You won't be able to revert this`,
@@ -129,6 +129,7 @@
                     url: "<?php echo base_url('helpdesk/ticket/save_confirm') ?>",
                     data: {
                         id_ticket: id,
+                        sender_id: sender,
                         status_ticket: 1
                     },
                     dataType: "json",

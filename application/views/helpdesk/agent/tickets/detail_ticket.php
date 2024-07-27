@@ -141,6 +141,8 @@
                                     <!-- .img-push is used to add margin to elements next to floating images -->
                                     <div class="img-push">
                                         <input type="hidden" id="ticket_id" name="ticket_id" class="form-control form-control-sm" value="<?= $ticket->id_ticket ?>">
+                                        <input type="hidden" id="sender_id" name="sender_id" class="form-control form-control-sm" value="<?= $ticket->sender_id ?>">
+                                        <input type="hidden" id="divisi_id" name="divisi_id" class="form-control form-control-sm" value="<?= $ticket->id_divisi ?>">
                                         <input type="hidden" id="user_id" name="user_id" class="form-control form-control-sm" value="<?= $this->session->id_user ?>">
                                         <input type="text" id="comment" name="comment" class="form-control form-control-sm" placeholder="Press enter to post comment">
                                     </div>
@@ -165,6 +167,8 @@
         function postComment() {
             var formData = {
                 ticket_id: $('#ticket_id').val(),
+                sender_id: $('#sender_id').val(),
+                divisi_id: $('#divisi_id').val(),
                 user_id: $('#user_id').val(),
                 comment: $('#comment').val()
             };
@@ -187,6 +191,7 @@
                             showCancelButton: false,
                             showConfirmButton: false
                         });
+                        // $('#comment').val('');
                         setTimeout(function() {
                             $('#comment').val('');
                             location.reload();

@@ -202,8 +202,50 @@ class Ticket extends MY_Controller
                 'user_id' => $this->input->post('user_id'),
                 'comment' => $this->input->post('comment')
             );
+            $user_id = $this->input->post('user_id');
+            $fullname = $this->M_user->get_sender_name($user_id);
+
+            $id = $this->input->post('ticket_id', true);
+            $sender_id = $this->input->post('sender_id', true);
+            $divisi = $this->input->post('divisi_id', true);
+            // $role = $this->session->userdata('role_id');
 
             if ($this->M_ticket->post($data)) {
+                $message = "New Comment from " . $fullname;
+                $notification_id = $this->M_notif->create_notification($id, $message);
+
+                if ($user_id == $sender_id) {
+                    $admins = $this->db->get_where('user', array('role_id' => 1, 'divisi_id' => $divisi))->result();
+                    foreach ($admins as $admin) {
+                        $this->M_notif->assign_notification_to_user($admin->id_user, $notification_id);
+                    }
+
+                    $agents = $this->db->get_where('user', array('role_id' => 2, 'divisi_id' => $divisi))->result();
+                    foreach ($agents as $agent) {
+                        $this->M_notif->assign_notification_to_user($agent->id_user, $notification_id);
+                    }
+                } else {
+                    $users = $this->db->get_where('user', array('role_id' => 3, 'id_user' => $sender_id))->result();
+                    foreach ($users as $user) {
+                        $this->M_notif->assign_notification_to_user($user->id_user, $notification_id);
+                    }
+                }
+
+                // $admins = $this->db->get_where('user', array('role_id' => 1, 'divisi_id' => $divisi))->result();
+                // foreach ($admins as $admin) {
+                //     $this->M_notif->assign_notification_to_user($admin->id_user, $notification_id);
+                // }
+
+                // $agents = $this->db->get_where('user', array('role_id' => 2, 'divisi_id' => $divisi))->result();
+                // foreach ($agents as $agent) {
+                //     $this->M_notif->assign_notification_to_user($agent->id_user, $notification_id);
+                // }
+
+                // $users = $this->db->get_where('user', array('role_id' => 3, 'id_user' => $sender_id))->result();
+                // foreach ($users as $user) {
+                //     $this->M_notif->assign_notification_to_user($user->id_user, $notification_id);
+                // }
+
                 $response['success'] = 'Comment send successfully.';
             } else {
                 $response['error'] = 'Failed to post comment.';
@@ -220,9 +262,18 @@ class Ticket extends MY_Controller
 
         if ($this->input->is_ajax_request() == true) {
             $id = $this->input->post('id_ticket', true);
+            $sender_id = $this->input->post('sender_id', true);
             $status_ticket = $this->input->post('status_ticket', true);
 
             if ($this->M_ticket->update($id, $status_ticket)) {
+                // $ticket_id = $this->M_ticket->get_ticket_id($no_ticket);
+                $message = "Your Ticket on Process";
+                $notification_id = $this->M_notif->create_notification($id, $message);
+                $users = $this->db->get_where('user', array('role_id' => 3, 'id_user' => $sender_id))->result();
+                foreach ($users as $user) {
+                    $this->M_notif->assign_notification_to_user($user->id_user, $notification_id);
+                }
+
                 $response['success'] = 'Status change successfully.';
             } else {
                 $response['error'] = 'Failed to change status.';
