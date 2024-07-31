@@ -20,12 +20,14 @@ class Ticket extends MY_Controller
 
     public function admin()
     {
+        check_admin();
         $data['ticket'] = $this->M_ticket->get_ticket();
         $this->template->load('helpdesk/template_admin', 'helpdesk/admin/tickets/ticket', $data);
     }
 
     public function agent()
     {
+        check_agent();
         $data['agent'] = $this->M_ticket->get_ticket_agent();
         $this->template->load('helpdesk/template_agent', 'helpdesk/agent/tickets/ticket', $data);
     }
@@ -39,6 +41,7 @@ class Ticket extends MY_Controller
     //for admin
     function new_ticket_admin()
     {
+        check_admin();
         $data['no_ticket'] = $this->M_ticket->get_no_ticket();
         $data['subject'] = $this->M_subject->get_subject();
         $data['user'] = $this->M_user->get_all_data_user();
@@ -48,6 +51,7 @@ class Ticket extends MY_Controller
     //for client
     function new_ticket()
     {
+        check_user();
         $id = $this->session->id_user;
         $data['no_ticket'] = $this->M_ticket->get_no_ticket();
         $data['subject'] = $this->M_subject->get_subject();
@@ -66,6 +70,7 @@ class Ticket extends MY_Controller
 
     function detail_ticket_admin($id_ticket)
     {
+        check_admin();
         $data['comment'] = $this->M_ticket->get_comment($id_ticket);
         $data['ticket'] = $this->M_ticket->get_id_tiket($id_ticket);
         if ($data['ticket']) {
@@ -79,6 +84,7 @@ class Ticket extends MY_Controller
 
     function detail_ticket_user($id_ticket)
     {
+        check_user();
         $data['comment'] = $this->M_ticket->get_comment($id_ticket);
         $data['ticket'] = $this->M_ticket->get_id_tiket($id_ticket);
         if ($data['ticket']) {
@@ -92,6 +98,7 @@ class Ticket extends MY_Controller
 
     function detail_ticket_agent($id_ticket)
     {
+        check_agent();
         $data['comment'] = $this->M_ticket->get_comment($id_ticket);
         $data['ticket'] = $this->M_ticket->get_id_tiket($id_ticket);
         if ($data['ticket']) {
@@ -309,8 +316,9 @@ class Ticket extends MY_Controller
         if ($this->input->is_ajax_request() == true) {
             $id = $this->input->post('id_ticket', true);
             $delete = $this->M_ticket->delete_ticket($id);
+            $delete_comment = $this->M_ticket->delete_comment($id);
 
-            if ($delete) {
+            if ($delete and $delete_comment) {
                 $response['success'] = 'Ticket Berhasil Terhapus';
             }
             echo json_encode($response);

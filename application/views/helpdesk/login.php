@@ -19,6 +19,16 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/back') ?>/plugins/toastr/toastr.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?php echo base_url('assets/back') ?>/dist/css/adminlte.min.css">
+    <style>
+        .alert-danger {
+            max-width: 100%;
+            padding: 5px;
+            margin: 6px 0;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 
 <body class="hold-transition login-page">
@@ -29,7 +39,16 @@
         <div class="card">
             <div class="card-body login-card-body" style="border-radius: 20px;">
                 <p class="login-box-msg">Sign in to start your session</p>
-                <!-- <?= $this->session->flashdata('message'); ?> -->
+                <!-- <?php if ($this->session->flashdata('error')) : ?>
+                    <div class="alert alert-danger">
+                        <?php echo $this->session->flashdata('error'); ?>
+                    </div>
+                <?php endif; ?> -->
+                <?php if ($this->session->flashdata('message')) : ?>
+                    <div class="alert alert-danger">
+                        <?php echo $this->session->flashdata('message'); ?>
+                    </div>
+                <?php endif; ?>
                 <form action="#" method="post" id="formLogin">
                     <div class="input-group mb-3">
                         <input type="email" name="email" id="email" class="form-control" placeholder="Email">
@@ -71,13 +90,10 @@
     <script src="<?php echo base_url('assets/back') ?>/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- SweetAlert2 -->
     <script src="<?php echo base_url('assets/back') ?>/plugins/sweetalert2/sweetalert2.min.js"></script>
-
     <!-- Toastr -->
     <script src="<?php echo base_url('assets/back') ?>/plugins/toastr/toastr.min.js"></script>
-
     <!-- AdminLTE App -->
     <script src="<?php echo base_url('assets/back') ?>/dist/js/adminlte.min.js"></script>
-
     <script>
         $(document).ready(function() {
             $('#formLogin').on("submit", function(event) {
@@ -86,7 +102,7 @@
                 var password = $('#password').val();
 
                 if (!validateForm()) {
-                    return false; // Stop the execution if the form is not valid
+                    return false;
                 } else {
                     $.ajax({
                         type: "post",

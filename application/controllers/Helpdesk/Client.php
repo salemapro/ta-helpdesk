@@ -13,18 +13,21 @@ class Client extends MY_Controller
 
     public function client()
     {
+        check_admin();
         $data['cln'] = $this->M_client->get_client();
         $this->template->load('helpdesk/template_admin', 'helpdesk/admin/client/client', $data);
     }
 
     public function company()
     {
+        check_admin();
         $data['company'] = $this->M_client->get_company();
         $this->template->load('helpdesk/template_admin', 'helpdesk/admin/company/company', $data);
     }
 
     public function application()
     {
+        check_admin();
         $data['app'] = $this->M_client->get_app();
         $data['company'] = $this->M_client->get_company();
         $this->template->load('helpdesk/template_admin', 'helpdesk/admin/application/app', $data);
@@ -46,6 +49,7 @@ class Client extends MY_Controller
 
     public function add_client()
     {
+        check_admin();
         $data['code_user'] = $this->M_client->code_client();
         // $data['role'] = $this->M_user->get_user_roles();
         $data['company'] = $this->M_client->get_company();
@@ -54,6 +58,7 @@ class Client extends MY_Controller
 
     public function edit_client($id_client)
     {
+        check_admin();
         $id = $id_client;
         $data['cln'] = $this->M_client->data_client($id);
         $data['role'] = $this->M_user->get_user_roles();
@@ -64,6 +69,7 @@ class Client extends MY_Controller
 
     public function formTambahCompany()
     {
+        check_admin();
         if ($this->input->is_ajax_request() == true) {
             $msg = [
                 'success' => $this->load->view('helpdesk/admin/company/add_company', '', true)
@@ -74,6 +80,7 @@ class Client extends MY_Controller
 
     public function formTambahApp()
     {
+        check_admin();
         if ($this->input->is_ajax_request() == true) {
             $data['company'] = $this->M_client->get_company();
             $msg = [
@@ -212,6 +219,7 @@ class Client extends MY_Controller
 
     public function formEditCompany()
     {
+        check_admin();
         if ($this->input->is_ajax_request() == true) {
             $id = $this->input->post('id_company', true);
             $ambildata = $this->M_client->data_company($id);
@@ -232,6 +240,7 @@ class Client extends MY_Controller
 
     public function formEditApp()
     {
+        check_admin();
         if ($this->input->is_ajax_request() == true) {
             $id = $this->input->post('id_app', true);
             $data['app'] = $this->M_client->data_app($id);
@@ -252,6 +261,7 @@ class Client extends MY_Controller
 
     function update_client()
     {
+        check_admin();
         if ($this->input->is_ajax_request() == true) {
             $id_client = $this->input->post('id_client', true);
             $code_user = $this->input->post('code_user', true);
@@ -305,6 +315,7 @@ class Client extends MY_Controller
 
     public function update_company()
     {
+        check_admin();
         if ($this->input->is_ajax_request() == true) {
             $id = $this->input->post('id_company', true);
             $company = $this->input->post('company', true);
@@ -335,6 +346,7 @@ class Client extends MY_Controller
 
     public function update_app()
     {
+        check_admin();
         if ($this->input->is_ajax_request() == true) {
             $id = $this->input->post('id_app', true);
             $app = $this->input->post('application', true);
@@ -366,6 +378,7 @@ class Client extends MY_Controller
 
     public function delete_client()
     {
+        check_admin();
         if ($this->input->is_ajax_request() == true) {
             $id = $this->input->post('id_client', true);
             // $code = $this->input->post('code', true);
@@ -387,6 +400,7 @@ class Client extends MY_Controller
 
     public function deleteCompany()
     {
+        check_admin();
         if ($this->input->is_ajax_request() == true) {
             $id = $this->input->post('id_company', true);
             $delete = $this->M_client->delete_company($id);
@@ -402,6 +416,7 @@ class Client extends MY_Controller
 
     public function deleteApp()
     {
+        check_admin();
         if ($this->input->is_ajax_request() == true) {
             $id = $this->input->post('id_app', true);
             $delete = $this->M_client->delete_app($id);

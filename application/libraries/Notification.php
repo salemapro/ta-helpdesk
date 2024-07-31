@@ -7,11 +7,14 @@ class Notification
 
     public function __construct()
     {
-        // Assign the CodeIgniter super-object
         $this->CI = &get_instance();
-        // Load necessary models here
         $this->CI->load->model('M_notif');
     }
+
+    // public function getUnreadNotificationsCount($user_id)
+    // {
+    //     return $this->CI->M_notif->get_unread_notifications_count($user_id);
+    // }
 
     public function NotificationNewTicket($sender, $no_ticket, $divisi)
     {
@@ -23,7 +26,5 @@ class Notification
         $status = "Unread";
 
         $result = $this->CI->M_notif->new_ticket_notif($ticket, $notification, $role, $divisi, $status);
-
-        // echo $notification;
     }
 }

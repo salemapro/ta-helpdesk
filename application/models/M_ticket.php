@@ -196,4 +196,10 @@ class M_ticket extends CI_Model
         $this->db->where('id_ticket', $id);
         return $this->db->delete('ticket');
     }
+
+    function delete_comment($id)
+    {
+        $this->db->where('ticket_id', $id);
+        return $this->db->delete('ticket_detail');
+    }
 }

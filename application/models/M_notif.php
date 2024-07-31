@@ -34,6 +34,15 @@ class M_notif extends CI_Model
         return $query->result_array();
     }
 
+    // public function get_unread_notifications_count($user_id)
+    // {
+    //     $this->db->join('user_notification', 'notification.id_notification = user_notification.notification_id');
+    //     $this->db->where('user_notification.user_id', $user_id);
+    //     $this->db->where('user_notification.is_read', FALSE);
+    //     $this->db->from('notification');
+    //     return $this->db->count_all_results();
+    // }
+
     public function mark_notification_as_read($user_id, $notification_id)
     {
         $update = ['is_read' => TRUE];

@@ -9,6 +9,7 @@ class Divisi extends MY_Controller
         $this->load->model('M_divisi');
         // $this->load->model('M_client');
         cek_login();
+        check_admin();
     }
 
     public function divisi()

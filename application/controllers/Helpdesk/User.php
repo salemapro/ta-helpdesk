@@ -14,18 +14,21 @@ class User extends MY_Controller
 
     public function user_roles()
     {
+        check_admin();
         $data['role'] = $this->M_user->get_user_roles();
         $this->template->load('helpdesk/template_admin', 'helpdesk/admin/user_roles', $data);
     }
 
     public function user()
     {
+        check_admin();
         $data['user'] = $this->M_user->get_users();
         $this->template->load('helpdesk/template_admin', 'helpdesk/admin/users/user', $data);
     }
 
     public function new_user()
     {
+        check_admin();
         $data['code_user'] = $this->M_user->code_user();
         $data['role'] = $this->M_user->get_user_roles();
         $data['company'] = $this->M_client->get_company();
@@ -35,6 +38,7 @@ class User extends MY_Controller
 
     public function edit_user($id_user)
     {
+        check_admin();
         $id = $id_user;
         $data['user'] = $this->M_user->data_user($id);
         $data['role'] = $this->M_user->get_user_roles();
@@ -153,6 +157,7 @@ class User extends MY_Controller
 
     public function update_user()
     {
+        check_admin();
         if ($this->input->is_ajax_request() == true) {
             $id_user = $this->input->post('id_user', true);
             $code_user = $this->input->post('code_user', true);
@@ -208,6 +213,7 @@ class User extends MY_Controller
 
     public function deleteUser()
     {
+        check_admin();
         if ($this->input->is_ajax_request() == true) {
             $id = $this->input->post('id_user', true);
             $delete = $this->M_user->delete_user($id);
@@ -223,18 +229,21 @@ class User extends MY_Controller
 
     public function account_admin()
     {
+        check_admin();
         // $data['cln'] = $this->M_client->get_client();
         $this->template->load('helpdesk/template_admin', 'helpdesk/admin/account');
     }
 
     public function account_agent()
     {
+        check_agent();
         // $data['cln'] = $this->M_client->get_client();
         $this->template->load('helpdesk/template_agent', 'helpdesk/agent/account');
     }
 
     public function account_user()
     {
+        check_user();
         // $data['cln'] = $this->M_client->get_client();
         $this->template->load('helpdesk/template_user', 'helpdesk/user/account');
     }

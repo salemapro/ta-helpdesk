@@ -9,6 +9,7 @@ class Subject extends MY_Controller
         $this->load->model('M_subject');
         $this->load->model('M_divisi');
         cek_login();
+        check_admin();
     }
 
     public function subject()

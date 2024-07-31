@@ -7,8 +7,31 @@ class Notification extends MY_Controller
     {
         parent::__construct();
         $this->load->helper('url');
+        $this->load->library('session');
         $this->load->model('M_notif');
+        // $this->load->library('notification');
     }
+
+    public function fetch_notifications()
+    {
+        $user_id = $this->session->userdata('id_user');
+        $notifications = $this->M_notif->get_user_notifications($user_id);
+        error_log(print_r($notifications, true));
+        echo json_encode(['notifications' => $notifications]);
+    }
+
+
+    // public function fetch_notifications()
+    // {
+    //     $this->output
+    //         ->set_content_type('application/json')
+    //         ->set_header('Cache-Control: no-cache, must-revalidate')
+    //         ->set_header('Pragma: no-cache');
+
+    //     $user_id = $this->session->userdata('id_user');
+    //     $count = $this->notification->getUnreadNotificationsCount($user_id);
+    //     echo json_encode(['count' => $count]);
+    // }
 
     function NotificationNewTicket($sender, $no_ticket, $divisi)
     {

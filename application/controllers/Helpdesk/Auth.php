@@ -7,7 +7,6 @@ class Auth extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_auth');
-        // cek_login();
     }
 
     function login()
@@ -21,17 +20,13 @@ class Auth extends CI_Controller
             'email',
             'Email',
             'trim|required',
-            [
-                'required' => '%s tidak boleh kosong'
-            ]
+            ['required' => '%s tidak boleh kosong']
         );
         $this->form_validation->set_rules(
             'password',
             'Password',
             'trim|required',
-            [
-                'required' => '%s tidak boleh kosong'
-            ]
+            ['required' => '%s tidak boleh kosong']
         );
 
         $email = $this->input->post('email', true);
@@ -40,13 +35,9 @@ class Auth extends CI_Controller
         if ($this->form_validation->run() == TRUE) {
             $user = $this->M_auth->validate($email, $password);
             if (!$user) {
-                $msg = [
-                    'error' => 'Invailed Email or Password'
-                ];
+                $msg = ['error' => 'Invailed Email or Password'];
             } else if ($user->status == '0') {
-                $msg = [
-                    'error' => 'User Not Active'
-                ];
+                $msg = ['error' => 'User Not Active'];
             } else {
                 $session = array(
                     'id_user'    => $user->id_user,

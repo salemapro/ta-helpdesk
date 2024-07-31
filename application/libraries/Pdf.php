@@ -1,7 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-// Include FPDF library
 require_once(APPPATH . 'third_party/fpdf/fpdf.php');
 
 class Pdf extends FPDF
