@@ -5,14 +5,16 @@
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
+        <li class="nav-item dropdown notification-menu">
+            <a class="nav-link" id="notificationDropdown" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
                 <?php if (count($notifications) > 0) : ?>
                     <span class='badge badge-warning navbar-badge'><?= count($notifications); ?></span>
+                <?php else : ?>
+                    <span class='badge badge-warning navbar-badge' style="display:none;"></span>
                 <?php endif; ?>
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" aria-labelledby="notificationDropdown">
                 <?php if (empty($notifications)) : ?>
                     <span class="dropdown-item dropdown-header">You don't have new notifications</span>
                 <?php else : ?>
@@ -20,7 +22,7 @@
                     <div class="dropdown-divider"></div>
                     <?php foreach ($notifications as $item) : ?>
                         <?php if ($item['is_read'] !== TRUE) : ?>
-                            <a href="#" id="badgeNotif" class="dropdown-item text-sm" onclick="markNotif(<?= $item['id_notification'] ?>, <?= $item['ticket_id'] ?>)">
+                            <a href="#" class="dropdown-item text-sm" onclick="markNotif(<?= $item['id_notification'] ?>, <?= $item['ticket_id'] ?>)">
                                 <i class="fas fa-envelope mr-2"></i> <?= $item['notification']; ?>
                             </a>
                             <div class="dropdown-divider"></div>
@@ -30,10 +32,10 @@
             </div>
         </li>
         <li class="nav-item dropdown user-menu">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="nav-link dropdown-toggle" id="userMenuDropdown" data-toggle="dropdown">
                 <img src="<?php echo base_url('assets/back') ?><?= $this->session->avatar; ?>" class="user-image img-circle elevation-1" alt="User Image">
             </a>
-            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" aria-labelledby="userMenuDropdown">
                 <a href="#" class="dropdown-item text-sm">
                     <div class="media align-items-center">
                         <div class="avatar-wrapper2">
@@ -48,15 +50,18 @@
                     </div>
                 </a>
                 <div class="dropdown-divider"></div>
+                <a href="<?php echo base_url('helpdesk/dashboard/admin') ?>" class="dropdown-item text-sm">
+                    Dashboard
+                </a>
                 <div class="dropdown-divider"></div>
-                <a href="<?php echo base_url('helpdesk/user/account_user') ?>" class="dropdown-item text-sm">
+                <a href="<?php echo base_url('helpdesk/user/account_admin') ?>" class="dropdown-item text-sm">
                     Account Settings
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="<?php echo base_url('helpdesk/auth/logout') ?>" class="dropdown-item text-sm">
                     Logout
                 </a>
-            </ul>
+            </div>
         </li>
     </ul>
 </nav>
@@ -67,21 +72,27 @@
             type: 'GET',
             dataType: 'json',
             success: function(data) {
+                var notificationList = '';
+                var unreadCount = 0;
+
                 if (data.notifications.length > 0) {
-                    var notificationList = '';
                     data.notifications.forEach(function(notification) {
                         if (notification.is_read !== true) {
-                            notificationList += '<a href="#" id="badgeNotif" class="dropdown-item text-sm" onclick="markNotif(' + notification.id_notification + ', ' + notification.ticket_id + ')">';
+                            unreadCount++;
+                            notificationList += '<a href="#" class="dropdown-item text-sm" onclick="markNotif(' + notification.id_notification + ', ' + notification.ticket_id + ')">';
                             notificationList += '<i class="fas fa-envelope mr-2"></i> ' + notification.notification + '</a>';
                             notificationList += '<div class="dropdown-divider"></div>';
                         }
                     });
-                    $('.dropdown-menu').html(notificationList);
-                    $('.navbar-badge').text(data.notifications.length);
-                    $('.navbar-badge').show();
+                    $('#notificationDropdown + .dropdown-menu').html(notificationList);
+                    if (unreadCount > 0) {
+                        $('#notificationDropdown .navbar-badge').text(unreadCount).show();
+                    } else {
+                        $('#notificationDropdown .navbar-badge').hide();
+                    }
                 } else {
-                    $('.navbar-badge').hide();
-                    $('.dropdown-menu').html('<span class="dropdown-item dropdown-header">You don\'t have new notifications</span>');
+                    $('#notificationDropdown .navbar-badge').hide();
+                    $('#notificationDropdown + .dropdown-menu').html('<span class="dropdown-item dropdown-header">You don\'t have new notifications</span>');
                 }
             },
             error: function(xhr, ajaxOptions, thrownError) {
@@ -111,7 +122,7 @@
                 if (response.success) {
                     toastr.success(response.success);
                     setTimeout(function() {
-                        window.location.href = "<?= base_url('helpdesk/ticket/detail_ticket_user/') ?>" + ticket_id
+                        window.location.href = "<?= base_url('helpdesk/ticket/detail_ticket_user/') ?>" + ticket_id;
                     }, 1000);
                 }
             },
@@ -120,6 +131,5 @@
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         });
-
     }
 </script>
