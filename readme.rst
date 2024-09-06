@@ -1,71 +1,36 @@
-###################
-What is CodeIgniter
-###################
+###############
+HELPDESK TICKET
+###############
+Aplikasi manajemen pengelolaan keluhan sederhana yang dikembangkan menggunakan framework CodeIgniter 3 dan MySQL serta menggunakan AdminLTE ( Sumber: `AdminLTE.io
+<https://adminlte.io/>`_ ) sebagai template nya.
+Aplikasi ini bebas dikembangkan lagi atau dapat digunakan sebagai bahan pembelajaran membuat aplikasi helpdesk, menjadikan aplikasi ini sebagai contoh.
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+*************
+Administrator
+*************
+Email : admin@gmail.com
+	
+Password : 12345678
 
-*******************
-Release Information
-*******************
+*************
+Fitur Helpdesk Ticket
+*************
+1. CRUD (Create, Read, Update, Delete) data User.
+2. CRUD (Create, Read, Update, Delete) data Subject.
+3. CRUD (Create, Read, Update, Delete) data Company.
+4. CRUD (Create, Read, Update, Delete) data Divisi.		 
+5. CRUD (Create, Read, Update, Delete) data Application.
+6. Create New Ticket untuk Client dan Admin, dan akan otomatis ticket baru tersebut di kirimkan kepada divisi yang bertanggung jawab sesuai dengan subject yang dipilih.
+7. View Ticket untuk melihat detail data ticket yang dipiih, serta bisa memberikan komentar di dalamnya.
+8. Update Status Ticket untuk Admin dan Agent (Status Ticket: Waiting, Process, Solved)																																																	 
+9. Report data (dalam bentuk .pdf, .xlxs) User, Subject, Company, Divisi, Application.
+10. Report data ticket dalam bentuk .pdf
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
 
-**************************
-Changelog and New Features
-**************************
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
 
-*******************
-Server Requirements
-*******************
 
-PHP version 5.6 or newer is recommended.
 
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
 
-************
-Installation
-************
 
-Please see the `installation section <https://codeigniter.com/userguide3/installation/index.html>`_
-of the CodeIgniter User Guide.
-
-*******
-License
-*******
-
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
-
-*********
-Resources
-*********
-
--  `User Guide <https://codeigniter.com/docs>`_
--  `Contributing Guide <https://github.com/bcit-ci/CodeIgniter/blob/develop/contributing.md>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community Slack Channel <https://codeigniterchat.slack.com>`_
-
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
-
-***************
-Acknowledgement
-***************
-
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+																																																																						 
