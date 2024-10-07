@@ -85,7 +85,7 @@
                                             <input type="password" name="new_pass" id="new_pass" class="form-control text-sm" placeholder="Your new password">
                                         </div>
                                         <div class="form-group">
-                                            <label for="confirm_pass" class="font-weight-normal">Current Password</label>
+                                            <label for="confirm_pass" class="font-weight-normal">Confirm New Password</label>
                                             <input type="password" name="confirm_pass" id="confirm_pass" class="form-control text-sm" placeholder="Confirm your new password">
                                         </div>
 

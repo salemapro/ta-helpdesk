@@ -11,7 +11,6 @@
     <section class="content">
         <div class="container-fluid">
             <form class="form-horizontal" class="formSimpanTicket" id="formSimpanTicket" role="form" method="post" action="#" enctype="multipart/form-data">
-
                 <div class="card">
                     <div class="card-body">
                         <div class="row mt-2">
@@ -75,8 +74,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <!-- <?php echo form_close() ?> -->
                             </div>
                         </div>

@@ -121,75 +121,86 @@ class Ticket extends MY_Controller
         // $this->form_validation->set_rules('img_ticket', 'Image', 'required', ['required' => '%s tidak boleh kosong']);
 
         if ($this->form_validation->run() == TRUE) {
-            if (isset($_FILES['img_ticket']) && $_FILES['img_ticket']['error'] == 0) {
-                // Set upload path
-                $config['upload_path'] = './assets/images/tiket/';
-                $config['allowed_types'] = 'gif|jpg|png|jpeg';
-                $config['max_size'] = 2048; // 2MB
-                $config['encrypt_name'] = TRUE; // Encrypt the file name for security
-                // $nama_file = $this->input->post('no_ticket') . date('YmdHis');
-                // $config['file_name'] = $nama_file;
+            if ($this->session->userdata('role_id') == 1) {
+                $check_ticket = $this->M_ticket->check_ticket($this->input->post('sender_id'));
+            } else {
+                $check_ticket = $this->M_ticket->check_ticket($this->session->userdata('id_user'));
+            }
 
-                // Load upload library with the config
-                $this->load->library('upload', $config);
+            if ($check_ticket) {
 
-                if ($this->upload->do_upload('img_ticket')) {
-                    // File upload success
-                    $upload_data = $this->upload->data();
-                    $file_path = $upload_data['file_name'];
+                if (isset($_FILES['img_ticket']) && $_FILES['img_ticket']['error'] == 0) {
+                    // Set upload path
+                    $config['upload_path'] = './assets/images/tiket/';
+                    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                    $config['max_size'] = 2048; // 2MB
+                    $config['encrypt_name'] = TRUE; // Encrypt the file name for security
+                    // $nama_file = $this->input->post('no_ticket') . date('YmdHis');
+                    // $config['file_name'] = $nama_file;
 
-                    $subject = $this->input->post('subject');
-                    $divisi = $this->M_subject->get_id_divisi($subject);
+                    // Load upload library with the config
+                    $this->load->library('upload', $config);
 
-                    // Get other form data
-                    $data = array(
-                        'no_ticket' => $this->input->post('no_ticket'),
-                        'subject_id' => $this->input->post('subject'),
-                        'subject' => $this->input->post('customInput'),
-                        'message' => $this->input->post('message'),
-                        'img_ticket' => $file_path,
-                        'sender_id' => $this->input->post('sender_id'),
-                        'company_id' => $this->input->post('company'),
-                        'app_id' => $this->input->post('application'),
-                        'divisi_id' => $divisi,
-                        'status_ticket' => 0
-                    );
+                    if ($this->upload->do_upload('img_ticket')) {
+                        // File upload success
+                        $upload_data = $this->upload->data();
+                        $file_path = $upload_data['file_name'];
 
-                    $sender = $this->input->post('sender_id');
-                    $fullname = $this->M_user->get_sender_name($sender);
+                        $subject = $this->input->post('subject');
+                        $divisi = $this->M_subject->get_id_divisi($subject);
 
-                    $no_ticket = $this->input->post('no_ticket');
+                        // Get other form data
+                        $data = array(
+                            'no_ticket' => $this->input->post('no_ticket'),
+                            'subject_id' => $this->input->post('subject'),
+                            'subject' => $this->input->post('customInput'),
+                            'message' => $this->input->post('message'),
+                            'img_ticket' => $file_path,
+                            'sender_id' => $this->input->post('sender_id'),
+                            'company_id' => $this->input->post('company'),
+                            'app_id' => $this->input->post('application'),
+                            'divisi_id' => $divisi,
+                            'status_ticket' => 0
+                        );
 
-                    // Save the data to the database
-                    if ($this->M_ticket->insert($data)) {
-                        $ticket_id = $this->M_ticket->get_ticket_id($no_ticket);
-                        $message = "New Ticket from " . $fullname;
-                        $notification_id = $this->M_notif->create_notification($ticket_id, $message);
+                        $sender = $this->input->post('sender_id');
+                        $fullname = $this->M_user->get_sender_name($sender);
 
-                        $admins = $this->db->get_where('user', array('role_id' => 1, 'divisi_id' => $divisi))->result();
-                        foreach ($admins as $admin) {
-                            $this->M_notif->assign_notification_to_user($admin->id_user, $notification_id);
+                        $no_ticket = $this->input->post('no_ticket');
+
+                        // Save the data to the database
+                        if ($this->M_ticket->insert($data)) {
+                            $ticket_id = $this->M_ticket->get_ticket_id($no_ticket);
+                            $message = "New Ticket from " . $fullname;
+                            $notification_id = $this->M_notif->create_notification($ticket_id, $message);
+
+                            $admins = $this->db->get_where('user', array('role_id' => 1, 'divisi_id' => $divisi))->result();
+                            foreach ($admins as $admin) {
+                                $this->M_notif->assign_notification_to_user($admin->id_user, $notification_id);
+                            }
+
+                            // Send notification to agents in the same division
+                            // $ticket = $this->db->get_where('ticket', array('id_ticket' => $ticket_id))->row();
+                            $agents = $this->db->get_where('user', array('role_id' => 2, 'divisi_id' => $divisi))->result();
+                            foreach ($agents as $agent) {
+                                $this->M_notif->assign_notification_to_user($agent->id_user, $notification_id);
+                            }
+
+                            $response['success'] = 'Ticket saved successfully.';
+                        } else {
+                            $response['error'] = 'Failed to save ticket.';
                         }
-
-                        // Send notification to agents in the same division
-                        // $ticket = $this->db->get_where('ticket', array('id_ticket' => $ticket_id))->row();
-                        $agents = $this->db->get_where('user', array('role_id' => 2, 'divisi_id' => $divisi))->result();
-                        foreach ($agents as $agent) {
-                            $this->M_notif->assign_notification_to_user($agent->id_user, $notification_id);
-                        }
-
-                        $response['success'] = 'Ticket saved successfully.';
+                        // var_dump($data);
                     } else {
-                        $response['error'] = 'Failed to save ticket.';
+                        // File upload error
+                        $response['error'] = $this->upload->display_errors();
                     }
-                    // var_dump($data);
                 } else {
-                    // File upload error
-                    $response['error'] = $this->upload->display_errors();
+                    // No file was uploaded
+                    $response['error'] = 'No file uploaded.';
                 }
             } else {
-                // No file was uploaded
-                $response['error'] = 'No file uploaded.';
+                $response['error'] = 'Cannot add new ticket because user have 5 ticket unsuccessful';
             }
         } else {
             $response['error'] = validation_errors();
@@ -299,7 +310,6 @@ class Ticket extends MY_Controller
             $status_ticket = $this->input->post('status_ticket', true);
             $solved_by = $this->input->post('solved_by', true);
             $date = date('Y-m-d');
-            // var_dump($id, $status_ticket, $solved_by);
 
             if ($this->M_ticket->close($id, $status_ticket, $solved_by, $date)) {
                 $response['success'] = 'Status change successfully.';

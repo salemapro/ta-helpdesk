@@ -99,6 +99,17 @@ class M_ticket extends CI_Model
         return $this->db->get('ticket_detail')->result();
     }
 
+    function check_ticket($id)
+    {
+        $this->db->where('sender_id', $id);
+        $this->db->where_in('status_ticket', [0, 1]);
+        $this->db->from('ticket');
+        $count = $this->db->count_all_results();
+
+        // Check if the count is 5
+        return ($count < 5);
+    }
+
     function insert($data)
     {
         return $this->db->insert('ticket', $data);

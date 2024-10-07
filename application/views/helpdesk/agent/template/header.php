@@ -50,11 +50,11 @@
                     </div>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="<?php echo base_url('helpdesk/dashboard/admin') ?>" class="dropdown-item text-sm">
+                <a href="<?php echo base_url('helpdesk/dashboard/agent') ?>" class="dropdown-item text-sm">
                     Dashboard
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="<?php echo base_url('helpdesk/user/account_admin') ?>" class="dropdown-item text-sm">
+                <a href="<?php echo base_url('helpdesk/user/account_agent') ?>" class="dropdown-item text-sm">
                     Account Settings
                 </a>
                 <div class="dropdown-divider"></div>
